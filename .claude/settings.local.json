@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(\"gra\\Scripts\\python.exe\" -c \"from google.adk.tools import ToolContext; help(ToolContext.__init__)\")",
+      "Bash(\"gra\\Scripts\\python.exe\" -c \"from google.adk.agents import InvocationContext; help(InvocationContext.__init__)\")",
+      "Bash(\"gra\\Scripts\\python.exe\" -c \"from google.adk.agents import InvocationContext; import inspect; print(inspect.signature(InvocationContext))\")",
+      "Bash(\"gra\\Scripts\\python.exe\" gene_ask.py)",
+      "Bash(\"gra\\Scripts\\python.exe\" -c \"from google.adk.agents import Agent; print([m for m in dir(Agent) if not m.startswith(''_'')])\")",
+      "Bash(\"gra\\Scripts\\python.exe\" -c \"from google.adk.agents import Agent; help(Agent.run_async)\")",
+      "Bash(\"gra\\Scripts\\python.exe\" -c \"from google.adk.apps import App; print([m for m in dir(App) if not m.startswith(''_'')])\")",
+      "Bash(\"gra\\Scripts\\python.exe\" -c \"import google.adk; print(google.adk.__file__)\")",
+      "Bash(\"gra\\Scripts\\python.exe\" gene_ask_simple.py)",
+      "Bash(nul)",
+      "Bash(graScriptspython.exe gene_ask.py)",
+      "Bash(timeout:*)",
+      "Bash(graScriptspython.exe p2_mm.py)",
+      "Bash(\"gra\\Scripts\\python.exe\" p2_mm.py)",
+      "Bash(\"gra\\Scripts\\python.exe\" -c \"from google.adk.runners import InMemoryRunner; help(InMemoryRunner.__init__)\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

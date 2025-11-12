@@ -49,3 +49,8 @@ Thumbs.db
 *.swp
 *~
 
+# Archivos problemáticos de Windows
+nul
+(p
+(t)
+
