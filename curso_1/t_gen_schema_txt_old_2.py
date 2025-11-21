@@ -1,51 +1,21 @@
 import os
 import glob
 import json
-import unicodedata
 from typing import List, Tuple, Set, Dict
 from openai import OpenAI
 from pydantic import BaseModel, Field
 from dotenv import load_dotenv
 
-# Carga variables de entorno
+# Carga variables de entorno (asume que OPENAI_API_KEY está en un archivo .env)
 load_dotenv()
 client = OpenAI()
 
-# --- CONFIGURACIÓN DEL PROYECTO ---
+# --- CONFIGURACIÓN ---
 FOLDER_PATH = r"C:\Users\u14527001\Downloads\grafo_protesis\curso_1"
-
-USER_GOAL = """
-Construir un Grafo de Conocimiento clínico que permita analizar de manera integrada el contenido de múltiples guías médicas.
-Identificar relaciones entre enfermedades, tratamientos, factores de riesgo y complicaciones.
-
-Objetivos específicos:
-• asociación causal (FactorRiesgo → Enfermedad)
-• indicación terapéutica (Enfermedad → Tratamiento)
-• contraindicación o ajuste (Tratamiento → Condicion)
-• progresión o complicación (Enfermedad → Complicacion)
-
-Representar estructura clínica: criterios diagnósticos, clasificaciones, recomendaciones.
-"""
-
-# Etiquetas conocidas (Las definimos limpias, pero por si acaso el script las limpia igual)
-WELL_KNOWN_LABELS = ["Enfermedad", "Tratamiento", "Condicion", "Complicacion", "FactorRiesgo"]
-
-# --- FUNCIONES DE AYUDA (LIMPIEZA) ---
-
-def remove_accents(input_str: str) -> str:
-    """
-    Elimina tildes y normaliza texto para evitar duplicados en el esquema.
-    Ej: 'Complicación' -> 'Complicacion', 'CAÍDA' -> 'CAIDA'
-    """
-    if not input_str:
-        return input_str
-    # Normalizar a forma NFD (separa caracteres de sus marcas diacríticas)
-    nfkd_form = unicodedata.normalize('NFKD', input_str)
-    # Filtrar caracteres no combinables (elimina las tildes)
-    return "".join([c for c in nfkd_form if not unicodedata.combining(c)])
 
 # --- 1. Carga de Archivos ---
 def read_txt_files(folder_path: str) -> Dict[str, str]:
+    """Lee todos los archivos .txt de la ruta especificada."""
     files_content = {}
     search_path = os.path.join(folder_path, "*.txt")
     files = glob.glob(search_path)
@@ -70,16 +40,16 @@ def read_txt_files(folder_path: str) -> Dict[str, str]:
                 print(f"  ❌ Error leyendo {file_name}: {e}")
     return files_content
 
-# --- 2. Modelos de Datos ---
+# --- 2. Modelos de Datos (Pydantic) ---
 
 class SchemaDefinition(BaseModel):
-    node_labels: List[str] = Field(description="Lista de tipos de nodos GENERALES (ej. 'Enfermedad', 'Sintoma').")
-    relationship_types: List[str] = Field(description="Lista de verbos/relaciones posibles (ej. 'PROVOCA', 'TRATA').")
+    node_labels: List[str] = Field(description="Lista de tipos de nodos GENERALES (ej. 'Normativa', 'Organismo').")
+    relationship_types: List[str] = Field(description="Lista de verbos/relaciones posibles (ej. 'DEROGA', 'EMITE').")
 
 class GraphNode(BaseModel):
-    id: str = Field(description="Identificador único y limpio (SNAKE_CASE_MAYUSCULA) para el nodo.")
+    id: str = Field(description="Identificador único y limpio (Snake_Case) para el nodo.")
     label: str = Field(description="El tipo de nodo (debe coincidir con el esquema aprobado).")
-    properties: str = Field(description="Resumen corto o nombre descriptivo del nodo.")
+    properties: str = Field(description="Resumen corto o título del nodo.")
 
 class GraphRelationship(BaseModel):
     source_id: str = Field(description="ID del nodo origen.")
@@ -92,43 +62,24 @@ class ExtractionResult(BaseModel):
     nodes: List[GraphNode]
     relationships: List[GraphRelationship]
 
-# --- 3. Agentes ---
+# --- 3. Agentes (Ontólogo y Extractor) ---
 
-def run_ontology_agent(text_content: str, goal: str, known_labels: List[str]) -> Tuple[SchemaDefinition, int]:
-    system_prompt = f"""
+def run_ontology_agent(text_content: str) -> Tuple[SchemaDefinition, int]:
+    system_prompt = """
     Eres un Arquitecto de Datos experto en Neo4j.
-    Tu tarea es definir el ESQUEMA (Labels y Relaciones) para un Grafo de Conocimiento.
-    
-    OBJETIVO: {goal}
-    ENTIDADES CONOCIDAS: {known_labels}
-    
-    REGLAS ESTRICTAS DE FORMATO:
-    1. IDIOMA: Todo en CASTELLANO.
-    2. **IMPORTANTE: NO USES TILDES NI ACENTOS** en los Labels ni en las Relaciones.
-       - INCORRECTO: 'Complicación', 'Síntoma', 'ASOCIACIÓN'
-       - CORRECTO: 'Complicacion', 'Sintoma', 'ASOCIACION'
-    3. Labels en CamelCase (ej. FactorRiesgo).
-    4. Relaciones en UPPER_CASE con guiones bajos (ej. PROVOCA_EFECTO).
+    Tu única tarea es leer el texto y definir las CATEGORÍAS (Labels) y RELACIONES abstractas.
+    REGLAS: No extraigas instancias. Usa CamelCase para Nodos y UPPER_CASE para relaciones.
     """
-    
-    content_sample = text_content[:15000]
-    
+    content_sample = text_content[:10000]
     completion = client.beta.chat.completions.parse(
-        model="gpt-4o",
+        model="gpt-5-nano",
         messages=[
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": f"Analiza y define el esquema:\n{content_sample}"},
         ],
         response_format=SchemaDefinition,
     )
-    
     schema = completion.choices[0].message.parsed
-    
-    # --- LIMPIEZA FORZADA (PYTHON) ---
-    # Aunque el LLM falle, Python lo corrige aquí
-    schema.node_labels = [remove_accents(l) for l in schema.node_labels]
-    schema.relationship_types = [remove_accents(r) for r in schema.relationship_types]
-    
     tokens = completion.usage.total_tokens
     print(f"  [ONTÓLOGO] 📈 Tokens: {tokens} | Labels: {len(schema.node_labels)} | Rels: {len(schema.relationship_types)}")
     return schema, tokens
@@ -136,67 +87,47 @@ def run_ontology_agent(text_content: str, goal: str, known_labels: List[str]) ->
 def run_extraction_agent(text_content: str, schema: SchemaDefinition) -> Tuple[ExtractionResult, int]:
     system_prompt = f"""
     Eres un experto en extracción de Grafos.
-    Extrae instancias basándote en este esquema UNIFICADO:
-    
-    Nodos permitidos: {schema.node_labels}
-    Relaciones permitidas: {schema.relationship_types}
-    
-    INSTRUCCIONES:
-    1. Genera IDs únicos en formato SNAKE_CASE_MAYUSCULA (ej. DIABETES_TIPO_2).
-    2. **NO USES TILDES EN LOS LABELS NI RELACIONES** (ej. usa 'Condicion' no 'Condición').
-    3. En las 'properties' (nombres descriptivos) SÍ puedes usar tildes.
+    Extrae instancias reales basándote EXCLUSIVAMENTE en este esquema:
+    Nodos: {schema.node_labels}
+    Relaciones: {schema.relationship_types}
+    INSTRUCCIONES: Genera IDs únicos (SNAKE_CASE). Extrae tripletas.
     """
-    
     completion = client.beta.chat.completions.parse(
-        model="gpt-4o",
+        model="gpt-5-nano",
         messages=[
             {"role": "system", "content": system_prompt},
-            {"role": "user", "content": f"Extrae los datos:\n{text_content[:30000]}"},
+            {"role": "user", "content": f"Extrae datos:\n{text_content[:25000]}"},
         ],
         response_format=ExtractionResult,
     )
-    
     result = completion.choices[0].message.parsed
-    
-    # --- LIMPIEZA FORZADA (PYTHON) ---
-    # Limpiamos labels y relaciones de las instancias extraídas
-    for node in result.nodes:
-        node.label = remove_accents(node.label)
-        # Nota: node.id lo dejamos como decida el LLM (generalmente uppercase), 
-        # pero node.properties SÍ queremos que tenga acentos para lectura humana.
-
-    for rel in result.relationships:
-        rel.source_label = remove_accents(rel.source_label)
-        rel.target_label = remove_accents(rel.target_label)
-        rel.relationship = remove_accents(rel.relationship)
-
     tokens = completion.usage.total_tokens
     print(f"  [EXTRACTOR] 📈 Tokens: {tokens} | Nodos: {len(result.nodes)} | Rels: {len(result.relationships)}")
     return result, tokens
 
-# --- 4. Generador Cypher ---
+# --- 4. Generador Cypher con Trazabilidad ---
 
 def generate_cypher_fragment(data: ExtractionResult, filename: str) -> str:
+    """Genera el bloque Cypher para un archivo específico, incluyendo trazabilidad."""
     cypher_lines = []
     
-    # Nodo Documento (Grafo Léxico)
-    doc_id = remove_accents(filename.replace(".", "_").replace(" ", "_").replace("-", "_").upper())
+    # [cite_start]A. Nodo Documento (Grafo Léxico) [cite: 12]
+    doc_id = filename.replace(".", "_").replace(" ", "_").upper()
     cypher_lines.append(f"\n// --- ARCHIVO: {filename} ---")
     cypher_lines.append(f'MERGE (d:Documento {{id: "{doc_id}"}}) ON CREATE SET d.nombre = "{filename}";')
 
+    # B. Nodos y Conexión al Documento
     generated_ids: Set[str] = set()
-    
-    # Nodos
     for node in data.nodes:
         if node.id and node.id not in generated_ids:
             safe_prop = node.properties.replace('"', "'")
             # Crear nodo entidad
             cypher_lines.append(f'MERGE (n:{node.label} {{id: "{node.id}"}}) ON CREATE SET n.nombre = "{safe_prop}";')
-            # Conectar con Documento
+            # Relación de trazabilidad: Documento -> MENCIONA -> Entidad
             cypher_lines.append(f'MATCH (d:Documento {{id: "{doc_id}"}}), (n:{node.label} {{id: "{node.id}"}}) MERGE (d)-[:MENCIONA]->(n);')
             generated_ids.add(node.id)
             
-    # Relaciones
+    # C. Relaciones Semánticas
     for rel in data.relationships:
         if rel.source_id in generated_ids and rel.target_id in generated_ids:
             cypher_lines.append(f'MATCH (a:{rel.source_label} {{id: "{rel.source_id}"}}), (b:{rel.target_label} {{id: "{rel.target_id}"}}) MERGE (a)-[:{rel.relationship}]->(b);')
@@ -209,25 +140,25 @@ def main():
     txt_files = read_txt_files(FOLDER_PATH)
     if not txt_files: return
 
-    # Inicializar sets limpiando las etiquetas conocidas de entrada
-    master_node_labels: Set[str] = set([remove_accents(l) for l in WELL_KNOWN_LABELS])
+    # Contadores Globales
+    master_node_labels: Set[str] = set()
     master_relationship_types: Set[str] = set()
-    global_schema_triplets: Set[Tuple[str, str, str]] = set()
+    global_schema_triplets: Set[Tuple[str, str, str]] = set() # <--- Aquí acumularemos el esquema abstracto
     
     total_t1 = 0
     total_t2 = 0
 
-    # FASE 1: DISCOVERY
-    print("\n" + "#"*60)
-    print("FASE 1: DESCUBRIMIENTO DEL ESQUEMA (Sin Tildes)")
-    print("#"*60)
+    # ==========================================================
+    # PASE 1: DISCOVERY (Define el Esquema Maestro)
+    # ==========================================================
+    print("\n" + "#"*50)
+    print("FASE 1: DESCUBRIMIENTO DEL ESQUEMA")
+    print("#"*50)
 
     for filename, content in txt_files.items():
-        print(f"\n--- 🔎 Analizando esquema en: {filename} ---")
-        # Pasamos la lista ya limpia de known_labels
-        schema, t1 = run_ontology_agent(content, USER_GOAL, list(master_node_labels))
+        print(f"\n--- 🔎 Analizando: {filename} ---")
+        schema, t1 = run_ontology_agent(content)
         total_t1 += t1
-        
         master_node_labels.update(schema.node_labels)
         master_relationship_types.update(schema.relationship_types)
         
@@ -235,56 +166,61 @@ def main():
         node_labels=sorted(list(master_node_labels)),
         relationship_types=sorted(list(master_relationship_types))
     )
-    
-    print(f"\n✅ Esquema Maestro Definido (Normalizado):")
-    print(f"Labels: {master_schema.node_labels}")
 
-    # FASE 2: EXTRACTION
-    print("\n" + "#"*60)
+    # ==========================================================
+    # PASE 2: EXTRACTION (Genera Datos y Cypher)
+    # ==========================================================
+    print("\n" + "#"*50)
     print("FASE 2: EXTRACCIÓN Y GENERACIÓN DE CÓDIGO")
-    print("#"*60)
+    print("#"*50)
     
     full_cypher_script = []
     
-    # Constraints (Labels ya limpios)
+    # [cite_start]Optimización: Constraints [cite: 11]
     full_cypher_script.append("// --- CONSTRAINTS DE UNICIDAD ---")
     for label in master_schema.node_labels:
         full_cypher_script.append(f"CREATE CONSTRAINT constraint_{label}_id IF NOT EXISTS FOR (n:{label}) REQUIRE n.id IS UNIQUE;")
     full_cypher_script.append("CREATE CONSTRAINT constraint_Documento_id IF NOT EXISTS FOR (d:Documento) REQUIRE d.id IS UNIQUE;")
 
     for filename, content in txt_files.items():
-        print(f"\n--- ⛏️ Procesando archivo: {filename} ---")
+        print(f"\n--- ⛏️ Procesando: {filename} ---")
         
+        # 1. Extracción
         data, t2 = run_extraction_agent(content, master_schema)
         total_t2 += t2
         
+        # 2. Acumular Tripletas para el Esquema Abstracto (Lo que pediste agregar)
         for rel in data.relationships:
             global_schema_triplets.add((rel.source_label, rel.relationship, rel.target_label))
 
+        # 3. Generar fragmento Cypher
         fragment = generate_cypher_fragment(data, filename)
         full_cypher_script.append(fragment)
 
-    # RESULTADOS
-    print("\n" + "="*60)
-    print("📢 ESQUEMA ABSTRACTO DESCUBIERTO (TIPO --RELACIÓN--> TIPO)")
-    print("="*60)
+    # ==========================================================
+    # RESULTADOS FINALES
+    # ==========================================================
+
+    # 1. IMPRESIÓN DEL ESQUEMA ABSTRACTO (Aquí está de vuelta)
+    print("\n" + "="*50)
+    print("📢 ESQUEMA ABSTRACTO DE TRIPLETAS (TIPO --RELACIÓN--> TIPO)")
+    print("==================================================")
     if global_schema_triplets:
         for s, r, t in sorted(list(global_schema_triplets)):
             print(f"({s}) --[{r}]--> ({t})")
     else:
         print("(No se detectaron relaciones)")
 
+    # 2. IMPRESIÓN DEL SCRIPT CYPHER
     final_script = "\n".join(full_cypher_script)
+    print("\n" + "="*50)
+    print("💻 SCRIPT CYPHER FINAL (Con Constraints y Trazabilidad)")
+    print("==================================================")
+    print(final_script)
+    print("="*50)
     
-    with open("grafo_generado.cypher", "w", encoding="utf-8") as f:
-        f.write(final_script)
-        
-    print("\n" + "="*60)
-    print("💻 SCRIPT CYPHER FINAL (Guardado en 'grafo_generado.cypher')")
-    print("="*60)
-    print("\n".join(final_script.split("\n")[:20]))
-    
-    print(f"\n💰 CONSUMO TOTAL: {total_t1 + total_t2} Tokens")
+    # 3. Reporte Tokens
+    print(f"\n💰 CONSUMO TOTAL: {total_t1 + total_t2} Tokens (Ontólogo: {total_t1} | Extractor: {total_t2})")
 
 if __name__ == "__main__":
     main()

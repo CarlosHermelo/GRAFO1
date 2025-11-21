@@ -2,13 +2,21 @@
 
 Este proyecto gestiona un grafo de conocimiento sobre prótesis en Neo4j, permitiendo cargar datos desde archivos CSV y realizar consultas.
 
+
+## 📋 Comandos a Ejecutar
+
+```bash
+python convertir_bd_kg.py # toma .csv y convierte en un schmea
+python consulta_protesis.py # no recuerdo 
+```
+
 ## 🚀 Configuración del Entorno
 
 ### Activar el Entorno Virtual
 
 ```bash
 cd C:\Users\u14527001\Downloads\grafo_protesis
-gra\script\activate
+gra\Scripts\activate
 ```
 
 Una vez activado, deberías ver:
@@ -39,13 +47,6 @@ Una vez activado, deberías ver:
    ```
 
 ---
-
-## 📋 Comandos a Ejecutar
-
-```bash
-python convertir_bd_kg.py
-python consulta_protesis.py
-```
 
 ---
 

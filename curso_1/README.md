@@ -5,11 +5,14 @@ Este proyecto genera un grafo de conocimiento en Neo4j a partir de documentos de
 ## Flujo de Trabajo
 
 ```bash
-python gen_schema_txt.py # genera schema a partir de txt
-python gen_subir_schma_a_neo.py # crea el schema en neo4j 
+python gen_schema_txt.py # genera schema input: *.txt -- output: grafo_generado.cypher
+python gen_subir_schma_a_neo.py # crea el schema en neo4j ,input: grafo_generado.cypher
 python gen_query.py # consulta sobre los documentos
+python gen_borrar_schema.py # borra todo el schema de NEO4J 
 ```
 
+En la carpeta RESO hay archivos reso con extencion txto
+En la carpeta DIGESTO hay archivo reso con extencion .pdf 
 ---
 
 ## 📄 gen_schema_txt.py
@@ -32,16 +35,53 @@ python gen_schema_txt.py
 
 ### Funcionamiento
 
-El script realiza dos fases:
+¡Absolutamente\! Me alegra que la estructura del script te sea útil.
 
-1. **FASE 1: Descubrimiento del Esquema Maestro**
-   - Analiza todos los archivos `.txt` para identificar tipos de nodos y relaciones
-   - Genera un esquema unificado con todos los labels y tipos de relaciones encontrados
+A continuación, repito los cinco puntos clave del script, pero agregando un **ejemplo práctico** de lo que significa cada característica en el contexto de tu grafo de resoluciones:
 
-2. **FASE 2: Extracción de Hechos**
-   - Extrae instancias específicas (nodos y relaciones) de cada documento
-   - Utiliza el esquema maestro para mantener consistencia
+-----
 
+## ✨ Características Clave del Script y Ejemplos Prácticos
+
+### 1\. Estrategia Agéntica de 2 Fases: Descubrimiento (Ontología) + Extracción (Hechos)
+
+  * **Significado:** En lugar de intentar extraer todo de golpe, el script primero define el "vocabulario" del grafo leyendo todos los documentos (Fase 1) y luego usa ese vocabulario unificado como una plantilla estricta para la extracción de datos (Fase 2).
+  * **Ejemplo Práctico:**
+      * **Fase 1 (Ontología):** Lee los 4 archivos y determina que las relaciones importantes son `DEROGA`, `MODIFICA` y `EMITE`.
+      * **Fase 2 (Extracción):** Al leer el texto que dice "El Director Ejecutivo **resuelve anular** la Resolución 123", el Extractor *no inventa* una relación `ANULA`, sino que la clasifica bajo la relación previamente aprobada: **`DEROGA`**.
+
+### 2\. Contexto de Negocio: `USER_GOAL` y `WELL_KNOWN_LABELS`
+
+  * **Significado:** Se le proporciona al modelo el objetivo del negocio y un conjunto de etiquetas aprobadas, lo que guía al LLM a priorizar la información relevante para la **evaluación normativa**.
+  * **Ejemplo Práctico:**
+      * **Input:** El `USER_GOAL` indica que solo son importantes las relaciones jurídicas.
+      * **Resultado:** El script ignora la extracción de entidades irrelevantes como `MesaDeEntradas` o `DomicilioFiscal`, pero garantiza que la entidad `Programa` (una `WELL_KNOWN_LABEL`) sea correctamente identificada cada vez, aunque el texto la llame de diferentes maneras.
+
+### 3\. Grafo Léxico (Trazabilidad): `:Documento` - `[:MENCIONA]` -\> `:Entidad`
+
+  * **Significado:** Es el "Mapa del Origen de la Información". Cada entidad extraída (nodo) está conectada a la fuente de texto (`:Documento`) donde fue mencionada.
+  * **Ejemplo Práctico:**
+      * Si buscas la Ley **19.032**, el grafo te mostrará: `(Ley:19032)` **\<-[:MENCIONA]-** `(Documento:RESOL_2024_1967)`.
+      * Esto permite validar rápidamente si la Ley fue citada en otros documentos cargados, fundamental para una auditoría o análisis de vigencia.
+
+### 4\. Optimización: Genera `CONSTRAINTS` de Unicidad
+
+  * **Significado:** Los *constraints* son comandos que se ejecutan una sola vez al configurar la base de datos Neo4j. Garantizan que las IDs de los nodos sean únicas, impidiendo la duplicación de datos.
+  * **Ejemplo Práctico:**
+      * El script genera: `CREATE CONSTRAINT constraint_Resolucion_id IF NOT EXISTS FOR (n:Resolucion) REQUIRE n.id IS UNIQUE;`
+      * Si intentas cargar dos nodos `:Resolucion` con el mismo ID (`"RESOL_2024_100"`), Neo4j arrojará un error, asegurando que cada norma exista solo una vez, manteniendo la integridad de la base de datos.
+
+### 5\. Visualización: Muestra el "Esquema Abstracto"
+
+  * **Significado:** Antes de imprimir el Cypher final, el script resume la estructura *única* de todas las tripletas que encontró en los documentos.
+  * **Ejemplo Práctico:**
+      * El output te mostrará un resumen como:
+        ```
+        (Resolucion) --[DEROGA]--> (Resolucion)
+        (Organismo) --[EMITE]--> (Resolucion)
+        (Ley) --[MODIFICA]--> (Ley)
+        ```
+      * Esto te permite validar, de un solo vistazo, que el LLM ha entendido las relaciones clave antes de cargar los miles de comandos de datos en el grafo.
 ### Salida
 
 El script genera en consola un **SCRIPT CYPHER** completo con el siguiente formato:
