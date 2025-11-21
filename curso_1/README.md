@@ -5,9 +5,9 @@ Este proyecto genera un grafo de conocimiento en Neo4j a partir de documentos de
 ## Flujo de Trabajo
 
 ```bash
-python gen_schema_txt.py
-python gen_subir_schma_a_neo.py
-python gen_query.py
+python gen_schema_txt.py # genera schema a partir de txt
+python gen_subir_schma_a_neo.py # crea el schema en neo4j 
+python gen_query.py # consulta sobre los documentos
 ```
 
 ---
