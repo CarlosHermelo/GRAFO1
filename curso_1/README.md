@@ -10,6 +10,11 @@ python gen_subir_schma_a_neo.py # crea el schema en neo4j ,input: grafo_generado
 python gen_query.py # consulta sobre los documentos
 python gen_borrar_schema.py # borra todo el schema de NEO4J 
 ```
+El script gen_schema_txt.py usa variable entorno .env donde CARPETA_TXT= toma la carpeta donde estan:
+-todos los archivos *txt
+-goal.txt  donde pongo el objetivo de generador 
+-labels.txt  pongo los well-know (posibles entidades )
+
 
 En la carpeta RESO hay archivos reso con extencion txto
 En la carpeta DIGESTO hay archivo reso con extencion .pdf 

@@ -12,23 +12,45 @@ load_dotenv()
 client = OpenAI()
 
 # --- CONFIGURACIÓN DEL PROYECTO ---
-FOLDER_PATH = r"C:\Users\u14527001\Downloads\grafo_protesis\curso_1"
+# Ahora la ruta de la carpeta se toma de la variable de entorno CARPETA_TXT
+FOLDER_PATH = os.getenv("CARPETA_TXT")
+if not FOLDER_PATH:
+    raise ValueError("La variable de entorno 'CARPETA_TXT' no está definida. Por favor, configúrala.")
 
-USER_GOAL = """
-Construir un Grafo de Conocimiento clínico que permita analizar de manera integrada el contenido de múltiples guías médicas.
-Identificar relaciones entre enfermedades, tratamientos, factores de riesgo y complicaciones.
+# Ruta al archivo goal.txt dentro de la carpeta definida
+GOAL_FILE_PATH = os.path.join(FOLDER_PATH, "goal.txt")
+# Ruta al archivo labels.txt dentro de la carpeta definida
+LABELS_FILE_PATH = os.path.join(FOLDER_PATH, "labels.txt")
 
-Objetivos específicos:
-• asociación causal (FactorRiesgo → Enfermedad)
-• indicación terapéutica (Enfermedad → Tratamiento)
-• contraindicación o ajuste (Tratamiento → Condicion)
-• progresión o complicación (Enfermedad → Complicacion)
+# Leer la variable de entorno para el modelo LLM
+LLM_MODEL = os.getenv("MODELO")
+if not LLM_MODEL:
+    raise ValueError("La variable de entorno 'MODELO' (para el LLM) no está definida. Por favor, configúrala.")
 
-Representar estructura clínica: criterios diagnósticos, clasificaciones, recomendaciones.
-"""
+# Leer USER_GOAL desde goal.txt
+USER_GOAL = ""
+try:
+    with open(GOAL_FILE_PATH, 'r', encoding='utf-8') as f:
+        USER_GOAL = f.read().strip()
+    print(f"✅ 'USER_GOAL' cargado desde: {GOAL_FILE_PATH}")
+except FileNotFoundError:
+    raise FileNotFoundError(f"No se encontró el archivo 'goal.txt' en '{GOAL_FILE_PATH}'.")
+except Exception as e:
+    raise Exception(f"Error al leer 'goal.txt': {e}")
 
-# Etiquetas conocidas (Las definimos limpias, pero por si acaso el script las limpia igual)
-WELL_KNOWN_LABELS = ["Enfermedad", "Tratamiento", "Condicion", "Complicacion", "FactorRiesgo"]
+# Leer WELL_KNOWN_LABELS desde labels.txt
+WELL_KNOWN_LABELS: List[str] = []
+try:
+    with open(LABELS_FILE_PATH, 'r', encoding='utf-8') as f:
+        labels_str = f.read().strip()
+        # Asumiendo que el formato es como "Label1", "Label2", ...
+        # Eliminamos las comillas y separamos por coma para obtener la lista
+        WELL_KNOWN_LABELS = [label.strip().strip('"') for label in labels_str.split(',') if label.strip()]
+    print(f"✅ 'WELL_KNOWN_LABELS' cargado desde: {LABELS_FILE_PATH}")
+except FileNotFoundError:
+    raise FileNotFoundError(f"No se encontró el archivo 'labels.txt' en '{LABELS_FILE_PATH}'.")
+except Exception as e:
+    raise Exception(f"Error al leer 'labels.txt': {e}")
 
 # --- FUNCIONES DE AYUDA (LIMPIEZA) ---
 
@@ -48,11 +70,15 @@ def remove_accents(input_str: str) -> str:
 def read_txt_files(folder_path: str) -> Dict[str, str]:
     files_content = {}
     search_path = os.path.join(folder_path, "*.txt")
-    files = glob.glob(search_path)
     
-    print(f"📂 Buscando archivos en: {folder_path}")
+    # Excluir goal.txt y labels.txt de la carga de contenido principal
+    excluded_files = [os.path.basename(GOAL_FILE_PATH), os.path.basename(LABELS_FILE_PATH)]
+    
+    files = [f for f in glob.glob(search_path) if os.path.basename(f) not in excluded_files]
+    
+    print(f"📂 Buscando archivos de contenido en: {folder_path} (Excluyendo goal.txt y labels.txt)")
     if not files:
-        print("⚠️ No se encontraron archivos .txt.")
+        print("⚠️ No se encontraron archivos .txt de contenido.")
         return {}
 
     for file_path in files:
@@ -94,7 +120,7 @@ class ExtractionResult(BaseModel):
 
 # --- 3. Agentes ---
 
-def run_ontology_agent(text_content: str, goal: str, known_labels: List[str]) -> Tuple[SchemaDefinition, int]:
+def run_ontology_agent(text_content: str, goal: str, known_labels: List[str], llm_model: str) -> Tuple[SchemaDefinition, int]:
     system_prompt = f"""
     Eres un Arquitecto de Datos experto en Neo4j.
     Tu tarea es definir el ESQUEMA (Labels y Relaciones) para un Grafo de Conocimiento.
@@ -114,7 +140,7 @@ def run_ontology_agent(text_content: str, goal: str, known_labels: List[str]) ->
     content_sample = text_content[:15000]
     
     completion = client.beta.chat.completions.parse(
-        model="gpt-4o",
+        model=llm_model, # Usa la variable del modelo LLM
         messages=[
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": f"Analiza y define el esquema:\n{content_sample}"},
@@ -133,7 +159,7 @@ def run_ontology_agent(text_content: str, goal: str, known_labels: List[str]) ->
     print(f"  [ONTÓLOGO] 📈 Tokens: {tokens} | Labels: {len(schema.node_labels)} | Rels: {len(schema.relationship_types)}")
     return schema, tokens
 
-def run_extraction_agent(text_content: str, schema: SchemaDefinition) -> Tuple[ExtractionResult, int]:
+def run_extraction_agent(text_content: str, schema: SchemaDefinition, llm_model: str) -> Tuple[ExtractionResult, int]:
     system_prompt = f"""
     Eres un experto en extracción de Grafos.
     Extrae instancias basándote en este esquema UNIFICADO:
@@ -148,7 +174,7 @@ def run_extraction_agent(text_content: str, schema: SchemaDefinition) -> Tuple[E
     """
     
     completion = client.beta.chat.completions.parse(
-        model="gpt-4o",
+        model=llm_model, # Usa la variable del modelo LLM
         messages=[
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": f"Extrae los datos:\n{text_content[:30000]}"},
@@ -224,8 +250,8 @@ def main():
 
     for filename, content in txt_files.items():
         print(f"\n--- 🔎 Analizando esquema en: {filename} ---")
-        # Pasamos la lista ya limpia de known_labels
-        schema, t1 = run_ontology_agent(content, USER_GOAL, list(master_node_labels))
+        # Pasamos la lista ya limpia de known_labels y el modelo LLM
+        schema, t1 = run_ontology_agent(content, USER_GOAL, list(master_node_labels), LLM_MODEL)
         total_t1 += t1
         
         master_node_labels.update(schema.node_labels)
@@ -255,7 +281,8 @@ def main():
     for filename, content in txt_files.items():
         print(f"\n--- ⛏️ Procesando archivo: {filename} ---")
         
-        data, t2 = run_extraction_agent(content, master_schema)
+        # Pasamos el modelo LLM al agente de extracción
+        data, t2 = run_extraction_agent(content, master_schema, LLM_MODEL)
         total_t2 += t2
         
         for rel in data.relationships:
@@ -282,6 +309,7 @@ def main():
     print("\n" + "="*60)
     print("💻 SCRIPT CYPHER FINAL (Guardado en 'grafo_generado.cypher')")
     print("="*60)
+    # Imprime solo las primeras 20 líneas del script para no saturar la consola
     print("\n".join(final_script.split("\n")[:20]))
     
     print(f"\n💰 CONSUMO TOTAL: {total_t1 + total_t2} Tokens")

@@ -1,0 +1,10 @@
+Construir un Grafo de Conocimiento clínico que permita analizar de manera integrada el contenido de múltiples guías médicas.
+Identificar relaciones entre enfermedades, tratamientos, factores de riesgo y complicaciones.
+
+Objetivos específicos:
+• asociación causal (FactorRiesgo → Enfermedad)
+• indicación terapéutica (Enfermedad → Tratamiento)
+• contraindicación o ajuste (Tratamiento → Condicion)
+• progresión o complicación (Enfermedad → Complicacion)
+
+Representar estructura clínica: criterios diagnósticos, clasificaciones, recomendaciones.

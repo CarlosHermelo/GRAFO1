@@ -1,0 +1,9 @@
+“La hipertensión arterial se define como una presión arterial sistólica ≥140 mmHg o diastólica ≥90 mmHg de forma sostenida.
+La hipertensión arterial tiene como factores de riesgo principales la obesidad, el sedentarismo y la edad avanzada.
+El diagnóstico de hipertensión arterial requiere al menos dos mediciones de presión arterial en días diferentes.
+La hipertensión arterial se clasifica en grado 1, grado 2 y crisis hipertensiva.
+El tratamiento inicial para la hipertensión arterial consiste en cambios de estilo de vida.
+El tratamiento farmacológico incluye IECA, ARA II y calcioantagonistas, cuya selección depende de las comorbilidades del paciente.
+El seguimiento de la hipertensión arterial debe realizarse con un control cada 3 meses.
+La hipertensión arterial debe derivarse a un especialista si hay nefropatía o daño de órgano blanco.
+La hipertensión arterial puede complicarse con accidente cerebrovascular e insuficiencia cardíaca.”

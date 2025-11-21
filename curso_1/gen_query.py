@@ -4,24 +4,33 @@ from typing import List, Dict, Any
 from dotenv import load_dotenv
 from neo4j import GraphDatabase
 from openai import OpenAI
+import json # Asegúrate de que json esté importado al principio para buena práctica
 
 # Cargar variables de entorno
 load_dotenv()
 
-# Configuración
-# cargar variables de entorno
-load_dotenv()
+# Configuración de Neo4j (cargar de variables de entorno)
+NEO4J_URI = os.getenv("NEO4J_URI")
+NEO4J_USER = os.getenv("NEO4J_USER")
+NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
 
-NEO4J_URI = os.getenv("NEO4J_URI", "neo4j+s://b0df6e44.databases.neo4j.io")
-NEO4J_USER = os.getenv("NEO4J_USER", "neo4j")
-NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD", "password")
+# Validar que las variables de Neo4j están definidas
+if not all([NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD]):
+    raise ValueError("Las variables de entorno NEO4J_URI, NEO4J_USER y NEO4J_PASSWORD deben estar definidas.")
 
-print("URI:", os.getenv("NEO4J_URI"))
-print("USER:", os.getenv("NEO4J_USER"))
-print("PASS:", os.getenv("NEO4J_PASSWORD"))
+print("URI:", NEO4J_URI)
+print("USER:", NEO4J_USER)
+# No imprimir la contraseña por seguridad
+print("PASS: ******") 
 
-
+# Configuración de OpenAI (cargar de variables de entorno)
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+if not OPENAI_API_KEY:
+    raise ValueError("La variable de entorno 'OPENAI_API_KEY' no está definida.")
+
+LLM_MODEL = os.getenv("MODELO")
+if not LLM_MODEL:
+    raise ValueError("La variable de entorno 'MODELO' (para el LLM) no está definida. Por favor, configúrala.")
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 
@@ -37,18 +46,8 @@ class GraphQA:
         Consulta la base de datos para obtener un resumen del esquema actual.
         Esto ayuda al LLM a no alucinar relaciones que no existen.
         """
-        schema_query = """
-        CALL db.schema.visualization()
-        """
+        # Se mantienen las consultas de esquema existentes
         with self.driver.session() as session:
-            result = session.run(schema_query)
-            node_labels = []
-            relationships = []
-            
-            # Extraemos una estructura simple para el prompt
-            # Nota: db.schema.visualization devuelve objetos complejos, 
-            # para este ejemplo simplificaremos con una query más directa de metadatos:
-            
             labels_q = "CALL db.labels()"
             rels_q = "CALL db.relationshipTypes()"
             
@@ -68,7 +67,7 @@ class GraphQA:
 
     def text_to_cypher(self, user_question: str, schema_str: str) -> str:
         """
-        Usa GPT-4o para traducir Lenguaje Natural a Cypher.
+        Usa el modelo LLM configurado para traducir Lenguaje Natural a Cypher.
         """
         system_prompt = f"""
         Eres un experto desarrollador de Neo4j. Tu tarea es convertir preguntas en lenguaje natural a consultas CYPHER precisas.
@@ -88,7 +87,7 @@ class GraphQA:
         """
 
         completion = client.chat.completions.create(
-            model="gpt-4o",
+            model=LLM_MODEL, # Usa la variable LLM_MODEL
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": f"Pregunta: {user_question}"}
@@ -132,7 +131,7 @@ class GraphQA:
         """
 
         completion = client.chat.completions.create(
-            model="gpt-4o",
+            model=LLM_MODEL, # Usa la variable LLM_MODEL
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_content}
@@ -140,7 +139,8 @@ class GraphQA:
         )
         return completion.choices[0].message.content
 
-import json
+# El import de json se movió arriba para mejor práctica
+# import json 
 
 def main():
     qa = GraphQA()
@@ -157,16 +157,16 @@ def main():
             break
             
         # 1. Generar Cypher
-        print("  ↳ Generando consulta...")
+        print("   ↳ Generando consulta...")
         cypher_query = qa.text_to_cypher(question, schema)
-        print(f"  [CYPHER]: {cypher_query}")
+        print(f"   [CYPHER]: {cypher_query}")
         
         # 2. Ejecutar
         results = qa.execute_cypher(cypher_query)
-        print(f"  ↳ Se encontraron {len(results)} registros.")
+        print(f"   ↳ Se encontraron {len(results)} registros.")
         
         # 3. Sintetizar respuesta
-        print("  ↳ Analizando respuesta...")
+        print("   ↳ Analizando respuesta...")
         final_answer = qa.synthesize_answer(question, results, cypher_query)
         
         print(f"\nRESPUESTA: {final_answer}")
