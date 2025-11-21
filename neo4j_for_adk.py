@@ -14,3 +14,18 @@ class GraphDB:
             return [record.data() for record in result]
 
 graphdb = GraphDB()
+
+# Funciones de utilidad para herramientas
+def tool_success(key: str, value):
+    """Retorna un diccionario indicando éxito de la herramienta."""
+    return {
+        "status": "success",
+        key: value
+    }
+
+def tool_error(message: str):
+    """Retorna un diccionario indicando error de la herramienta."""
+    return {
+        "status": "error",
+        "error_message": message
+    }

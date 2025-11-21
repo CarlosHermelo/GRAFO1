@@ -1,23 +1,54 @@
-{
+ con{
   "permissions": {
     "allow": [
-      "Bash(\"gra\\Scripts\\python.exe\" -c \"from google.adk.tools import ToolContext; help(ToolContext.__init__)\")",
-      "Bash(\"gra\\Scripts\\python.exe\" -c \"from google.adk.agents import InvocationContext; help(InvocationContext.__init__)\")",
-      "Bash(\"gra\\Scripts\\python.exe\" -c \"from google.adk.agents import InvocationContext; import inspect; print(inspect.signature(InvocationContext))\")",
-      "Bash(\"gra\\Scripts\\python.exe\" gene_ask.py)",
-      "Bash(\"gra\\Scripts\\python.exe\" -c \"from google.adk.agents import Agent; print([m for m in dir(Agent) if not m.startswith(''_'')])\")",
-      "Bash(\"gra\\Scripts\\python.exe\" -c \"from google.adk.agents import Agent; help(Agent.run_async)\")",
-      "Bash(\"gra\\Scripts\\python.exe\" -c \"from google.adk.apps import App; print([m for m in dir(App) if not m.startswith(''_'')])\")",
-      "Bash(\"gra\\Scripts\\python.exe\" -c \"import google.adk; print(google.adk.__file__)\")",
-      "Bash(\"gra\\Scripts\\python.exe\" gene_ask_simple.py)",
-      "Bash(nul)",
-      "Bash(graScriptspython.exe gene_ask.py)",
-      "Bash(timeout:*)",
-      "Bash(graScriptspython.exe p2_mm.py)",
-      "Bash(\"gra\\Scripts\\python.exe\" p2_mm.py)",
-      "Bash(\"gra\\Scripts\\python.exe\" -c \"from google.adk.runners import InMemoryRunner; help(InMemoryRunner.__init__)\")"
+      "Bash(cp:*)",
+      "Bash(npm test:*)",
+      "Bash(pip install:*)",
+      "Bash(npm install)",
+      "Bash(python -m pytest:*)",
+      "Bash(rd /s /q node_modules)",
+      "Bash(npm cache clean:*)",
+      "Bash(npm install:*)",
+      "Bash(python:*)",
+      "Bash(cat:*)",
+      "Bash(curl:*)",
+      "Bash(npx tsc:*)",
+      "Bash(if not exist \"C:\\Users\\u14527001\\downloads\\prueba_aplicacion\\.cloud\\docs\\cliente_crud\\plan\" mkdir \"C:\\Users\\u14527001\\downloads\\prueba_aplicacion\\.cloud\\docs\\cliente_crud\\plan\")",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(taskkill:*)",
+      "Bash(npm run dev:*)",
+      "Bash(timeout /t 3)",
+      "WebFetch(domain:ui.shadcn.com)"
     ],
     "deny": [],
     "ask": []
+  },
+  "mcpServers": {
+    "shadcn": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "shadcn@canary",
+        "registry:mcp"
+      ],
+      "env": {
+        "REGISTRY_URL": "https://ui.shadcn.com/registry/index.json"
+      }
+    },
+    "shadcn-components": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "@jpinsince/shadcn-ui-mcp-server"
+      ]
+    },
+    "context7": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"]
+    }
   }
 }
+

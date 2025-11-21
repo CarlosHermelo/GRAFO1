@@ -1,0 +1,877 @@
+Este documento es la resolución RESOL-2024-2067-INSSJP-DE#INSSJP
+ 
+ 
+ 
+ 
+Instituto Nacional de Servicios Sociales para Jubilados y Pensionados
+AÑO DE LA DEFENSA DE LA VIDA, LA LIBERTAD Y LA PROPIEDAD
+ 
+Resolución
+ 
+Número: 
+ 
+ 
+Referencia:  EX-2024-75035373- -INSSJP-GM#INSSJP - CONVENIO DE APLICACIÓN DE DÉBITOS entre el 
+INSTITUTO NACIONAL DE SERVICIOS SOCIALES PARA JUBILADOS Y PENSIONADOS Y las 
+ENTIDADES FARMACEUTICAS
+ 
+VISTO el EX-2024-75035373- -INSSJP-GM#INSSJP, la Ley Nº 19.032 y su modificatoria Nº 25.615, la RESOL-
+2018-897-INSSJP-DE#INSSJP, la RESOL-2018-902-INSSJP-DE#INSSJP, la RESOL-2018-907-INSSJP-
+DE#INSSJP, la RESOL-2018-908-INSSJP-DE#INSSJP, la RESOL-2018-914-INSSJP-DE#INSSJP, la RESOL-
+2020-1205-INSSJP-DE#INSSJP, la RESOL-2021-377-INSSJP-DE#INSSJP, la RESOL-2024-943-INSSJP-
+DE#INSSJP y,
+CONSIDERANDO:
+Que conforme a los lineamientos del CONVENIO MARCO DE ADHESIÓN (2018), por Resoluciones N° RESOL-
+2018-897-INSSJP-DE#INSSJP, RESOL-2018-902-INSSJPDE#INSSJP,  la RESOL-2018-907-INSSJP-
+DE#INSSJP, RESOL-2018-908-INSSJP-DE#INSSJP y RESOL-2018-914-INSSJP-DE#INSSJP, se aprobaron los 
+CONVENIOS DE DISPENSA DE MEDICAMENTOS AMBULATORIOS, CLOZAPINAS Y DIABETES 
+suscriptos entre el INSTITUTO y  la FEDERACIÓN FARMACÉUTICA ARGENTINA (“FEFARA”), la 
+ASOCIACIÓN MUTUAL FARMASUR (“FARMASUR”), la FEDERACIÓN ARGENTINA DE CAMARA DE 
+FARMACIAS (“FACAF”), la ASOCIACIÓN de FARMACIAS MUTUALES y SINDICALES de la REPÚBLICA 
+ARGENTINA (“AFMSRA”) y la CONFEDERACIÓN FARMACÉUTICA ARGENTINA (“COFA”), 
+respectivamente, que tienen por objeto la dispensa de medicamentos en  las farmacias adheridas, a los afiliados del 
+INSTITUTO en todo el país. -
+Que el referido convenio viene siendo objeto de sucesivas prórrogas, siendo la última de ellas con vigencia hasta el 
+30 de noviembre de 2024 convalidada por RESOL-2024-943-INSSJP-DE#INSSJP (Artículo 4°).
+Que en el contexto de emergencia sanitaria establecida por Ley N° 27.541 y con el fin de reducir la circulación de 
+las personas afiliadas, mediante RESOL-2020-1110-INSSJP-DE#INSSJP de fecha 28 de marzo de 2020, el Instituto 
+estableció la prescripción electrónica de medicamentos mediante el uso del Sistema de Receta Electrónica, como 
+condición suficiente para el acceso de las personas afiliadas a la dispensa de medicamentos en farmacia, con 
+carácter excepcional y transitorio.Que, en el marco de la citada Resolución, el Anexo I reglamentó las condiciones para la validación y control de la 
+dispensa, instruyendo a la farmacia a la emisión del ticket comprobante de entrega, firmado de puño y letra por 
+parte de la persona que retira, con el agregado de el/los troqueles de medicamentos dispensados.
+Que, asimismo, resulta oportuno señalar que con el propósito de asegurar la continuidad de la dispensa de 
+medicamentos a los afiliados del INSTITUTO y de los pagos correspondientes, mediante RESOL-2020-1205-
+INSSJP-DE#INSSJP, suscripta el 8 de abril de 2020, se aprobó el modelo de acta acuerdo, que fuera suscripto entre 
+las Entidades Farmacéuticas y este INSTITUTO, mediante la cual se resolvió disponer la suspensión transitoria de 
+la logística del envío de las recetas, toda vez que ello resultaba de imposible cumplimiento dada las circunstancias 
+de aislamiento obligatorio, lo cual impidió que la digitalización de las recetas, su procesamiento y análisis de las 
+dispensas se realizara en forma oportuna.
+Que, la implementación del procedimiento indicado ocasionó, en algunos casos, que la rendición de las dispensas 
+por parte de las farmacias no fuera uniforme, generando dificultades en el control de las mismas, razón por la cual, 
+el resultado de la auditoría de las dispensas, originó un incremento en la configuración de los débitos, en particular 
+el Código de conflicto 100 (Receta no presentada) que, en algunos casos, alcanzó la totalidad de la facturación 
+mensual de una farmacia.
+Que, atento a lo expuesto, se advirtió que la documentación/recetas enviadas por las farmacias no cumplían con los 
+requisitos mínimos para su digitalización y requería un trabajo adicional para cumplir con los procesos de 
+validación, por lo cual, mediante RESOL-2021-377-INSSJP-DE#INSSJP, se estableció la realización de un 
+mecanismo extraordinario para el re procesamiento de forma manual de la documentación presentada por las 
+farmacias por la dispensa de medicamentos del período que abarca los meses de mayo 2020 a marzo 2021, 
+identificadas con el Código de conflicto 100 (Receta no presentada).
+Que, asimismo, el art. 4 suspendió la aplicación de los débitos correspondientes al Código de conflicto 100 (Receta 
+no presentada) del período comprendido entre el mes de mayo de 2020 hasta el mes de marzo de 2021, hasta tanto 
+finalice la realización de las tareas de revisión indicadas y el art. 7° estableció que el costo del re procesamiento 
+sería absorbido por las respectivas entidades farmacéuticas.
+Que, en este sentido y en cumplimiento del art. 8° se firmaron convenios particulares en donde cada Entidad asumió 
+el costo de reprocesamiento, a saber: CNVAD-2021-1-INSSJP-SGA#INSSJP (COFA); CNVAD-2021-2-INSSJP-
+SGA#INSSJP (FACAF); CNVAD-2021-3-INSSJP-SGA#INSSJP (AFMSRA); CNVAD-2021-4-INSSJP-
+SGA#INSSJP (FARMASUR); CNVAD-2021-5-INSSJP-SGA#INSSJP (FEFARA).
+Que, finalizado el re procesamiento indicado por RESOL-2021-377-INSSJP-DE#INSSJP, algunas de las 
+presentaciones realizadas por las farmacias para el período subsiguiente, abril-julio 2021, continuaron con una 
+importante cantidad de comprobantes o procesables por no cumplir con los requisitos mínimos establecidos para su 
+control y validación.  
+Que, ante esta situación, se procedió a suspender la aplicación de los débitos por código 100 del período citado ut 
+supra para las cinco entidades farmacéuticas y se llevó a cabo un re procesamiento manual para los comprobantes 
+correspondientes.
+Que el procesamiento manual de comprobantes implicó la realización de tareas extraordinarias por parte de las 
+empresas digitalizadoras, por fuera de los procesos habituales, para revisar cada una de la documentación 
+presentada al cobro por las farmacias durante el período analizado. Esto en contexto de medidas restrictivas 
+impuestas por la pandemia de COVID-19 que implicaron intermitencias y dilación en el citado proceso.  Que la situación descripta implicó que el proceso de liquidación de los débitos finales se extienda en el tiempo y los 
+resultados finales convalidados por el Instituto hayan estado disponibles el 29 de noviembre de 2023.
+Que, es dable destacar que la Gerencia de Medicamentos tomo intervención de su competencia y valorizó los 
+débitos aplicables tal y como consta en los IF-2023-130361909-INSSJP-GM#INSSJP, IF-2023-146496152-INSSJP-
+GM#INSSJP y NO-2024-76153282-INSSJP-GM#INSSJP y , cuya sumatoria resulta de PESOS DOSCIENTOS 
+CINCUENTA MILLONES CIENTO SESENTA UN MIL QUINIENTOS TREINTA Y SIETE CON 27/100 ($ 
+250.161.537,27), distribuidos de la siguiente manera: PESOS CIENTO OCHENTA Y CINCO MILLONES 
+DOSCIENTOS SESENTA Y NUEVE MIL CIENTO OCHENTA Y OCHO CON 17/100 ($ 185.269.188,17) para 
+la COFA; PESOS CUARENTA Y CINCO MILLONES SEISCIENTOS SESENTA Y NUEVE MIL 
+TRESCIENTOS SESENTA Y SEIS CON 85/100 ($ 45.669.366,85) para FACAF; PESOS CUATRO MILLONES 
+SETECIENTOS DIECINUEVE MIL DOSCIENTOS SESENTA Y UNO CON 16/100 ($ 4.719.261,16) para 
+FEFARA; PESOS NUEVE MILLONES TRESCIENTOS VEINTIDÓS MIL DOSCIENTOS OCHO CON 45/100 
+($ 9.322.208,45) para AFMSRA y PESOS CINCO MILLONES CIENTO OCHENTA Y UN ML QUINIENTOS 
+DOCE CON 64/100 ($ 5.181.512,64) para FARMASUR.
+Que, dados los montos que surgen del reproceso efectuado y que los débitos a aplicarse corresponden a 30 
+quincenas, las Entidades Farmacéuticas en conversaciones mantenidas han solicitado al INSTITUTO que se 
+contemple la aplicación de los débitos en un esquema de cuotas.
+Que, vista la solicitud mencionada ut supra y, en post de la dispensa de un trato recíproco fundado en la buena fe y 
+en la plena cooperación, que se viene llevando a cabo, para el logro de los objetivos y finalidades convenidas, las 
+partes acordaron esquema de siete cuotas para su efectivización atento a la vigencia del CONVENIO DE 
+DISPENSA DE MEDICAMENTOS AMBULATORIOS, CLOZAPINAS Y DIABETES cuya renovación no opera 
+automáticamente.
+Que, la GERENCIA DE MEDICAMENTOS, la GERENCIA ECONÓMICO FINANCIERA, la GERENCIA DE 
+ASUNTOS JURÍDICOS y la SINDICATURA GENERAL del INSTITUTO han tomado la intervención de su 
+competencia.
+Por ello, y en uso de las facultades conferidas por el artículo 6º de la Ley Nº 19.032 y sus modificatorias y por los 
+Artículos 2º y 3º del Decreto PEN Nº 02/04, el Artículo 1º del Decreto DECTO-2023-63-APN-PTE,
+ 
+EL DIRECTOR EJECUTIVO
+DEL INSTITUTO NACIONAL DE SERVICIOS SOCIALES
+PARA JUBILADOS Y PENSIONADOS
+RESUELVE:
+ 
+ARTÍCULO 1°. -   Aprobar el modelo de CONVENIO DE APLICACIÓN DE DÉBITOS a ser suscripto entre el 
+INSTITUTO NACIONAL DE SERVICIOS SOCIALES PARA JUBILADOS Y PENSIONADOS y la 
+“CONFEDERACIÓN FARMACÉUTICA ARGENTINA (COFA)”, que como Anexo I (IF-2024-76196955-INSSJP-DE#INSSJP) forma parte integrante de la presente.
+ARTÍCULO 2°. -  Aprobar el modelo de CONVENIO DE APLICACIÓN DE DÉBITOS a ser suscripto entre el 
+INSTITUTO NACIONAL DE SERVICIOS SOCIALES PARA JUBILADOS Y PENSIONADOS y la 
+“FEDERACIÓN ARGENTINA DE CÁMARAS DE FARMACIAS (FACAF)”, que como Anexo II (IF-2024-
+76196970-INSSJP-DE#INSSJP) forma parte integrante de la presente.
+ARTÍCULO 3°. -  Aprobar el modelo de CONVENIO DE APLICACIÓN DE DÉBITOS a ser suscripto entre el 
+INSTITUTO NACIONAL DE SERVICIOS SOCIALES PARA JUBILADOS Y PENSIONADOS y la 
+“FEDERACIÓN FARMACÉUTICA ARGENTINA (FEFARA)”, que como Anexo III (IF-2024-76196923-
+INSSJP-DE#INSSJP) forma parte integrante de la presente.
+ARTÍCULO 4°. -  Aprobar el modelo de CONVENIO DE APLICACIÓN DE DÉBITOS a ser suscripto entre el 
+INSTITUTO NACIONAL DE SERVICIOS SOCIALES PARA JUBILADOS Y PENSIONADOS y la 
+“ASOCIACIÓN DE FARMACIAS MUTUALES Y SINDICALES DE LA REPÚBLICA ARGENTINA 
+(AFMSRA)”, que como Anexo IV (IF-2024-76196894-INSSJP-DE#INSSJP) forma parte integrante de la presente.
+ARTÍCULO 5°. -  Aprobar el modelo de CONVENIO DE APLICACIÓN DE DÉBITOS a ser suscripto entre el 
+INSTITUTO NACIONAL DE SERVICIOS SOCIALES PARA JUBILADOS Y PENSIONADOS y la 
+“ASOCIACIÓN MUTUAL FARMASUR (FARMASUR)”, que como Anexo V (IF-2024-76196873-INSSJP-
+DE#INSSJP) forma parte integrante de la presente.
+ARTÍCULO 6°. -  Registrar, comunicar y publicar en el Boletín del Instituto. Cumplido, proceder a su archivo.
+ 
+  
+ 
+ 
+ 
+Instituto Nacional de Servicios Sociales para Jubilados y Pensionados
+AÑO DE LA DEFENSA DE LA VIDA, LA LIBERTAD Y LA PROPIEDAD
+ 
+Anexo
+ 
+Número: 
+ 
+ 
+Referencia:  EX-2024-75035373- -INSSJP-GM#INSSJP - ANEXO I - CONVENIO DE APLICACIÓN DE 
+DÉBITOS entre el INSTITUTO NACIONAL DE SERVICIOS SOCIALES PARA JUBILADOS Y 
+PENSIONADOS Y la CONFEDERACIÓN FARMACÉUTICA (COFA)
+ 
+CONVENIO DE APLICACIÓN DE DÉBITOS
+entre el INSTITUTO NACIONAL DE SERVICIOS SOCIALES
+PARA JUBILADOS Y PENSIONADOS Y la CONFEDERACIÓN FARMACÉUTICA ARGENTINA 
+(COFA)
+ 
+De una parte,
+“INSTITUTO NACIONAL DE SERVICIOS SOCIALES PARA JUBILADOS Y PENSIONADOS”, representado 
+por su Director Ejecutivo, Dr. Esteban LEGUIZAMO, D.N.I. 13.907.258, en adelante “el INSTITUTO”,
+Y, de otra parte,
+la “CONFEDERACIÓN FARMACÉUTICA ARGENTINA (COFA)”, representada en este acto 
+por__________________, D.N.I.________________ en su calidad de ______________________, quien declara 
+bajo juramento que los poderes se encuentran vigentes y que actúa en representación de sus farmacias asociadas.
+El INSTITUTO y la COFA podrán ser denominados en adelante conjunto como las “PARTES”.
+Exponen,
+Que conforme a los lineamientos del CONVENIO MARCO DE ADHESIÓN (2018), por Resolución N° RESOL-
+2018-914-INSSJP-DE#INSSJP, se aprobó el modelo de CONVENIO DE DISPENSA DE MEDICAMENTOS 
+AMBULATORIOS, CLOZAPINAS Y DIABETES suscripto entre el INSTITUTO y COFA que tiene por objeto la 
+dispensa de medicamentos de las farmacias asociadas/adheridas a los afiliados del INSTITUTO en todo el país. -Que el referido convenio viene siendo objeto de sucesivas prórrogas, las últimas de ellas con vigencia hasta el 
+30.11.2024 convalidada por RESOL-2024-943-INSSJP-DE#INSSJP.
+Que en el contexto de emergencia sanitaria establecida por Ley N° 27.541 y con el fin de reducir la circulación de 
+las personas afiliadas, mediante RESOL-2020-1110-INSSJP-DE#INSSJP de fecha 28 de marzo de 2020, el Instituto 
+estableció la prescripción electrónica de medicamentos mediante el uso del Sistema de Receta Electrónica, como 
+condición suficiente para el acceso de las personas afiliadas a la dispensa de medicamentos en farmacia, con 
+carácter excepcional y transitorio.
+Que, en el marco de la citada Resolución, el Anexo I reglamentó las condiciones para la validación y control de la 
+dispensa, instruyendo a la farmacia a la emisión de la OPF  comprobante de entrega, firmado de puño y letra por 
+parte de la persona que retira, con el agregado de el/los troqueles de medicamentos dispensados.
+Que, asimismo, resulta oportuno señalar que con el propósito de asegurar la continuidad de la dispensa de 
+medicamentos a los afiliados del INSTITUTO y de los pagos correspondientes, mediante RESOL-2020-1205-
+INSSJP-DE#INSSJP, suscripta el 8 de abril de 2020, se aprobó el modelo de acta acuerdo, que fuera suscripto entre 
+las Entidades Farmacéuticas y este INSTITUTO, mediante la cual se resolvió disponer la suspensión transitoria de 
+la logística del envío de las recetas, toda vez que ello resultaba de imposible cumplimiento dada las circunstancias 
+de aislamiento obligatorio, lo cual impidió que la digitalización de las recetas, su procesamiento y análisis de las 
+dispensas se realizara en forma oportuna.
+Que, la implementación del procedimiento indicado ocasionó, en algunos casos, que la rendición de las dispensas 
+por parte de las farmacias no fuera uniforme, generando dificultades en el control de las mismas, razón por la cual, 
+el resultado de la auditoría de las dispensas, originó un incremento en la configuración de los débitos, en particular 
+el Código de conflicto 100 (Receta no presentada) que, en algunos casos, alcanzó la totalidad de la facturación 
+mensual de una farmacia.
+Que, atento a lo expuesto, se advirtió que la documentación/recetas enviadas por las farmacias no cumplían con los 
+requisitos mínimos para su digitalización y requería un trabajo adicional para cumplir con los procesos de 
+validación, por lo cual, mediante RESOL-2021-377-INSSJP-DE#INSSJP, se estableció la realización de un 
+mecanismo extraordinario para el re procesamiento de forma manual de la documentación presentada por las 
+farmacias por la dispensa de medicamentos del período que abarca los meses de mayo 2020 a marzo 2021, 
+identificadas con el Código de conflicto 100 (Receta no presentada).
+Que, asimismo, el art. 4 suspendió la aplicación de los débitos correspondientes al Código de conflicto 100 (Receta 
+no presentada) del período comprendido entre el mes de mayo de 2020 hasta el mes de marzo de 2021, hasta tanto 
+finalice la realización de las tareas de revisión indicadas y el art. 7° estableció que el costo del re procesamiento 
+sería absorbido por las respectivas entidades farmacéuticas.
+Que, en este sentido y en cumplimiento del art. 8° se firmaron convenios particulares en donde cada Entidad asumió 
+el costo de reprocesamiento, a saber: CNVAD-2021-1-INSSJP-SGA#INSSJP (COFA); CNVAD-2021-2-INSSJP-
+SGA#INSSJP (FACAF); CNVAD-2021-3-INSSJP-SGA#INSSJP (AFMSRA); CNVAD-2021-4-INSSJP-
+SGA#INSSJP (FARMASUR); CNVAD-2021-5-INSSJP-SGA#INSSJP (FEFARA).
+Que, finalizado el re procesamiento indicado por RESOL-2021-377-INSSJP-DE#INSSJP, algunas de las 
+presentaciones realizadas por las farmacias para el período subsiguiente, abril-julio 2021, continuaron con una 
+importante cantidad de comprobantes o procesables por no cumplir con los requisitos mínimos establecidos para su 
+control y validación. Que, ante esta situación, se procedió a suspender la aplicación de los débitos por código 100 del período citado ut 
+supra para las cinco entidades farmacéuticas y se llevó a cabo un re procesamiento manual para los comprobantes 
+correspondientes.
+Que el procesamiento manual de comprobantes implicó la realización de tareas extraordinarias por parte de las 
+empresas digitalizadoras, por fuera de los procesos habituales, para revisar cada una de la documentación 
+presentada al cobro por las farmacias durante el período analizado. Esto en contexto de medidas restrictivas 
+impuestas por la pandemia de COVID-19 que implicaron intermitencias y dilación en el citado proceso. 
+Que la situación descripta implicó que el proceso de liquidación de los débitos finales se extienda en el tiempo y los 
+resultados finales convalidados por el Instituto hayan estado disponibles el 29 de noviembre de 2023.
+Que, es dable destacar que la Gerencia de Medicamentos tomo intervención de su competencia y valorizó los 
+débitos aplicables tal y como consta en los IF-2023-130361909-INSSJP-GM#INSSJP, IF-2023-146496152-INSSJP-
+GM#INSSJP y NO-2024-76153282-INSSJP-GM#INSSJP, cuya sumatoria resulta en PESOS CIENTO OCHENTA 
+Y CINCO MILLONES DOSCIENTOS SESENTA Y NUEVE MIL CIENTO OCHENTA Y OCHO CON 17/100 
+($185.269.188,17) para COFA.
+Que, dados los montos que surgen del reproceso efectuado y que los débitos a aplicarse corresponden a 30 
+quincenas, las Entidades Farmacéuticas en conversaciones mantenidas han solicitado al INSTITUTO que se 
+contemple la aplicación de los débitos en un esquema de cuotas.
+Que, vista la solicitud mencionada ut supra y, en post de la dispensa de un trato recíproco fundado en la buena fe y 
+en la plena cooperación, que se viene llevando a cabo, para el logro de los objetivos y finalidades convenidas, las 
+partes acordaron esquema de siete cuotas para su efectivización atento a la vigencia del CONVENIO DE 
+DISPENSA DE MEDICAMENTOS AMBULATORIOS, CLOZAPINAS Y DIABETES cuya renovación no opera 
+automáticamente.
+En tal sentido, se sujeta el presente CONVENIO a las siguientes cláusulas:
+CLÁUSULA PRIMERA:  Las PARTES convienen acordar el presente plan de aplicación de débitos 
+correspondientes al período comprendido entre el mes de mayo de 2020 hasta el mes de julio de 2021 (inclusive) 
+con código de conflicto 100 (Receta no presentada), que una vez procesados manualmente arrojaron confirmación 
+de Código 100 u otros códigos de conflicto producto de la auditoría
+CLÁUSULA SEGUNDA:  Las PARTES acuerdan la aplicación de los débitos indicados en la CLAUSULA 
+PRIMERA en SIETE cuotas mensuales iguales y consecutivas de PESOS VEINTISEIS MILLONES 
+CUATROCIENTOS SESENTA Y SIETE MIL VEINTISES CON 88/100 ($ 26.467.026,88) a ser aplicadas a partir 
+del mes de julio 2024 sobre el primer pago mensual del saldo de la segunda quincena que corresponda por 
+cronograma de pagos y así sucesivamente hasta la efectivización de la última cuota.
+CLÁUSULA TERCERA:  Las PARTES dejan expresamente consensuado que la totalidad de los débitos por receta 
+no presentada (conflicto 100) y otros códigos aplicables en el marco del CONVENIO DE DISPENSA DE 
+MEDICAMENTOS AMBULATORIOS, CLOZAPINAS Y DIABETES, que surgen de las recetas reprocesadas 
+manualmente para el período citado en la CLAUSULA PRIMERA que se encuentran detalladas en los archivos 
+listados en el ANEXO I que han sido oportunamente puestos a disposición de la COFA y cuya valorización 
+asciende a PESOS CIENTO OCHENTA Y CINCO MILLONES DOSCIENTOS SESENTA Y NUEVE MIL 
+CIENTO OCHENTA Y OCHO CON 17/100 ($185.269.188,17), no serán objeto de observaciones, ni revisiones futuras quedando firmes y aceptados por ambas partes con la suscripción del presente.
+En prueba de total conformidad, se firman dos ejemplares de un mismo tenor y a un solo efecto, en la Ciudad de 
+Buenos Aires a los    días del mes de JULIO del año 2024.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Anexo I
+Archivos oportunamente puestos a disposición de la COFA, con el detalle 
+de las recetas cuyos débitos son objeto de la presente y su valorización 
+asciende a PESOS CIENTO OCHENTA Y CINCO MILLONES 
+DOSCIENTOS SESENTA Y NUEVE MIL CIENTO OCHENTA Y 
+OCHO CON 17/100 ($185.269.188,17).
+Período Archivo Entidad
+20200501 20200501_liq_214_Ajuste_Complementaria.txt COFA
+20200502 20200502_liq_214_Ajuste_Complementaria.txt COFA
+20200601 20200601_liq_214_Ajuste_Complementaria.txt COFA
+20200602 20200602_liq_214_Ajuste_Complementaria.txt COFA
+20200701 20200701_liq_214_Ajuste_Complementaria.txt COFA
+20200702 20200702_liq_214_Ajuste_Complementaria.txt COFA
+20200801 20200801_liq_214_Ajuste_Complementaria.txt COFA
+20200802 20200802_liq_214_Ajuste_Complementaria.txt COFA
+20200901 20200901_liq_214_Ajuste_Complementaria.txt COFA
+20200902 20200902_liq_214_Ajuste_Complementaria.txt COFA
+20201001 20201001_liq_214_Ajuste_Complementaria.txt COFA
+20201002 20201002_liq_214_Ajuste_Complementaria.txt COFA
+20201101 20201101_liq_214_Ajuste_Complementaria.txt COFA20201102 20201102_liq_214_Ajuste_Complementaria.txt COFA
+20201201 20201201_liq_PAMI_NoPresentadas_Definitiva.txt COFA
+20201202 20201202_liq_PAMI_NoPresentadas_Definitiva.txt COFA
+20210101 20210101_liq_214_Ajuste_Complementaria.txt COFA
+20210102 20210102_liq_214_Ajuste_Complementaria.txt COFA
+20210201 20210201_liq_214_Ajuste_Complementaria.txt COFA
+20210202 20210202_liq_214_Ajuste_Complementaria.txt COFA
+20210301 20210301_liq_214_Ajuste_Complementaria.txt COFA
+20210302 20210302_liq_214_Ajuste_Complementaria.txt COFA
+20210401 20210401_liq_PAMI_Ajustes_Complementaria.txt COFA
+20210402 20210402_liq_PAMI_Ajustes_Complementaria.txt COFA
+20210501 20210501_liq_PAMI_Ajustes_Complementaria.txt COFA
+20210502 20210502_liq_PAMI_Ajustes_Complementaria.txt COFA
+20210601 20210601_liq_PAMI_Ajustes_Complementaria.txt COFA
+20210602 20210602_liq_PAMI_Ajustes_Complementaria.txt COFA
+20210701 20210701_liq_PAMI_Ajustes_Complementaria.txt COFA
+20210701 20210701_liq_PAMI_Ajustes_Complementaria.txt COFA
+   
+ 
+ 
+ 
+Instituto Nacional de Servicios Sociales para Jubilados y Pensionados
+AÑO DE LA DEFENSA DE LA VIDA, LA LIBERTAD Y LA PROPIEDAD
+ 
+Anexo
+ 
+Número: 
+ 
+ 
+Referencia:  C/ EX-2021-38673143- -INSSJP-GPM#INSSJP Anexo II Resolución de ampliación y renovación en 
+forma extraordinaria de la Licitación Pública Nº 76/21 - Provisión de insumos quirúrgicos de urología.
+ 
+ANEXO II
+Período: desde 28/06/2024 hasta el 27/10/2024, o hasta tanto se adjudique el nuevo procedimiento de selección, 
+lo que ocurra primero.
+PROMEDON S.A. (C.U.I.T. 30-61978063-5)
+Renglón DetalleUnidad de 
+medidaCantidad 
+hastaPrecio unitario Monto total hasta
+1 Sling urinario femenino unidades 439 $168.080,60 $73.787.383,40
+2 Sling urinario masculino unidades 3 $1.512.975,80 $4.538.927,40
+3Kits para reparación prolapso 
+anterior y posteriorunidades 257 $397.768,90 $102.226.607,30
+8 Prótesis de pene maleable unidades 5 $883.050,53 $4.415.252,65
+EL MONTO DE RENOVACIÓN EN FORMA EXTRAORDINARIA A LA FIRMA 
+PROMEDON S.A. ASCIENDE A LA SUMA DE HASTA PESOS CIENTO 
+OCHENTA Y CUATRO MILLONES NOVECIENTOS SESENTA Y OCHO MIL $184.968.170,75CIENTO SETENTA CON 75/100.
+BARRACA ACHER ARGENTINA S.R.L. (C.U.I.T. 30-51612669-4)
+Renglón DetalleUnidad de 
+medidaCantidad 
+hastaPrecio unitario Monto total hasta
+5 Stent uretral metálico unidades 26 $5.256.600,49 $136.671.612,74
+7 Esfínter urinario artificial unidades 20 $24.189.618,18 $483.792.363,60
+9 Set de nefrostomía unidades 100 $736.273,00 $73.627.300,00
+10Stent urológico metálico 
+autoexpandibleunidades 11 $7.315.824,63 $80.474.070,93
+EL MONTO DE RENOVACIÓN EN FORMA EXTRAORDINARIA A LA FIRMA 
+BARRACA ACHER ARGENTINA S.R.L. ASCIENDE A LA SUMA DE HASTA 
+PESOS SETECIENTOS SETENTA Y CUATRO MILLONES 
+QUINIENTOS SESENTA Y CINCO MIL TRESCIENTOS CUARENTA Y SIETE 
+CON 27/100.$774.565.347,27
+OSCAR ALEJANDRO REVELLO (C.U.I.T. 23-18606781-9)
+Renglón DetalleUnidad de 
+medidaCantidad 
+hastaPrecio unitario Monto total hasta
+6Sustancia de abultamiento 
+uretralunidades 34 $9.948.977,50 $338.265.235,00
+11Kit de 12 derivaciones 
+descartables para sistema de 
+neuromodulación tibial.unidades 5 $5.166.365,58 $25.831.827,90
+EL MONTO DE RENOVACIÓN EN FORMA EXTRAORDINARIA A LA FIRMA 
+OSCAR ALEJANDRO REVELLO ASCIENDE A LA SUMA DE HASTA PESOS 
+TRESCIENTOS SESENTA Y CUATRO MILLONES NOVENTA Y SIETE MIL 
+SESENTA Y DOS CON 90/100.$364.097.062,90EL MONTO TOTAL DE LA PRESENTE RENOVACIÓN EN FORMA 
+EXTRAORDINARIA, EN EL MARCO DE LA LICITACIÓN PÚBLICA Nº 76/21, 
+ASCIENDE A LA SUMA DE HASTA PESOS MIL TRESCIENTOS VEINTITRÉS 
+MILLONES SEISCIENTOS TREINTA MIL QUINIENTOS OCHENTA CON 92/100.$1.323.630.580,92
+ 
+  
+ 
+ 
+ 
+Instituto Nacional de Servicios Sociales para Jubilados y Pensionados
+AÑO DE LA DEFENSA DE LA VIDA, LA LIBERTAD Y LA PROPIEDAD
+ 
+Anexo
+ 
+Número: 
+ 
+ 
+Referencia:  EX-2024-75035373- -INSSJP-GM#INSSJP - ANEXO III - CONVENIO DE APLICACIÓN DE 
+DÉBITOS entre el INSTITUTO NACIONAL DE SERVICIOS SOCIALES PARA JUBILADOS Y 
+PENSIONADOS Y la FEDERACIÓN FARMACÉUTICA (FEFARA)
+ 
+CONVENIO DE APLICACIÓN DE DÉBITOS
+entre el INSTITUTO NACIONAL DE SERVICIOS SOCIALES
+PARA JUBILADOS Y PENSIONADOS Y la FEDERACIÓN FARMACÉUTICA ARGENTINA (FEFARA)
+ 
+De una parte,
+“INSTITUTO NACIONAL DE SERVICIOS SOCIALES PARA JUBILADOS Y PENSIONADOS”, representado 
+por su Director Ejecutivo, Dr. Esteban LEGUIZAMO, D.N.I. 13.907.258, en adelante “el INSTITUTO”,
+ Y, de otra parte,
+la “FEDERACIÓN FARMACÉUTICA ARGENTINA (FEFARA)”, representada en este acto 
+por__________________, D.N.I.________________ en su calidad de ______________________, quien declara 
+bajo juramento que los poderes se encuentran vigentes y que actúa en representación de sus farmacias asociadas.
+El INSTITUTO y FEFARA podrán ser denominados en adelante conjunto como las “PARTES”.
+Exponen,
+Que conforme a los lineamientos del CONVENIO MARCO DE ADHESIÓN (2018), por Resolución N° RESOL-
+2018-897-INSSJP-DE#INSSJP, se aprobó el modelo de CONVENIO DE DISPENSA DE MEDICAMENTOS 
+AMBULATORIOS, CLOZAPINAS Y DIABETES suscripto entre el INSTITUTO y FEFARA que tiene por objeto 
+la dispensa de medicamentos de las farmacias asociadas/adheridas a los afiliados del INSTITUTO en todo el país. -
+Que el referido convenio viene siendo objeto de sucesivas prórrogas, las últimas de ellas con vigencia hasta el 30.11.2024 convalidada por RESOL-2024-943-INSSJP-DE#INSSJP.
+Que en el contexto de emergencia sanitaria establecida por Ley N° 27.541 y con el fin de reducir la circulación de 
+las personas afiliadas, mediante RESOL-2020-1110-INSSJP-DE#INSSJP de fecha 28 de marzo de 2020, el Instituto 
+estableció la prescripción electrónica de medicamentos mediante el uso del Sistema de Receta Electrónica, como 
+condición suficiente para el acceso de las personas afiliadas a la dispensa de medicamentos en farmacia, con 
+carácter excepcional y transitorio.
+Que, en el marco de la citada Resolución, el Anexo I reglamentó las condiciones para la validación y control de la 
+dispensa, instruyendo a la farmacia a la emisión del ticket comprobante de entrega, firmado de puño y letra por 
+parte de la persona que retira, con el agregado de el/los troqueles de medicamentos dispensados.
+Que, asimismo, resulta oportuno señalar que con el propósito de asegurar la continuidad de la dispensa de 
+medicamentos a los afiliados del INSTITUTO y de los pagos correspondientes, mediante RESOL-2020-1205-
+INSSJP-DE#INSSJP, suscripta el 8 de abril de 2020, se aprobó el modelo de acta acuerdo, que fuera suscripto entre 
+las Entidades Farmacéuticas y este INSTITUTO, mediante la cual se resolvió disponer la suspensión transitoria de 
+la logística del envío de las recetas, toda vez que ello resultaba de imposible cumplimiento dada las circunstancias 
+de aislamiento obligatorio, lo cual impidió que la digitalización de las recetas, su procesamiento y análisis de las 
+dispensas se realizara en forma oportuna.
+Que, la implementación del procedimiento indicado ocasionó, en algunos casos, que la rendición de las dispensas 
+por parte de las farmacias no fuera uniforme, generando dificultades en el control de las mismas, razón por la cual, 
+el resultado de la auditoría de las dispensas, originó un incremento en la configuración de los débitos, en particular 
+el Código de conflicto 100 (Receta no presentada) que, en algunos casos, alcanzó la totalidad de la facturación 
+mensual de una farmacia.
+Que, atento a lo expuesto, se advirtió que la documentación/recetas enviadas por las farmacias no cumplían con los 
+requisitos mínimos para su digitalización y requería un trabajo adicional para cumplir con los procesos de 
+validación, por lo cual, mediante RESOL-2021-377-INSSJP-DE#INSSJP, se estableció la realización de un 
+mecanismo extraordinario para el re procesamiento de forma manual de la documentación presentada por las 
+farmacias por la dispensa de medicamentos del período que abarca los meses de mayo 2020 a marzo 2021, 
+identificadas con el Código de conflicto 100 (Receta no presentada).
+Que, asimismo, el art. 4 suspendió la aplicación de los débitos correspondientes al Código de conflicto 100 (Receta 
+no presentada) del período comprendido entre el mes de mayo de 2020 hasta el mes de marzo de 2021, hasta tanto 
+finalice la realización de las tareas de revisión indicadas y el art. 7° estableció que el costo del re procesamiento 
+sería absorbido por las respectivas entidades farmacéuticas.
+Que, en este sentido y en cumplimiento del art. 8° se firmaron convenios particulares en donde cada Entidad asumió 
+el costo de reprocesamiento, a saber: CNVAD-2021-1-INSSJP-SGA#INSSJP (COFA); CNVAD-2021-2-INSSJP-
+SGA#INSSJP (FACAF); CNVAD-2021-3-INSSJP-SGA#INSSJP (AFMSRA); CNVAD-2021-4-INSSJP-
+SGA#INSSJP (FARMASUR); CNVAD-2021-5-INSSJP-SGA#INSSJP (FEFARA).
+Que, finalizado el re procesamiento indicado por RESOL-2021-377-INSSJP-DE#INSSJP, algunas de las 
+presentaciones realizadas por las farmacias para el período subsiguiente, abril-julio 2021, continuaron con una 
+importante cantidad de comprobantes o procesables por no cumplir con los requisitos mínimos establecidos para su 
+control y validación. Que, ante esta situación, se procedió a suspender la aplicación de los débitos por código 100 del período citado ut 
+supra para las cinco entidades farmacéuticas y se llevó a cabo un re procesamiento manual para los comprobantes 
+correspondientes.
+Que el procesamiento manual de comprobantes implicó la realización de tareas extraordinarias por parte de las 
+empresas digitalizadoras, por fuera de los procesos habituales, para revisar cada una de la documentación 
+presentada al cobro por las farmacias durante el período analizado. Esto en contexto de medidas restrictivas 
+impuestas por la pandemia de COVID-19 que implicaron intermitencias y dilación en el citado proceso. 
+Que la situación descripta implicó que el proceso de liquidación de los débitos finales se extienda en el tiempo y los 
+resultados finales convalidados por el Instituto hayan estado disponibles el 29 de noviembre de 2023.
+Que, es dable destacar que la Gerencia de Medicamentos tomo intervención de su competencia y valorizó los 
+débitos aplicables tal y como consta en los IF-2023-130361909-INSSJP-GM#INSSJP, IF-2023-146496152-INSSJP-
+GM#INSSJP y NO-2024-76153282-INSSJP-GM#INSSJP, cuya sumatoria resulta en PESOS CUATRO 
+MILLONES SETESCIENTOS DIECINUEVE MIL DOSCIENTOS SESENTA Y UNO CON 16/100 ($ 
+4.719.261,16) para FEFARA.
+Que, dados los montos que surgen del reproceso efectuado y que los débitos a aplicarse corresponden a 30 
+quincenas, las Entidades Farmacéuticas en conversaciones mantenidas han solicitado al INSTITUTO que se 
+contemple la aplicación de los débitos en un esquema de cuotas.
+Que, vista la solicitud mencionada ut supra y, en post de la dispensa de un trato recíproco fundado en la buena fe y 
+en la plena cooperación, que se viene llevando a cabo, para el logro de los objetivos y finalidades convenidas, las 
+partes acordaron esquema de siete cuotas para su efectivización atento a la vigencia del CONVENIO DE 
+DISPENSA DE MEDICAMENTOS AMBULATORIOS, CLOZAPINAS Y DIABETES cuya renovación no opera 
+automáticamente.
+En tal sentido, se sujeta el presente CONVENIO a las siguientes cláusulas:
+CLÁUSULA PRIMERA:  Las PARTES convienen acordar el presente plan de aplicación de débitos 
+correspondientes al período comprendido entre el mes de mayo de 2020 hasta el mes de julio de 2021 (inclusive) 
+con código de conflicto 100 (Receta no presentada), que una vez procesados manualmente arrojaron confirmación 
+de Código 100 u otros códigos de conflicto producto de la auditoría.
+CLÁUSULA SEGUNDA:  Las PARTES acuerdan la aplicación de los débitos indicados en la CLAUSULA 
+PRIMERA en SIETE cuotas mensuales iguales y consecutivas de PESOS SEISCIENTOS SETENTA Y CUATRO 
+MIL CIENTO OCHENTA CON 17/100 ($ 674.180,17) a ser aplicadas a partir del mes de julio 2024 sobre el 
+primer pago mensual del saldo de la segunda quincena que corresponda por cronograma de pagos y así 
+sucesivamente hasta la efectivización de la última cuota.
+CLÁUSULA TERCERA:  Las PARTES dejan expresamente consensuado que la totalidad de los débitos por receta 
+no presentada (conflicto 100) y otros códigos aplicables en el marco del CONVENIO DE DISPENSA DE 
+MEDICAMENTOS AMBULATORIOS, CLOZAPINAS Y DIABETES, que surgen de las recetas reprocesadas 
+manualmente para el período citado en la CLAUSULA PRIMERA que se encuentran detalladas en los archivos 
+listados en el ANEXO I que han sido oportunamente puestos a disposición de FEFARA y cuya valorización 
+asciende a PESOS CUATRO MILLONES SETESCIENTOS DIECINUEVE MIL DOSCIENTOS SESENTA Y 
+UNO CON 16/100 ($ 4.719.261,16), no serán objeto de observaciones, ni revisiones futuras quedando firmes y aceptados por ambas partes con la suscripción del presente.
+En prueba de total conformidad, se firman dos ejemplares de un mismo tenor y a un solo efecto, en la Ciudad de 
+Buenos Aires a los    días del mes de JULIO del año 2024.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+Anexo I
+Archivos oportunamente puestos a disposición de FEFARA, con el detalle de 
+las recetas cuyos débitos son objeto de la presente y su valorización asciende a 
+PESOS CUATRO MILLONES SETECIENTOS DIECINUEVE MIL 
+DOSCIENTOS SESENTA Y UNO CON 16/100 ($ 4.719.261,16)
+Período Archivo Entidad
+20200501 20200501_liq_186_Ajuste_Complementaria.txt FEFARA
+20200502 20200502_liq_186_Ajuste_Complementaria.txt FEFARA
+20200601 20200601_liq_186_Ajuste_Complementaria.txt FEFARA
+20200602 20200602_liq_186_Ajuste_Complementaria.txt FEFARA
+20200701 20200701_liq_186_Ajuste_Complementaria.txt FEFARA
+20200702 20200702_liq_186_Ajuste_Complementaria.txt FEFARA
+20200801 20200801_liq_186_Ajuste_Complementaria.txt FEFARA
+20200802 20200802_liq_186_Ajuste_Complementaria.txt FEFARA
+20200901 20200901_liq_186_Ajuste_Complementaria.txt FEFARA
+20200902 20200902_liq_186_Ajuste_Complementaria.txt FEFARA
+20201001 20201001_liq_186_Ajuste_Complementaria.txt FEFARA20201002 20201002_liq_186_Ajuste_Complementaria.txt FEFARA
+20201101 20201101_liq_186_Ajuste_Complementaria.txt FEFARA
+20201102 20201102_liq_186_Ajuste_Complementaria.txt FEFARA
+20201201 20201201_liq_186_Ajuste_Complementaria.txt FEFARA
+20201202 20201202_liq_186_Ajuste_Complementaria.txt FEFARA
+20210101 20210101_liq_186_Ajuste_Complementaria.txt FEFARA
+20210102 20210102_liq_186_Ajuste_Complementaria.txt FEFARA
+20210201 20210201_liq_186_Ajuste_Complementaria.txt FEFARA
+20210202 20210202_liq_186_Ajuste_Complementaria.txt FEFARA
+20210301 20210301_liq_186_Ajuste_Complementaria.txt FEFARA
+20210302 20210302_liq_186_Ajuste_Complementaria.txt FEFARA
+20210401 20210401_liq_186_Ajuste.txt FEFARA
+20210402 20210402_liq_186_Ajuste.txt FEFARA
+20210501 20210501_liq_186_Ajuste.txt FEFARA
+20210502 20210502_liq_186_Ajuste.txt FEFARA
+20210601 20210601_liq_186_Ajuste.txt FEFARA
+20210602 20210602_liq_186_Ajuste.txt FEFARA20210701 20210701_liq_186_Ajuste.txt FEFARA
+20210702 20210702_liq_186_Ajuste.txt FEFARA
+ 
+  
+ 
+ 
+ 
+Instituto Nacional de Servicios Sociales para Jubilados y Pensionados
+AÑO DE LA DEFENSA DE LA VIDA, LA LIBERTAD Y LA PROPIEDAD
+ 
+Anexo
+ 
+Número: 
+ 
+ 
+Referencia:  EX-2024-75035373- -INSSJP-GM#INSSJP - ANEXO IV - CONVENIO DE APLICACIÓN DE 
+DÉBITOS entre el INSTITUTO NACIONAL DE SERVICIOS SOCIALES PARA JUBILADOS Y 
+PENSIONADOS Y la FARMACIAS MUTUALES y SINDICALES de la REPÚBLICA ARGENTINA (AFMSRA)
+ 
+CONVENIO DE APLICACIÓN DE DÉBITOS
+entre el INSTITUTO NACIONAL DE SERVICIOS SOCIALES
+PARA JUBILADOS Y PENSIONADOS Y la ASOCIACIÓN DE FARMACIAS MUTUALES y 
+SINDICALES de la REPÚBLICA ARGENTINA (AFMSRA)
+De una parte,
+“INSTITUTO NACIONAL DE SERVICIOS SOCIALES PARA JUBILADOS Y PENSIONADOS”, representado 
+por su Director Ejecutivo, Dr. Esteban LEGUIZAMO, D.N.I. 13.907.258, en adelante “el INSTITUTO”,
+ Y, de otra parte,
+la “ASOCIACIÓN DE FARMACIAS MUTUALES y SINDICALES de la REPÚBLICA ARGENTINA 
+(AFMSRA)”, representada en este acto por__________________, D.N.I.________________ en su calidad de 
+______________________, quien declara bajo juramento que los poderes se encuentran vigentes y que actúa en 
+representación de sus farmacias asociadas.
+El INSTITUTO y AFMSRA podrán ser denominados en adelante conjunto como las “PARTES”.
+Exponen,
+Que conforme a los lineamientos del CONVENIO MARCO DE ADHESIÓN (2018), por Resolución N° RESOL-
+2018-908-INSSJP-DE#INSSJP, se aprobó el modelo de CONVENIO DE DISPENSA DE MEDICAMENTOS 
+AMBULATORIOS, CLOZAPINAS Y DIABETES suscripto entre el INSTITUTO y AFMSRA que tiene por objeto 
+la dispensa de medicamentos de las farmacias asociadas/adheridas a los afiliados del INSTITUTO en todo el país. -Que el referido convenio viene siendo objeto de sucesivas prórrogas, las últimas de ellas con vigencia hasta el 
+30.11.2024 convalidada por RESOL-2024-943-INSSJP-DE#INSSJP.
+Que en el contexto de emergencia sanitaria establecida por Ley N° 27.541 y con el fin de reducir la circulación de 
+las personas afiliadas, mediante RESOL-2020-1110-INSSJP-DE#INSSJP de fecha 28 de marzo de 2020, el Instituto 
+estableció la prescripción electrónica de medicamentos mediante el uso del Sistema de Receta Electrónica, como 
+condición suficiente para el acceso de las personas afiliadas a la dispensa de medicamentos en farmacia, con 
+carácter excepcional y transitorio.
+Que, en el marco de la citada Resolución, el Anexo I reglamentó las condiciones para la validación y control de la 
+dispensa, instruyendo a la farmacia a la emisión del ticket comprobante de entrega, firmado de puño y letra por 
+parte de la persona que retira, con el agregado de el/los troqueles de medicamentos dispensados.
+Que, asimismo, resulta oportuno señalar que con el propósito de asegurar la continuidad de la dispensa de 
+medicamentos a los afiliados del INSTITUTO y de los pagos correspondientes, mediante RESOL-2020-1205-
+INSSJP-DE#INSSJP, suscripta el 8 de abril de 2020, se aprobó el modelo de acta acuerdo, que fuera suscripto entre 
+las Entidades Farmacéuticas y este INSTITUTO, mediante la cual se resolvió disponer la suspensión transitoria de 
+la logística del envío de las recetas, toda vez que ello resultaba de imposible cumplimiento dada las circunstancias 
+de aislamiento obligatorio, lo cual impidió que la digitalización de las recetas, su procesamiento y análisis de las 
+dispensas se realizara en forma oportuna.
+Que, la implementación del procedimiento indicado ocasionó, en algunos casos, que la rendición de las dispensas 
+por parte de las farmacias no fuera uniforme, generando dificultades en el control de las mismas, razón por la cual, 
+el resultado de la auditoría de las dispensas, originó un incremento en la configuración de los débitos, en particular 
+el Código de conflicto 100 (Receta no presentada) que, en algunos casos, alcanzó la totalidad de la facturación 
+mensual de una farmacia.
+Que, atento a lo expuesto, se advirtió que la documentación/recetas enviadas por las farmacias no cumplían con los 
+requisitos mínimos para su digitalización y requería un trabajo adicional para cumplir con los procesos de 
+validación, por lo cual, mediante RESOL-2021-377-INSSJP-DE#INSSJP, se estableció la realización de un 
+mecanismo extraordinario para el re procesamiento de forma manual de la documentación presentada por las 
+farmacias por la dispensa de medicamentos del período que abarca los meses de mayo 2020 a marzo 2021, 
+identificadas con el Código de conflicto 100 (Receta no presentada).
+Que, asimismo, el art. 4 suspendió la aplicación de los débitos correspondientes al Código de conflicto 100 (Receta 
+no presentada) del período comprendido entre el mes de mayo de 2020 hasta el mes de marzo de 2021, hasta tanto 
+finalice la realización de las tareas de revisión indicadas y el art. 7° estableció que el costo del re procesamiento 
+sería absorbido por las respectivas entidades farmacéuticas.
+Que, en este sentido y en cumplimiento del art. 8° se firmaron convenios particulares en donde cada Entidad asumió 
+el costo de reprocesamiento, a saber: CNVAD-2021-1-INSSJP-SGA#INSSJP (COFA); CNVAD-2021-2-INSSJP-
+SGA#INSSJP (FACAF); CNVAD-2021-3-INSSJP-SGA#INSSJP (AFMSRA); CNVAD-2021-4-INSSJP-
+SGA#INSSJP (FARMASUR); CNVAD-2021-5-INSSJP-SGA#INSSJP (FEFARA).
+Que, finalizado el re procesamiento indicado por RESOL-2021-377-INSSJP-DE#INSSJP, algunas de las 
+presentaciones realizadas por las farmacias para el período subsiguiente, abril-julio 2021, continuaron con una 
+importante cantidad de comprobantes o procesables por no cumplir con los requisitos mínimos establecidos para su 
+control y validación. Que, ante esta situación, se procedió a suspender la aplicación de los débitos por código 100 del período citado ut 
+supra para las cinco entidades farmacéuticas y se llevó a cabo un re procesamiento manual para los comprobantes 
+correspondientes.
+Que el procesamiento manual de comprobantes implicó la realización de tareas extraordinarias por parte de las 
+empresas digitalizadoras, por fuera de los procesos habituales, para revisar cada una de la documentación 
+presentada al cobro por las farmacias durante el período analizado. Esto en contexto de medidas restrictivas 
+impuestas por la pandemia de COVID-19 que implicaron intermitencias y dilación en el citado proceso. 
+Que la situación descripta implicó que el proceso de liquidación de los débitos finales se extienda en el tiempo y los 
+resultados finales convalidados por el Instituto hayan estado disponibles el 29 de noviembre de 2023.
+Que, es dable destacar que la Gerencia de Medicamentos tomo intervención de su competencia y valorizó los 
+débitos aplicables tal y como consta en los IF-2023-130361909-INSSJP-GM#INSSJP, IF-2023-146496152-INSSJP-
+GM#INSSJP y NO-2024-76153282-INSSJP-GM#INSSJP, cuya sumatoria resulta en PESOS NUEVE MILLONES 
+TRESCIENTOS VEINTIDOS MIL DOSCIENTOS OCHO CON 45/100 ($ 9.322.208,45) para AFMSRA.
+Que, dados los montos que surgen del reproceso efectuado y que los débitos a aplicarse corresponden a 30 
+quincenas, las Entidades Farmacéuticas en conversaciones mantenidas han solicitado al INSTITUTO que se 
+contemple la aplicación de los débitos en un esquema de cuotas.
+Que, vista la solicitud mencionada ut supra y, en post de la dispensa de un trato recíproco fundado en la buena fe y 
+en la plena cooperación, que se viene llevando a cabo, para el logro de los objetivos y finalidades convenidas, las 
+partes acordaron esquema de siete cuotas para su efectivización atento a la vigencia del CONVENIO DE 
+DISPENSA DE MEDICAMENTOS AMBULATORIOS, CLOZAPINAS Y DIABETES cuya renovación no opera 
+automáticamente.
+En tal sentido, se sujeta el presente CONVENIO a las siguientes cláusulas:
+CLÁUSULA PRIMERA:  Las PARTES convienen acordar el presente plan de aplicación de débitos 
+correspondientes al período comprendido entre el mes de mayo de 2020 hasta el mes de julio de 2021 (inclusive) 
+con código de conflicto 100 (Receta no presentada), que una vez procesados manualmente arrojaron confirmación 
+de Código 100 u otros códigos de conflicto producto de la auditoría.
+CLÁUSULA SEGUNDA:  Las PARTES acuerdan la aplicación de los débitos indicados en la CLAUSULA 
+PRIMERA en SIETE cuotas mensuales iguales y consecutivas de PESOS UN MILLÓN TRESCIENTOS 
+TREINTA Y UN MIL SETECIENTOS CUARENTA Y CUATRO CON 06/100 ($ 1.331.744,06) a ser aplicadas a 
+partir del mes de julio 2024 sobre el primer pago mensual del saldo de la segunda quincena que corresponda por 
+cronograma de pagos y así sucesivamente hasta la efectivización de la última cuota.
+CLÁUSULA TERCERA:  Las PARTES dejan expresamente consensuado que la totalidad de los débitos por receta 
+no presentada (conflicto 100) y otros códigos aplicables en el marco del CONVENIO DE DISPENSA DE 
+MEDICAMENTOS AMBULATORIOS, CLOZAPINAS Y DIABETES, que surgen de las recetas reprocesadas 
+manualmente para el período citado en la CLAUSULA PRIMERA que se encuentran detalladas en los archivos 
+listados en el ANEXO I que han sido oportunamente puestos a disposición de AFMSRA y cuya valorización 
+asciende a PESOS NUEVE MILLONES TRESCIENTOS VEINTIDOS MIL DOSCIENTOS OCHO CON 45/100 
+($ 9.322.208,45), no serán objeto de observaciones, ni revisiones futuras quedando firmes y aceptados por ambas 
+partes con la suscripción del presente.En prueba de total conformidad, se firman dos ejemplares de un mismo tenor y a un solo efecto, en la Ciudad de 
+Buenos Aires a los    días del mes de JULIO del año 2024.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Anexo I
+Archivos oportunamente puestos a disposición de SINDICALES, con el 
+detalle de las recetas cuyos débitos son objeto de la presente y su valorización 
+asciende a PESOS NUEVE MILLONES TRESCIENTOS VEINTIDOS MIL 
+DOSCIENTOS OCHO CON 45/100 ($ 9.322.208,45)
+Período Archivo Entidad
+20200501 20200501_liq_187_Ajuste_Complementaria.txt SINDICALES
+20200502 20200502_liq_187_Ajuste_Complementaria.txt SINDICALES
+20200601 20200601_liq_187_Ajuste_Complementaria.txt SINDICALES
+20200602 20200602_liq_187_Ajuste_Complementaria.txt SINDICALES
+20200701 20200701_liq_187_Ajuste_Complementaria.txt SINDICALES
+20200702 20200702_liq_187_Ajuste_Complementaria.txt SINDICALES
+20200801 20200801_liq_187_Ajuste_Complementaria.txt SINDICALES
+20200802 20200802_liq_187_Ajuste_Complementaria.txt SINDICALES
+20200901 20200901_liq_187_Ajuste_Complementaria.txt SINDICALES
+20200902 20200902_liq_187_Ajuste_Complementaria.txt SINDICALES
+20201001 20201001_liq_187_Ajuste_Complementaria.txt SINDICALES
+20201002 20201002_liq_187_Ajuste_Complementaria.txt SINDICALES
+20201101 20201101_liq_187_Ajuste_Complementaria.txt SINDICALES20201102 20201102_liq_187_Ajuste_Complementaria.txt SINDICALES
+20201201 20201201_liq_187_Ajuste_Complementaria.txt SINDICALES
+20201202 20201202_liq_187_Ajuste_Complementaria.txt SINDICALES
+20210101 20210101_liq_187_Ajuste_Complementaria.txt SINDICALES
+20210102 20210102_liq_187_Ajuste_Complementaria.txt SINDICALES
+20210201 20210201_liq_187_Ajuste_Complementaria.txt SINDICALES
+20210202 20210202_liq_187_Ajuste_Complementaria.txt SINDICALES
+20210301 20210301_liq_187_Ajuste_Complementaria.txt SINDICALES
+20210302 20210302_liq_187_Ajuste_Complementaria.txt SINDICALES
+20210401 20210401_liq_187_Ajuste.txt SINDICALES
+20210402 20210402_liq_187_Ajuste.txt SINDICALES
+20210501 20210501_liq_187_Ajuste.txt SINDICALES
+20210502 20210502_liq_187_Ajuste.txt SINDICALES
+20210601 20210601_liq_187_Ajuste.txt SINDICALES
+20210602 20210602_liq_187_Ajuste.txt SINDICALES
+20210701 20210701_liq_187_Ajuste.txt SINDICALES
+20210702 20210702_liq_187_Ajuste.txt SINDICALES
+   
+ 
+ 
+ 
+Instituto Nacional de Servicios Sociales para Jubilados y Pensionados
+AÑO DE LA DEFENSA DE LA VIDA, LA LIBERTAD Y LA PROPIEDAD
+ 
+Anexo
+ 
+Número: 
+ 
+ 
+Referencia:  EX-2024-75035373- -INSSJP-GM#INSSJP - ANEXO V - CONVENIO DE APLICACIÓN DE 
+DÉBITOS entre el INSTITUTO NACIONAL DE SERVICIOS SOCIALES PARA JUBILADOS Y 
+PENSIONADOS Y la ASOCIACIÓN MUTUAL FARMASUR (FARMASUR)
+ 
+CONVENIO DE APLICACIÓN DE DÉBITOS
+entre el INSTITUTO NACIONAL DE SERVICIOS SOCIALES
+PARA JUBILADOS Y PENSIONADOS Y la ASOCIACIÓN MUTUAL FARMASUR (FARMASUR)
+De una parte,
+“INSTITUTO NACIONAL DE SERVICIOS SOCIALES PARA JUBILADOS Y PENSIONADOS”, representado 
+por su Director Ejecutivo, Dr. Esteban LEGUIZAMO, D.N.I. 13.907.258, en adelante “el INSTITUTO”,
+ Y, de otra parte,
+la “ASOCIACIÓN MUTUAL FARMASUR (FARMASUR)”, representada en este acto por__________________, 
+D.N.I.________________ en su calidad de ______________________, quien declara bajo juramento que los 
+poderes se encuentran vigentes y que actúa en representación de sus farmacias asociadas.
+El INSTITUTO y FARMASUR podrán ser denominados en adelante conjunto como las “PARTES”.
+Exponen,
+Que conforme a los lineamientos del CONVENIO MARCO DE ADHESIÓN (2018), por Resolución N° RESOL-
+2018-902-INSSJP-DE#INSSJP, se aprobó el modelo de CONVENIO DE DISPENSA DE MEDICAMENTOS 
+AMBULATORIOS, CLOZAPINAS Y DIABETES suscripto entre el INSTITUTO y FARMASUR que tiene por 
+objeto la dispensa de medicamentos de las farmacias asociadas/adheridas a los afiliados del INSTITUTO en todo el 
+país. -
+Que el referido convenio viene siendo objeto de sucesivas prórrogas, las últimas de ellas con vigencia hasta el 30.11.2024 convalidada por RESOL-2024-943-INSSJP-DE#INSSJP.
+Que en el contexto de emergencia sanitaria establecida por Ley N° 27.541 y con el fin de reducir la circulación de 
+las personas afiliadas, mediante RESOL-2020-1110-INSSJP-DE#INSSJP de fecha 28 de marzo de 2020, el Instituto 
+estableció la prescripción electrónica de medicamentos mediante el uso del Sistema de Receta Electrónica, como 
+condición suficiente para el acceso de las personas afiliadas a la dispensa de medicamentos en farmacia, con 
+carácter excepcional y transitorio.
+Que, en el marco de la citada Resolución, el Anexo I reglamentó las condiciones para la validación y control de la 
+dispensa, instruyendo a la farmacia a la emisión del ticket comprobante de entrega, firmado de puño y letra por 
+parte de la persona que retira, con el agregado de el/los troqueles de medicamentos dispensados.
+Que, asimismo, resulta oportuno señalar que con el propósito de asegurar la continuidad de la dispensa de 
+medicamentos a los afiliados del INSTITUTO y de los pagos correspondientes, mediante RESOL-2020-1205-
+INSSJP-DE#INSSJP, suscripta el 8 de abril de 2020, se aprobó el modelo de acta acuerdo, que fuera suscripto entre 
+las Entidades Farmacéuticas y este INSTITUTO, mediante la cual se resolvió disponer la suspensión transitoria de 
+la logística del envío de las recetas, toda vez que ello resultaba de imposible cumplimiento dada las circunstancias 
+de aislamiento obligatorio, lo cual impidió que la digitalización de las recetas, su procesamiento y análisis de las 
+dispensas se realizara en forma oportuna.
+Que, la implementación del procedimiento indicado ocasionó, en algunos casos, que la rendición de las dispensas 
+por parte de las farmacias no fuera uniforme, generando dificultades en el control de las mismas, razón por la cual, 
+el resultado de la auditoría de las dispensas, originó un incremento en la configuración de los débitos, en particular 
+el Código de conflicto 100 (Receta no presentada) que, en algunos casos, alcanzó la totalidad de la facturación 
+mensual de una farmacia.
+Que, atento a lo expuesto, se advirtió que la documentación/recetas enviadas por las farmacias no cumplían con los 
+requisitos mínimos para su digitalización y requería un trabajo adicional para cumplir con los procesos de 
+validación, por lo cual, mediante RESOL-2021-377-INSSJP-DE#INSSJP, se estableció la realización de un 
+mecanismo extraordinario para el re procesamiento de forma manual de la documentación presentada por las 
+farmacias por la dispensa de medicamentos del período que abarca los meses de mayo 2020 a marzo 2021, 
+identificadas con el Código de conflicto 100 (Receta no presentada).
+Que, asimismo, el art. 4 suspendió la aplicación de los débitos correspondientes al Código de conflicto 100 (Receta 
+no presentada) del período comprendido entre el mes de mayo de 2020 hasta el mes de marzo de 2021, hasta tanto 
+finalice la realización de las tareas de revisión indicadas y el art. 7° estableció que el costo del re procesamiento 
+sería absorbido por las respectivas entidades farmacéuticas.
+Que, en este sentido y en cumplimiento del art. 8° se firmaron convenios particulares en donde cada Entidad asumió 
+el costo de reprocesamiento, a saber: CNVAD-2021-1-INSSJP-SGA#INSSJP (COFA); CNVAD-2021-2-INSSJP-
+SGA#INSSJP (FACAF); CNVAD-2021-3-INSSJP-SGA#INSSJP (AFMSRA); CNVAD-2021-4-INSSJP-
+SGA#INSSJP (FARMASUR); CNVAD-2021-5-INSSJP-SGA#INSSJP (FEFARA).
+Que, finalizado el re procesamiento indicado por RESOL-2021-377-INSSJP-DE#INSSJP, algunas de las 
+presentaciones realizadas por las farmacias para el período subsiguiente, abril-julio 2021, continuaron con una 
+importante cantidad de comprobantes o procesables por no cumplir con los requisitos mínimos establecidos para su 
+control y validación. Que, ante esta situación, se procedió a suspender la aplicación de los débitos por código 100 del período citado ut 
+supra para las cinco entidades farmacéuticas y se llevó a cabo un re procesamiento manual para los comprobantes 
+correspondientes.
+Que el procesamiento manual de comprobantes implicó la realización de tareas extraordinarias por parte de las 
+empresas digitalizadoras, por fuera de los procesos habituales, para revisar cada una de la documentación 
+presentada al cobro por las farmacias durante el período analizado. Esto en contexto de medidas restrictivas 
+impuestas por la pandemia de COVID-19 que implicaron intermitencias y dilación en el citado proceso. 
+Que la situación descripta implicó que el proceso de liquidación de los débitos finales se extienda en el tiempo y los 
+resultados finales convalidados por el Instituto hayan estado disponibles el 29 de noviembre de 2023.
+Que, es dable destacar que la Gerencia de Medicamentos tomo intervención de su competencia y valorizó los 
+débitos aplicables tal y como consta en los IF-2023-130361909-INSSJP-GM#INSSJP, IF-2023-146496152-INSSJP-
+GM#INSSJP y NO-2024-76153282-INSSJP-GM#INSSJP, cuya sumatoria resulta en PESOS CINCO MILLONES 
+CIENTO OCHENTA Y UN MIL QUINIENTOS DOCE CON 64/100 ($ 5.181.512,64) para FARMASUR.
+Que, dados los montos que surgen del reproceso efectuado y que los débitos a aplicarse corresponden a 30 
+quincenas, las Entidades Farmacéuticas en conversaciones mantenidas han solicitado al INSTITUTO que se 
+contemple la aplicación de los débitos en un esquema de cuotas.
+Que, vista la solicitud mencionada ut supra y, en post de la dispensa de un trato recíproco fundado en la buena fe y 
+en la plena cooperación, que se viene llevando a cabo, para el logro de los objetivos y finalidades convenidas, las 
+partes acordaron esquema de siete cuotas para su efectivización atento a la vigencia del CONVENIO DE 
+DISPENSA DE MEDICAMENTOS AMBULATORIOS, CLOZAPINAS Y DIABETES cuya renovación no opera 
+automáticamente.
+En tal sentido, se sujeta el presente CONVENIO a las siguientes cláusulas:
+CLÁUSULA PRIMERA:  Las PARTES convienen acordar el presente plan de aplicación de débitos 
+correspondientes al período comprendido entre el mes de mayo de 2020 hasta el mes de julio de 2021 (inclusive) 
+con código de conflicto 100 (Receta no presentada), que una vez procesados manualmente arrojaron confirmación 
+de Código 100 u otros códigos de conflicto producto de la auditoría.
+CLÁUSULA SEGUNDA:  Las PARTES acuerdan la aplicación de los débitos indicados en la CLAUSULA 
+PRIMERA en SIETE cuotas mensuales iguales y consecutivas de PESOS SETECIENTOS CUARENTA MIL 
+DOSCIENTOS DIECISEIS CON 09/100 ($ 740.216,09) a ser aplicadas a partir del mes de julio 2024 sobre el 
+primer pago mensual del saldo de la segunda quincena que corresponda por cronograma de pagos y así 
+sucesivamente hasta la efectivización de la última cuota.
+CLÁUSULA TERCERA:  Las PARTES dejan expresamente consensuado que la totalidad de los débitos por receta 
+no presentada (conflicto 100) y otros códigos aplicables en el marco del CONVENIO DE DISPENSA DE 
+MEDICAMENTOS AMBULATORIOS, CLOZAPINAS Y DIABETES, que surgen de las recetas reprocesadas 
+manualmente para el período citado en la CLAUSULA PRIMERA que se encuentran detalladas en los archivos 
+listados en el ANEXO I que han sido oportunamente puestos a disposición de la FARMASUR y cuya valorización 
+asciende a PESOS CINCO MILLONES CIENTO OCHENTA Y UN MIL QUINIENTOS DOCE CON 64/100 ($ 
+5.181.512,64), no serán objeto de observaciones, ni revisiones futuras quedando firmes y aceptados por ambas 
+partes con la suscripción del presente.En prueba de total conformidad, se firman dos ejemplares de un mismo tenor y a un solo efecto, en la Ciudad de 
+Buenos Aires a los    días del mes de JULIO del año 2024.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+Anexo I
+Archivos oportunamente puestos a disposición de FARMASUR, con el detalle 
+de las recetas cuyos débitos son objeto de la presente y su valorización 
+asciende a PESOS CINCO MILLONES CIENTO OCHENTA Y UN MIL 
+QUINIENTOS DOCE CON 64/100 ($ 5.181.512,64)
+Período Archivo Entidad
+20200501 20200501_liq_256_Ajuste_Complementaria.txt FARMASUR
+20200502 20200502_liq_256_Ajuste_Complementaria.txt FARMASUR
+20200601 20200601_liq_256_Ajuste_Complementaria.txt FARMASUR
+20200602 20200602_liq_256_Ajuste_Complementaria.txt FARMASUR
+20200701 20200701_liq_256_Ajuste_Complementaria.txt FARMASUR
+20200702 20200702_liq_256_Ajuste_Complementaria.txt FARMASUR
+20200801 20200801_liq_256_Ajuste_Complementaria.txt FARMASUR
+20200802 20200802_liq_256_Ajuste_Complementaria.txt FARMASUR
+20200901 20200901_liq_256_Ajuste_Complementaria.txt FARMASUR
+20200902 20200902_liq_256_Ajuste_Complementaria.txt FARMASUR
+20201001 20201001_liq_256_Ajuste_Complementaria.txt FARMASUR20201002 20201002_liq_256_Ajuste_Complementaria.txt FARMASUR
+20201101 20201101_liq_256_Ajuste_Complementaria.txt FARMASUR
+20201102 20201102_liq_256_Ajuste_Complementaria.txt FARMASUR
+20201201 20201201_liq_256_Ajuste_Complementaria.txt FARMASUR
+20201202 20201202_liq_256_Ajuste_Complementaria.txt FARMASUR
+20210101 20210101_liq_256_Ajuste_Complementaria.txt FARMASUR
+20210102 20210102_liq_256_Ajuste_Complementaria.txt FARMASUR
+20210201 20210201_liq_256_Ajuste_Complementaria.txt FARMASUR
+20210202 20210202_liq_256_Ajuste_Complementaria.txt FARMASUR
+20210301 20210301_liq_256_Ajuste_Complementaria.txt FARMASUR
+20210302 20210302_liq_256_Ajuste_Complementaria.txt FARMASUR
+20210401 20210401_liq_256_Ajuste.txt FARMASUR
+20210402 20210402_liq_256_Ajuste.txt FARMASUR
+20210501 20210501_liq_256_Ajuste.txt FARMASUR
+20210502 20210502_liq_256_Ajuste.txt FARMASUR
+20210601 20210601_liq_256_Ajuste.txt FARMASUR
+20210602 20210602_liq_256_Ajuste.txt FARMASUR20210701 20210701_liq_256_Ajuste.txt FARMASUR
+20210702 20210702_liq_256_Ajuste.txt FARMASUR
+ 
+ 
