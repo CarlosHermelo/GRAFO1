@@ -1,0 +1,5 @@
+openai
+pandas
+neo4j
+python-dotenv
+tabulate

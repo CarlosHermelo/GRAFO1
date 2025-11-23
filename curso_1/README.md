@@ -4,20 +4,36 @@ Este proyecto genera un grafo de conocimiento en Neo4j a partir de documentos de
 
 ## Flujo de Trabajo
 
+###
+Path de proyecto 
+
+```bash
+C:\Users\u14527001\Downloads\grafo_protesis
+C:\Users\u14527001\Downloads\grafo_protesis\curso_1
+
+Documentos sobre guia medica
+https://docs.google.com/document/d/1lZvpg09X22gaiHxPvaFnQtWKVvZ8sBRMbjXqYBbmmRM/edit?tab=t.0
+```
+###
+curso_1 
+
 ```bash
 python gen_schema_txt.py # genera schema input: *.txt -- output: grafo_generado.cypher
 python gen_subir_schma_a_neo.py # crea el schema en neo4j ,input: grafo_generado.cypher
 python gen_query.py # consulta sobre los documentos
 python gen_borrar_schema.py # borra todo el schema de NEO4J 
+python gen_carga_bdv   # toma los archivos txt y los sube a Chroma (.env)
+python gen_query_full.py # consulta  GRAPH Y RAG
 ```
+
+```bash
 El script gen_schema_txt.py usa variable entorno .env donde CARPETA_TXT= toma la carpeta donde estan:
 
 -todos los archivos *txt
-
--goal.txt  donde pongo el objetivo de generador 
-
--labels.txt  pongo los well-know (posibles entidades )
-
+-goal.config  donde pongo el objetivo de generador 
+-labels.config  pongo los well-know (posibles entidades )
+```
+### El output del script gen_schema_txt.py esta en "grafo_generado.cypher"
 
 
 En la carpeta RESO hay archivos reso con extencion txto
