@@ -9,6 +9,9 @@
 3. Configura tu API Key: `export OPENAI_API_KEY="tu-key"`.
 
 4. Ejecuta el agente: `python graph_schema_agent.py`.
+
+####el codigo fue generado gemini 3.1 
+https://gemini.google.com/app/499a1a1a806ca697
 -------------------------------------------------------------------
 
 La arquitectura se mantendrá fiel a la lógica del documento:
