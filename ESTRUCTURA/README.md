@@ -1,4 +1,15 @@
-¡Entendido! Voy a adaptar la arquitectura descrita en el PDF (Lección 6) para eliminar la dependencia de Google ADK. En su lugar, utilizaremos Python puro, la librería oficial de OpenAI para el manejo del LLM y las llamadas a funciones (Tools), y el driver de Neo4j.
+
+
+## Cómo ejecutarlo
+
+1. Instala las dependencias: `pip install -r requirements.txt`.
+
+2. Ejecuta `python data_simulation.py` para crear datos de prueba (o pon tus propios CSVs en una carpeta import_data).
+
+3. Configura tu API Key: `export OPENAI_API_KEY="tu-key"`.
+
+4. Ejecuta el agente: `python graph_schema_agent.py`.
+-------------------------------------------------------------------
 
 La arquitectura se mantendrá fiel a la lógica del documento:
 
@@ -60,3 +71,152 @@ El documento PDF utiliza LlmAgent y LoopAgent de Google ADK, que abstraen mucho 
 
 El script imprimirá en consola el pensamiento del agente ("Tool Calls"), la propuesta de esquema JSON y las críticas hasta que llegue a un diseño válido.
 
+**Expliacion de que hace  `python graph_schema_agent.py`
+Qué es este código
+
+Este documento contiene el script completo para construir un agente que propone un esquema de grafo (Graph Schema Proposal Agent) usando Google ADK + Neo4j.
+No es un script suelto: es todo un módulo que:
+
+analiza archivos estructurados (CSV o similares),
+
+detecta nodos y relaciones,
+
+genera reglas de construcción (“construction rules”),
+
+ejecuta una revisión automática mediante un “critic agent”,
+
+repite un ciclo de refinamiento hasta alcanzar un esquema válido.
+
+Subtítulo
+Qué hace este código (explicación didáctica y concreta)
+
+El código construye un sistema multi-agente con tres funciones centrales:
+
+schema_proposal_agent
+
+Lee los archivos aprobados.
+
+Usa herramientas como sample_file y search_file.
+
+Decide si cada archivo representa un nodo o una relación.
+
+Propone cómo construir ese nodo/relación desde los CSV.
+
+Va armando el “construction plan”, que es el esquema candidato.
+
+Ejemplo práctico:
+Si el archivo es products.csv, propone:
+
+Nodo: Product
+
+Identificador único: product_id
+
+Propiedades: columnas del CSV.
+
+schema_critic_agent
+
+Revisa el plan propuesto.
+
+Verifica si los identificadores son realmente únicos.
+
+Evalúa si una entidad debería ser relación o viceversa.
+
+Detecta nodos aislados o relaciones redundantes.
+
+Responde solo dos opciones:
+
+valid → continuar
+
+retry → devolver lista de problemas
+
+Ejemplo práctico:
+“El archivo assemblies.csv tiene dos identificadores, podría ser relación en lugar de nodo.”
+
+CheckStatusAndEscalate
+
+Observa si la crítica dijo “valid”.
+
+Si es válido, corta el loop.
+
+Si no, vuelve a ejecutar el proposal agent con el feedback del critic.
+
+Estas tres piezas funcionan dentro de un
+LoopAgent → schema_refinement_loop,
+que intenta hasta 2 iteraciones para converger en un esquema consistente.
+
+Subtítulo
+Qué scripts incluye internamente
+
+El documento contiene varios módulos listos para copiar/usar:
+
+BLOQUE DE IMPORTS
+
+Configuración del modelo OpenAI (gpt-4o)
+
+Instrucciones del agente de propuesta (schema_proposal_agent)
+
+Herramientas para manipular archivos y construir reglas:
+
+sample_file
+
+search_file
+
+propose_node_construction
+
+propose_relationship_construction
+
+remove_node_construction
+
+remove_relationship_construction
+
+get_proposed_construction_plan
+
+approve_proposed_construction_plan
+
+Definición del agente crítico
+
+Definición del loop de refinamiento
+
+Top-level coordinator agent (opcional), que coordina todo el proceso y habla con el usuario.
+
+Subtítulo
+Para qué sirve realmente
+
+Sirve para automatizar la creación de un schema de grafo (GraphRAG) desde archivos estructurados.
+Es la parte más difícil del proceso de GraphRAG: decidir cómo deben ser los nodos y relaciones.
+Este sistema lo hace automáticamente con:
+
+criterios,
+
+herramientas estructuradas,
+
+revisión crítica,
+
+ciclo de mejora.
+
+Subtítulo
+Qué obtengo al final
+
+Al finalizar, el sistema produce un objeto:
+
+approved_construction_plan
+
+Ese plan contiene todas las reglas para importar los CSV a Neo4j:
+
+qué nodos crear,
+
+qué relaciones crear,
+
+qué propiedades usar,
+
+cómo conectar todo.
+
+Ese plan se usa luego para ejecutar el import y construir el grafo.
+
+Si querés, puedo ahora mismo:
+
+resumirte el flujo entero en un diagrama ASCII,
+
+explicarte cómo adaptar este proceso a tu dominio de prótesis,
+
+o escribirte el código limpio para ejecutarlo fuera del notebook.
