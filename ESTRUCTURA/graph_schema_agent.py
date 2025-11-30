@@ -1,18 +1,178 @@
 import os
 import json
 import pandas as pd
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Tuple
 from openai import OpenAI
 from neo4j import GraphDatabase
+from dotenv import load_dotenv
+from collections import defaultdict
+
+# Cargar variables de entorno desde el archivo .env
+load_dotenv()
 
 # --- CONFIGURACIÓN ---
 # Asegúrate de tener las variables de entorno: OPENAI_API_KEY, NEO4J_URI, NEO4J_USERNAME, NEO4J_PASSWORD
 # O defínelas aquí directamente (no recomendado para producción)
-api_key = os.getenv("OPENAI_API_KEY", "") 
+api_key = os.getenv("OPENAI_API_KEY", "")
 client = OpenAI(api_key=api_key)
 
 # Directorio donde están tus CSVs
-IMPORT_DIR = "./import_data" 
+IMPORT_DIR = "./import_data"
+
+# --- VALIDADOR DE PLANES ---
+class PlanValidator:
+    """Valida unicidad, redundancias y conectividad de grafos antes de Critic Agent."""
+
+    def __init__(self, import_dir: str):
+        self.import_dir = import_dir
+        self.validation_report = []
+
+    def check_unique_ids(self, construction_plan: Dict) -> Tuple[bool, List[str]]:
+        """Valida que los IDs en columnas unique_column sean realmente únicos."""
+        errors = []
+        for key, item in construction_plan.items():
+            if item.get('type') != 'node':
+                continue
+
+            file_name = item.get('source_file')
+            unique_column = item.get('unique_column')
+            label = item.get('label')
+
+            try:
+                file_path = os.path.join(self.import_dir, file_name)
+                df = pd.read_csv(file_path)
+
+                if unique_column not in df.columns:
+                    errors.append(f"❌ Columna '{unique_column}' no existe en {file_name}")
+                    continue
+
+                duplicates = df[unique_column].duplicated().sum()
+                if duplicates > 0:
+                    dup_values = df[df[unique_column].duplicated(keep=False)][unique_column].unique()
+                    errors.append(f"❌ {label}: {duplicates} IDs duplicados en '{unique_column}': {list(dup_values)}")
+                else:
+                    print(f"✅ {label}: IDs únicos en '{unique_column}' ({len(df)} registros)")
+
+            except FileNotFoundError:
+                errors.append(f"⚠️ Archivo no encontrado: {file_name}")
+            except Exception as e:
+                errors.append(f"⚠️ Error validando {file_name}: {str(e)}")
+
+        is_valid = len(errors) == 0
+        return is_valid, errors
+
+    def check_redundant_relationships(self, construction_plan: Dict) -> Tuple[bool, List[str]]:
+        """Detecta relaciones redundantes/duplicadas."""
+        errors = []
+        rel_tuples = []
+        redundancies = []
+
+        for key, item in construction_plan.items():
+            if item.get('type') != 'relationship':
+                continue
+
+            from_node = item.get('from_node', {}).get('label')
+            to_node = item.get('to_node', {}).get('label')
+            rel_type = item.get('relationship_type')
+
+            rel_tuple = (from_node, rel_type, to_node)
+
+            if rel_tuple in rel_tuples:
+                redundancies.append(rel_tuple)
+                errors.append(f"❌ Relación redundante: ({from_node}) --[{rel_type}]--> ({to_node})")
+            else:
+                rel_tuples.append(rel_tuple)
+
+        if not errors:
+            print(f"✅ No hay relaciones redundantes ({len(rel_tuples)} relaciones únicas)")
+
+        is_valid = len(errors) == 0
+        return is_valid, errors
+
+    def check_disconnected_nodes(self, construction_plan: Dict) -> Tuple[bool, List[str]]:
+        """Detecta nodos desconectados (sin relaciones)."""
+        errors = []
+
+        # Extraer nodos y relaciones del plan
+        nodes = {item.get('label'): item for k, item in construction_plan.items() if item.get('type') == 'node'}
+        relationships = [item for k, item in construction_plan.items() if item.get('type') == 'relationship']
+
+        # Nodos que participan en relaciones
+        connected_nodes = set()
+        for rel in relationships:
+            from_node = rel.get('from_node', {}).get('label')
+            to_node = rel.get('to_node', {}).get('label')
+            if from_node:
+                connected_nodes.add(from_node)
+            if to_node:
+                connected_nodes.add(to_node)
+
+        # Detectar aislados
+        isolated = set(nodes.keys()) - connected_nodes
+
+        if isolated:
+            errors.append(f"⚠️ Nodos desconectados (sin relaciones): {isolated}")
+        else:
+            print(f"✅ Todos los nodos están conectados ({len(nodes)} nodos)")
+
+        # No es un error crítico, es un warning
+        return True, errors
+
+    def check_node_relationship_coherence(self, construction_plan: Dict) -> Tuple[bool, List[str]]:
+        """Valida que los nodos en relaciones realmente existan en el plan."""
+        errors = []
+
+        node_labels = {item.get('label') for k, item in construction_plan.items() if item.get('type') == 'node'}
+
+        for key, item in construction_plan.items():
+            if item.get('type') != 'relationship':
+                continue
+
+            from_node = item.get('from_node', {}).get('label')
+            to_node = item.get('to_node', {}).get('label')
+            rel_type = item.get('relationship_type')
+
+            if from_node and from_node not in node_labels:
+                errors.append(f"❌ Nodo origen '{from_node}' no existe en el plan")
+
+            if to_node and to_node not in node_labels:
+                errors.append(f"❌ Nodo destino '{to_node}' no existe en el plan")
+
+        if not errors:
+            print(f"✅ Coherencia de nodos-relaciones verificada")
+
+        is_valid = len(errors) == 0
+        return is_valid, errors
+
+    def validate_all(self, construction_plan: Dict) -> Tuple[bool, str]:
+        """Ejecuta todas las validaciones y retorna reporte."""
+        self.validation_report = []
+
+        print("\n" + "="*60)
+        print("🔍 VALIDACIONES AUTOMÁTICAS PRE-CRÍTICA")
+        print("="*60 + "\n")
+
+        # 1. Unicidad
+        valid_unique, errors_unique = self.check_unique_ids(construction_plan)
+        self.validation_report.extend(errors_unique)
+
+        # 2. Redundancia
+        valid_redundancy, errors_redundancy = self.check_redundant_relationships(construction_plan)
+        self.validation_report.extend(errors_redundancy)
+
+        # 3. Conectividad
+        valid_connectivity, errors_connectivity = self.check_disconnected_nodes(construction_plan)
+        self.validation_report.extend(errors_connectivity)
+
+        # 4. Coherencia
+        valid_coherence, errors_coherence = self.check_node_relationship_coherence(construction_plan)
+        self.validation_report.extend(errors_coherence)
+
+        all_valid = valid_unique and valid_redundancy and valid_coherence
+
+        report = "\n".join(self.validation_report) if self.validation_report else "✅ Todas las validaciones pasadas"
+
+        return all_valid, report
 
 # --- GESTIÓN DEL ESTADO DEL AGENTE ---
 class AgentState:
@@ -21,6 +181,8 @@ class AgentState:
         self.user_goal = ""
         self.construction_plan = {} # Aquí se guardará el esquema propuesto
         self.feedback = "" # Feedback del crítico
+        self.validator = PlanValidator(IMPORT_DIR)
+        self.auto_validation_report = ""  # Reporte de validaciones automáticas
 
 state = AgentState()
 
@@ -216,11 +378,21 @@ FEEDBACK PREVIO (CRÍTICO): {feedback}
 
 CRITIC_AGENT_PROMPT = """
 Eres un experto crítico en modelado de grafos. Revisa el plan de construcción propuesto.
+
+VALIDACIONES AUTOMÁTICAS YA EJECUTADAS:
+{auto_validation_report}
+
 Tu salida debe ser estricta:
 - Si el plan es perfecto y cubre los archivos lógicamente, responde SOLAMENTE con la palabra: "VALID".
-- Si hay problemas, responde con "RETRY" seguido de una lista de críticas (ej: IDs no únicos, relaciones redundantes, grafos desconectados).
+- Si hay problemas, responde con "RETRY" seguido de una lista de críticas ESPECÍFICAS.
 
-Usa las herramientas 'get_proposed_construction_plan' y 'sample_file' para verificar la lógica.
+Busca estos problemas adicionales (además de los ya validados):
+1. Incoherencias lógicas en el modelado (ej: un Medicamento que se relaciona consigo mismo)
+2. Relaciones que no tienen sentido semántico
+3. Archivos no cubiertos por el plan
+4. Esquema incompleto para el objetivo del usuario
+
+Usa las herramientas 'get_proposed_construction_plan' y 'sample_file' para profundizar tu análisis.
 """
 
 # --- MOTOR DE EJECUCIÓN ---
@@ -289,7 +461,7 @@ def main():
 
     for i in range(max_iterations):
         print(f"\n\n=== ITERACIÓN {i+1} ===")
-        
+
         # 2. PROPOSAL AGENT
         print(">> Ejecutando Proposal Agent...")
         proposal_prompt = PROPOSAL_AGENT_PROMPT.format(
@@ -298,18 +470,36 @@ def main():
         )
         proposal_response = run_agent(proposal_prompt)
         print(f"Respuesta Proposal: {proposal_response}")
-        
+
         # Mostrar estado actual del plan
         print(f"Plan Actual: {json.dumps(state.construction_plan, indent=2)}")
 
+        # 2.5 VALIDACIONES AUTOMÁTICAS (NUEVO)
+        print("\n>> Ejecutando Validaciones Automáticas...")
+        auto_valid, auto_report = state.validator.validate_all(state.construction_plan)
+        state.auto_validation_report = auto_report
+        print(auto_report)
+
+        # Si validaciones automáticas fallan en aspectos críticos, no llamar al Critic
+        if not auto_valid and "❌" in auto_report:
+            print("\n⚠️ Las validaciones automáticas encontraron errores críticos.")
+            print("⚠️ Refinando esquema sin consultar al Crítico...")
+            state.feedback = f"Errores de validación automática encontrados:\n{auto_report}"
+            continue
+
         # 3. CRITIC AGENT
         print("\n>> Ejecutando Critic Agent...")
-        critic_response = run_agent(CRITIC_AGENT_PROMPT)
+        critic_prompt = CRITIC_AGENT_PROMPT.format(
+            auto_validation_report=auto_report
+        )
+        critic_response = run_agent(critic_prompt)
         print(f"Evaluación del Crítico: {critic_response}")
 
         # 4. CHECK STATUS
         if "VALID" in critic_response.upper() and "RETRY" not in critic_response.upper():
-            print("\n*** ¡ESQUEMA APROBADO! ***")
+            print("\n" + "🎉 "*15)
+            print("*** ¡ESQUEMA APROBADO! ***")
+            print("🎉 "*15)
             is_valid = True
             break
         else:
@@ -317,14 +507,20 @@ def main():
             print("\n... Refinando esquema basado en feedback ...")
 
     # 5. RESULTADO FINAL
+    print("\n" + "="*60)
+    print("📊 RESUMEN FINAL")
+    print("="*60)
+
     if is_valid:
-        print("\nGenerando código Cypher de ejemplo basado en el plan (Simulación)...")
+        print("\n✅ Generando código Cypher de ejemplo basado en el plan...\n")
         # Aquí podrías iterar sobre state.construction_plan y generar CREATE/MERGE queries
         for key, item in state.construction_plan.items():
             if item['type'] == 'node':
                 print(f"Cypher sugerido: LOAD CSV... MERGE (n:{item['label']} {{id: row.{item['unique_column']}}})")
     else:
-        print("No se llegó a un consenso en el número máximo de iteraciones.")
+        print("\n⚠️ No se llegó a un consenso en el número máximo de iteraciones.")
+        print("⚠️ Último feedback del Crítico:")
+        print(state.feedback)
 
 if __name__ == "__main__":
     main()
