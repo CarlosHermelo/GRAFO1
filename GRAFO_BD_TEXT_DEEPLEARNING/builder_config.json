@@ -1,0 +1,111 @@
+{
+    "domain_plan": {},
+    "llm_schema": {
+        "entities": [
+            {
+                "label": "Normativa",
+                "description": "Documento legal (Ley, Resolución, Disposición, Convenio)",
+                "extraction_pattern": "Patrón para Normativa basado en propiedades internas."
+            },
+            {
+                "label": "Prestacion",
+                "description": "Servicio, insumo o módulo codificado del Nomenclador.codigo_practicaStringdescripcionStringtipo_prestacionString (Médica, Social, Odontológica)",
+                "extraction_pattern": "Patrón para Prestacion basado en propiedades internas."
+            },
+            {
+                "label": "Organizacion",
+                "description": "Entidad interna o externa (Gerencia, Banco, UBA, FEFARA)",
+                "extraction_pattern": "Patrón para Organizacion basado en propiedades internas."
+            },
+            {
+                "label": "UGL",
+                "description": "Unidades de Gestión Local y Sedes Operativas.nombreString (ej: Unidad Asistencial Dr. César Milstein)",
+                "extraction_pattern": "Patrón para UGL basado en propiedades internas."
+            },
+            {
+                "label": "Programa",
+                "description": "Iniciativa o plan estratégico que agrupa prestaciones.nombreString (ej: Cuidados en la Comunidad)",
+                "extraction_pattern": "Patrón para Programa basado en propiedades internas."
+            },
+            {
+                "label": "Poblacion_Objetivo",
+                "description": "Grupos específicos de beneficiarios.nombreString (ej: Veteranos de Guerra, Médicos Residentes)",
+                "extraction_pattern": "Patrón para Poblacion_Objetivo basado en propiedades internas."
+            },
+            {
+                "label": "Modalidad_Contratacion",
+                "description": "Procedimiento para adquirir bienes o servicios.nombreString (ej: Orden de Compra Abierta, Prórroga Extraordinaria)",
+                "extraction_pattern": "Patrón para Modalidad_Contratacion basado en propiedades internas."
+            },
+            {
+                "label": "Unidad_Financiera",
+                "description": "Unidades de medida interna para costos (ej. UIM)",
+                "extraction_pattern": "Patrón para Unidad_Financiera basado en propiedades internas."
+            },
+            {
+                "label": "Concepto_Administrativo",
+                "description": "Conceptos de gestión que no son prestación (ej. Seguros, Pasantías)",
+                "extraction_pattern": "Patrón para Concepto_Administrativo basado en propiedades internas."
+            }
+        ],
+        "relationships": [
+            {
+                "type": "CITA",
+                "from_entity": "Normativa",
+                "to_entity": "Normativa",
+                "description": "Relación que conecta Normativa con Normativa. Incluye propiedades contextuales."
+            },
+            {
+                "type": "MODIFICA",
+                "from_entity": "Normativa",
+                "to_entity": "Normativa",
+                "description": "Relación que conecta Normativa con Normativa. Incluye propiedades contextuales."
+            },
+            {
+                "type": "REGULA",
+                "from_entity": "Normativa",
+                "to_entity": "Prestacion",
+                "description": "Relación que conecta Normativa con Prestacion. Incluye propiedades contextuales."
+            },
+            {
+                "type": "DEFINE_ALCANCE_PARA",
+                "from_entity": "Normativa",
+                "to_entity": "Poblacion_Objetivo",
+                "description": "Relación que conecta Normativa con Poblacion_Objetivo. Incluye propiedades contextuales."
+            },
+            {
+                "type": "DEFINE_ESTRUCTURA_DE",
+                "from_entity": "Normativa",
+                "to_entity": "Organizacion",
+                "description": "Relación que conecta Normativa con Organizacion. Incluye propiedades contextuales."
+            },
+            {
+                "type": "CONTRATA",
+                "from_entity": "Organizacion",
+                "to_entity": "Organizacion",
+                "description": "Relación que conecta Organizacion con Organizacion. Incluye propiedades contextuales."
+            },
+            {
+                "type": "SE_APLICA_EN",
+                "from_entity": "Prestacion",
+                "to_entity": "UGL",
+                "description": "Relación que conecta Prestacion con UGL. Incluye propiedades contextuales."
+            },
+            {
+                "type": "TIENE_COSTO_EN",
+                "from_entity": "Prestacion",
+                "to_entity": "Unidad_Financiera",
+                "description": "Relación que conecta Prestacion con Unidad_Financiera. Incluye propiedades contextuales."
+            },
+            {
+                "type": "FIJA_VALOR_EN",
+                "from_entity": "Prestacion",
+                "to_entity": "Normativa",
+                "description": "Relación que conecta Prestacion con Normativa. Incluye propiedades contextuales."
+            }
+        ]
+    },
+    "files_to_process": [
+        "./import_data/txt/RESOL-2024-2386-INSSJP-DE#INSSJP.pdf"
+    ]
+}

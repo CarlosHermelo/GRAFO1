@@ -1,0 +1,24 @@
+1. Nodos (Entidades) y Propiedades
+Etiqueta (Label)DescripciónPropiedadTipo de Dato
+(:Normativa)Documento legal (Ley, Resolución, Disposición, Convenio).codigoStringtipo_normaString (ej: Resolución, Ley)fecha_emisionDateestadoString (Vigente, Derogada, Modificada)objeto_principalString (Resumen de lo que trata)
+(:Prestacion)Servicio, insumo o módulo codificado del Nomenclador.codigo_practicaStringdescripcionStringtipo_prestacionString (Médica, Social, Odontológica)unidad_prestacionalString (Módulo, Cápite, Unidad Retributiva)
+(:Organizacion)Entidad interna o externa (Gerencia, Banco, UBA, FEFARA).nombre_completoStringsiglaString (ej: GPM, GAEI)tipo_entidadString (Gerencia, Banco, Proveedor, Universidad)responsabilidad_primariaString (Rol principal de la entidad)
+(:UGL)Unidades de Gestión Local y Sedes Operativas.nombreString (ej: Unidad Asistencial Dr. César Milstein)codigo_uglStringzona_geograficaString (ej: Patagonia Norte, Resto del País)
+(:Programa)Iniciativa o plan estratégico que agrupa prestaciones.nombreString (ej: Cuidados en la Comunidad)objetivoStringcentro_gestorString (Código presupuestario)
+(:Poblacion_Objetivo)Grupos específicos de beneficiarios.nombreString (ej: Veteranos de Guerra, Médicos Residentes)criterio_poblacionalString (Socio-demográfico, Patológico, Laboral)
+(:Modalidad_Contratacion)Procedimiento para adquirir bienes o servicios.nombreString (ej: Orden de Compra Abierta, Prórroga Extraordinaria)articulo_reglamentarioString (ej: Art. 46 inc. 9)
+(:Unidad_Financiera)Unidades de medida interna para costos (ej. UIM).nombreString (ej: Unidad de Medida de Insumos Médicos - UIM)valor_baseFloat
+(:Concepto_Administrativo)Conceptos de gestión que no son prestación (ej. Seguros, Pasantías).nombreString (ej: Subasta de Rodados, Seguros Institucionales)
+
+2. Relaciones (Edges) y Propiedades Contextuales
+Las propiedades en las relaciones (Atributos de Arista) son esenciales para el razonamiento temporal y la trazabilidad.
+RelaciónDominio (Origen)Rango (Destino)Propiedades (Contexto)Tipo de Dato
+[:CITA](:Normativa) → (:Normativa)tipo_cita (BASE_LEGAL, PRECEDENTE)String
+[:MODIFICA](:Normativa) → (:Normativa)ambito (Estructura, Nomenclador, Compras)String
+[:REGULA](:Normativa) → (:Prestacion)tipo_cambio (Alta, Baja, Modificación, Incremento)String
+[:DEFINE_ALCANCE_PARA](:Normativa) / (:Programa) → (:Poblacion_Objetivo)tipo_alcance (Obligatorio, Laboral, Social)String
+[:DEFINE_ESTRUCTURA_DE](:Normativa) → (:Organizacion)
+[:CONTRATA](:Organizacion) → (:Organizacion)objeto_contrato (ej: Subasta de Rodados)String
+[:SE_APLICA_EN](:Prestacion) → (:UGL)adicional_porcentaje (ej: 20%)Float
+[:TIENE_COSTO_EN](:Prestacion) → (:Unidad_Financiera)
+[:FIJA_VALOR_EN](:Prestacion) / (:Unidad_Financiera) → (:Normativa)valor_monetarioFloatfecha_inicio_vigenciaDate (Clave para la búsqueda temporal)tipo_valor (Módulo Básico, Jornada 4hs, Beca)String

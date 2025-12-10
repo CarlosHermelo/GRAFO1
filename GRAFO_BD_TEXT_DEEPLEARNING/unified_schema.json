@@ -1,0 +1,200 @@
+{
+  "nodes": [
+    {
+      "label": "Product",
+      "source_files": [
+        "product.csv"
+      ],
+      "key_columns": [
+        "product_id"
+      ],
+      "properties": {
+        "name": "object",
+        "category": "object",
+        "product_id": "int64"
+      }
+    },
+    {
+      "label": "Review",
+      "source_files": [
+        "review.csv"
+      ],
+      "key_columns": [
+        "review_id"
+      ],
+      "properties": {
+        "product_id": "int64",
+        "rating": "int64",
+        "comment": "object",
+        "review_id": "int64"
+      }
+    },
+    {
+      "label": "Supplier",
+      "source_files": [
+        "supplier.csv"
+      ],
+      "key_columns": [
+        "supplier_id"
+      ],
+      "properties": {
+        "name": "object",
+        "country": "object",
+        "supplier_id": "int64"
+      }
+    },
+    {
+      "label": "SupplierProduct",
+      "source_files": [
+        "supplier_product.csv"
+      ],
+      "key_columns": [
+        "supplier_id",
+        "product_id"
+      ],
+      "properties": {
+        "lead_time_days": "int64",
+        "product_id": "int64",
+        "supplier_id": "int64"
+      }
+    },
+    {
+      "label": "Inspector",
+      "source": "unstructured",
+      "origin": "discovered",
+      "description": "Persona encargada de verificar la calidad y el cumplimiento de estándares en productos.",
+      "properties": {}
+    },
+    {
+      "label": "Instrucciones de ensamblado",
+      "source": "unstructured",
+      "origin": "discovered",
+      "description": "Guía que detalla el proceso para armar un producto.",
+      "properties": {}
+    },
+    {
+      "label": "Reclamo del cliente",
+      "source": "unstructured",
+      "origin": "discovered",
+      "description": "Queja o solicitud de atención por parte de un cliente respecto a un producto o servicio.",
+      "properties": {}
+    },
+    {
+      "label": "Embalaje",
+      "source": "unstructured",
+      "origin": "discovered",
+      "description": "Material utilizado para proteger y contener productos durante su transporte.",
+      "properties": {}
+    },
+    {
+      "label": "Calidad del producto",
+      "source": "unstructured",
+      "origin": "discovered",
+      "description": "Evaluación de las características y desempeño de un producto.",
+      "properties": {}
+    }
+  ],
+  "relationships": [
+    {
+      "type": "HAS_REVIEW",
+      "from": "Product",
+      "to": "Review",
+      "source_files": [
+        "review.csv"
+      ],
+      "join_hints": {
+        "from_column": "product_id",
+        "to_column": "product_id"
+      },
+      "properties": {}
+    },
+    {
+      "type": "SUPPLIES_PRODUCT",
+      "from": "Supplier",
+      "to": "SupplierProduct",
+      "source_files": [
+        "supplier_product.csv"
+      ],
+      "join_hints": {
+        "from_column": "supplier_id",
+        "to_column": "supplier_id"
+      },
+      "properties": {}
+    },
+    {
+      "type": "PRODUCT_SUPPLIED",
+      "from": "SupplierProduct",
+      "to": "Product",
+      "source_files": [
+        "supplier_product.csv"
+      ],
+      "join_hints": {
+        "from_column": "product_id",
+        "to_column": "product_id"
+      },
+      "properties": {}
+    }
+  ],
+  "fact_types": [
+    {
+      "subject_label": "Inspector",
+      "predicate_label": "verificó",
+      "object_label": "ajuste correcto de todas las uniones",
+      "justification": "El inspector realiza verificaciones de calidad en el producto."
+    },
+    {
+      "subject_label": "Calidad del producto",
+      "predicate_label": "presentó",
+      "object_label": "fallas menores durante el ensamblado",
+      "justification": "Se reportan problemas de calidad en el proceso de ensamblado."
+    },
+    {
+      "subject_label": "Instrucciones de ensamblado",
+      "predicate_label": "incluía",
+      "object_label": "imágenes poco claras",
+      "justification": "Las instrucciones pueden afectar la experiencia del usuario."
+    },
+    {
+      "subject_label": "Supplier",
+      "predicate_label": "entregó",
+      "object_label": "lote con un retraso de dos días",
+      "justification": "El proveedor es responsable de la entrega oportuna de los productos."
+    },
+    {
+      "subject_label": "Reclamo del cliente",
+      "predicate_label": "reportó",
+      "object_label": "producto llegó con una pata floja",
+      "justification": "Los reclamos reflejan problemas en la calidad del producto."
+    },
+    {
+      "subject_label": "Embalaje",
+      "predicate_label": "cumplió",
+      "object_label": "estándares básicos",
+      "justification": "El embalaje es crucial para la protección del producto durante el transporte."
+    },
+    {
+      "subject_label": "Calidad del producto",
+      "predicate_label": "mostró",
+      "object_label": "inconsistencia en la calidad de distintos lotes",
+      "justification": "La calidad puede variar entre diferentes lotes de producción."
+    },
+    {
+      "subject_label": "Inspector",
+      "predicate_label": "notó",
+      "object_label": "pequeñas diferencias de color",
+      "justification": "El inspector identifica variaciones que pueden afectar la percepción del producto."
+    },
+    {
+      "subject_label": "Product",
+      "predicate_label": "mostró",
+      "object_label": "buen comportamiento tras varias semanas de uso",
+      "justification": "La durabilidad del producto es un factor importante para los consumidores."
+    },
+    {
+      "subject_label": "Calidad del producto",
+      "predicate_label": "se detectó",
+      "object_label": "defecto en la pintura",
+      "justification": "Los defectos en el acabado afectan la satisfacción del cliente."
+    }
+  ]
+}

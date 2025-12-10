@@ -1,6 +1,10 @@
 # Generación de Grafo a partir de Documentos
-
+```bash
+-Hibrido (rag+graph) texto (data -driven ) (guias medicas (puede ser otro))
+```
 Este proyecto genera un grafo de conocimiento en Neo4j a partir de documentos de texto, utilizando inteligencia artificial para extraer entidades y relaciones.
+
+
 
 ## Flujo de Trabajo
 

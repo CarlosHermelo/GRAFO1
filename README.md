@@ -10,7 +10,43 @@ python convertir_bd_kg.py # toma .csv y convierte en un schmea
 python consulta_protesis.py # no recuerdo 
 ```
 
-## 🚀 Configuración del Entorno
+## 🚀 Esto es una prueba Convertir de unas tablas a grafos .Toma archivos .csv y crea los NODOS y las Relaciones .
+```bash
+Los dos propgramas el que carga y el que consulta
+python consulta_protesis.py # no recuerdo 
+```
+1)tomar arhivos *.csv 
+2) en el codigo (DEFINE_RULES) define las relaciones (esto lo debo haber generado con un llms)
+3) los atribuos deben tener un propieda que sea un foreing keyu
+
+Sí. Para que este script funcione son necesarios los tres elementos.
+Sin alguno de ellos, el pipeline no puede construirse.
+
+requisitos mínimos
+1. archivos CSV
+
+Cada CSV representa una entidad del grafo.
+El nombre del archivo define el nombre del nodo:
+
+Ejemplo:
+tramite.csv → nodo Tramite
+
+2. columnas con nombres tipo id_*
+
+Son el mecanismo para detectar vínculos.
+Si no hay columnas id_xxx, no se detectan relaciones.
+
+Ejemplo:
+id_afiliado en tramite.csv permite crear una relación hacia Afiliado.
+
+3. diccionario SEMANTIC_RULES
+
+Es indispensable.
+Define qué relación crear a partir de cada columna id_xxx.
+
+Ejemplo:
+
+("Tramite", "id_afiliado") → ("Afiliado", "TRAMITE_DE")
 
 ### Activar el Entorno Virtual
 

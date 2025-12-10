@@ -1,5 +1,6 @@
 neo4j>=5.0.0
 langchain>=0.1.0
+langchain-community>=0.0.20
 langchain-openai>=0.0.5
 langchain-text-splitters>=0.0.1
 openai>=1.0.0

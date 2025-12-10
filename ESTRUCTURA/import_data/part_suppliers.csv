@@ -1,0 +1,4 @@
+supplier_id,part_id,cost
+SUP01,P001,0.05
+SUP01,P002,10.0
+SUP02,P003,120.0

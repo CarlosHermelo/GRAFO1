@@ -1,0 +1,4 @@
+product_id,part_id,quantity
+PROD_A,P001,10
+PROD_A,P003,1
+PROD_B,P002,1

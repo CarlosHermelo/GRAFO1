@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pip show:*)",
+      "Bash(python gene_deep_1.py:*)",
+      "Bash(dir:*)",
+      "Bash(cat:*)",
+      "Bash(python gene_builder_prop.py:*)",
+      "Bash(pip install:*)",
+      "Bash(python graph_assistant.py:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
