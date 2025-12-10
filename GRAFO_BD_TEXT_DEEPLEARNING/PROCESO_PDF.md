@@ -1,3 +1,5 @@
+![Proceso del Grafo de Conocimiento](./proceso_diagram.jpg)
+
 # Proceso de Creación y Consulta del Grafo de Conocimiento de Prótesis
 
 ## Diagrama del Proceso
