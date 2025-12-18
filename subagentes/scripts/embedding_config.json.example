@@ -1,0 +1,27 @@
+{
+  "enabled": true,
+  "model": "text-embedding-3-small",
+  "nodos_con_embedding": [
+    {
+      "label": "Prestacion",
+      "embedding_property": "embedding",
+      "text_source": ["nombre", "descripcion"],
+      "concatenation": "{nombre} - {descripcion}",
+      "threshold": 0.85,
+      "comments": "Genera embedding de nombre + descripción para detectar prótesis similares con nombres diferentes"
+    },
+    {
+      "label": "Normativa",
+      "embedding_property": "embedding",
+      "text_source": ["titulo"],
+      "concatenation": "{titulo}",
+      "threshold": 0.80,
+      "comments": "Genera embedding del título para detectar normativas con títulos similares pero no idénticos"
+    }
+  ],
+  "comments": {
+    "enabled": "Activar/desactivar toda la fase de embeddings",
+    "model": "Modelo de OpenAI para generar embeddings (text-embedding-3-small es el más económico)",
+    "threshold": "Umbral de similitud coseno (0.0-1.0). Valores recomendados: 0.80-0.90"
+  }
+}

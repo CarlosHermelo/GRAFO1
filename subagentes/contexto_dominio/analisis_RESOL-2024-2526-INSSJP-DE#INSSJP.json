@@ -1,0 +1,104 @@
+{
+  "resumen": {
+    "archivo": "RESOL-2024-2526-INSSJP-DE#INSSJP.pdf",
+    "total_chunks": 4,
+    "total_paginas": 17
+  },
+  "jerarquia_detectada": {
+    "elementos": [
+      "artículo 6",
+      "ARTÍCULO 2",
+      "Anexo I",
+      "ARTÍCULO 1",
+      "Artículo 1"
+    ],
+    "count": 5,
+    "ejemplo": [
+      "artículo 6",
+      "ARTÍCULO 2",
+      "Anexo I",
+      "ARTÍCULO 1",
+      "Artículo 1"
+    ]
+  },
+  "terminologia_clave": {
+    "terminos": [
+      [
+        "NACIONAL",
+        1
+      ],
+      [
+        "INSTITUTO",
+        1
+      ],
+      [
+        "ENTRE",
+        1
+      ],
+      [
+        "PLATAFORMA",
+        1
+      ],
+      [
+        "FARMACÉUTICA",
+        1
+      ],
+      [
+        "RESOL",
+        1
+      ],
+      [
+        "SERVICIOS",
+        1
+      ],
+      [
+        "PARA",
+        1
+      ],
+      [
+        "CONVENIO",
+        1
+      ],
+      [
+        "FEDERACIÓN",
+        1
+      ],
+      [
+        "SOCIALES",
+        1
+      ],
+      [
+        "INSSJP",
+        1
+      ],
+      [
+        "CNVAD",
+        1
+      ],
+      [
+        "PENSIONADOS",
+        1
+      ],
+      [
+        "JUBILADOS",
+        1
+      ]
+    ],
+    "count": 15
+  },
+  "relaciones_detectadas": {
+    "verbos": [
+      "ESTABLECE"
+    ],
+    "count": 1
+  },
+  "entidades_detectadas": {
+    "entidades": [
+      [
+        "INSSJP",
+        1
+      ]
+    ],
+    "count": 1
+  }
+}

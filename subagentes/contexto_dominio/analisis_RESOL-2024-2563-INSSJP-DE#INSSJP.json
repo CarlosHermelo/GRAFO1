@@ -1,0 +1,165 @@
+{
+  "resumen": {
+    "archivo": "RESOL-2024-2563-INSSJP-DE#INSSJP.pdf",
+    "total_chunks": 9,
+    "total_paginas": 42
+  },
+  "jerarquia_detectada": {
+    "elementos": [
+      "ARTÍCULO 5",
+      "Anexo X",
+      "Anexo I",
+      "ARTÍCULO 10",
+      "ANEXO VI",
+      "Anexo VIII",
+      "ARTÍCULO 7",
+      "inciso d)",
+      "artículo 6",
+      "ARTÍCULO 1",
+      "ANEXO IV",
+      "ANEXO  X",
+      "ARTÍCULO 9",
+      "ANEXO I",
+      "artículo 2",
+      "Anexo \nVI",
+      "Anexo III",
+      "ANEXO V",
+      "ANEXO X",
+      "ANEXO III",
+      "Anexo IV",
+      "ANEXO II",
+      "Anexo IX",
+      "ANEXO VIII",
+      "Anexo V",
+      "ANEXO IX",
+      "Anexo VI",
+      "ANEXO VII"
+    ],
+    "count": 28,
+    "ejemplo": [
+      "Anexo IX",
+      "artículo 2",
+      "Anexo III",
+      "Anexo \nVI",
+      "Anexo IV"
+    ]
+  },
+  "terminologia_clave": {
+    "terminos": [
+      [
+        "CODIGO",
+        6
+      ],
+      [
+        "NOMENCLADOR",
+        5
+      ],
+      [
+        "ANEXO",
+        5
+      ],
+      [
+        "TIPO",
+        3
+      ],
+      [
+        "RESOLUCIÓN",
+        3
+      ],
+      [
+        "DEFENSA",
+        3
+      ],
+      [
+        "PROPIEDAD",
+        3
+      ],
+      [
+        "GEDO",
+        3
+      ],
+      [
+        "CÁPITA",
+        3
+      ],
+      [
+        "HIPOACUSIA",
+        2
+      ],
+      [
+        "TRASLADOS",
+        2
+      ],
+      [
+        "INTEGRAL",
+        2
+      ],
+      [
+        "SANO",
+        2
+      ],
+      [
+        "INTERNACIÓN",
+        2
+      ],
+      [
+        "NIVEL",
+        2
+      ],
+      [
+        "UNIDAD",
+        2
+      ],
+      [
+        "PRACTICAS",
+        2
+      ],
+      [
+        "VALOR",
+        2
+      ],
+      [
+        "DESCRIPCION",
+        2
+      ],
+      [
+        "MENSUAL",
+        2
+      ]
+    ],
+    "count": 94
+  },
+  "relaciones_detectadas": {
+    "verbos": [],
+    "count": 0
+  },
+  "entidades_detectadas": {
+    "entidades": [
+      [
+        "PAMI",
+        3
+      ],
+      [
+        "INSSJP",
+        2
+      ],
+      [
+        "Decreto N° 50/2019",
+        1
+      ],
+      [
+        "Ley N° 19.032",
+        1
+      ],
+      [
+        "Resolución 1315/2022",
+        1
+      ],
+      [
+        "Ley 19.032",
+        1
+      ]
+    ],
+    "count": 6
+  }
+}

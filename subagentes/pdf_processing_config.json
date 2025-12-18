@@ -1,0 +1,61 @@
+{
+  "descripcion": "Configuración para procesamiento de PDFs en chunks",
+  "limites": {
+    "pdf_grande_kb": 100,
+    "pdf_grande_paginas": 20,
+    "chunk_size_default": 5,
+    "chunk_size_min": 3,
+    "chunk_size_max": 10
+  },
+  "extraccion": {
+    "max_jerarquia_por_chunk": 10,
+    "max_terminologia_por_chunk": 15,
+    "max_entidades_por_chunk": 20,
+    "min_frecuencia_terminologia": 2
+  },
+  "patrones": {
+    "jerarquia": [
+      "(?:Capítulo|CAPÍTULO|Cap\\.)\\s+(?:[IVXLCDM]+|\\d+)",
+      "(?:Sección|SECCIÓN|Sec\\.)\\s+(?:[IVXLCDM]+|\\d+)",
+      "(?:Artículo|ARTÍCULO|Art\\.)\\s+\\d+",
+      "(?:Inciso|INCISO|Inc\\.)\\s+[a-z]\\)",
+      "(?:Anexo|ANEXO)\\s+[IVXLCDM]+",
+      "(?:Título|TÍTULO|Tít\\.)\\s+[IVXLCDM]+"
+    ],
+    "relaciones_verbos": [
+      "deroga",
+      "modifica",
+      "regula",
+      "cita",
+      "fundamenta",
+      "reemplaza",
+      "sustituye",
+      "aplica",
+      "establece",
+      "define",
+      "determina",
+      "dispone",
+      "aprueba",
+      "autoriza"
+    ],
+    "entidades": [
+      "(?:Resolución|RESOLUCIÓN|Res\\.)\\s+N?°?\\s*\\d+[/-]\\d+",
+      "(?:Disposición|DISPOSICIÓN|Disp\\.)\\s+N?°?\\s*\\d+[/-]\\d+",
+      "(?:Ley|LEY)\\s+N?°?\\s*\\d+\\.?\\d*",
+      "(?:Decreto|DECRETO|Dec\\.)\\s+N?°?\\s*\\d+[/-]\\d+",
+      "INSSJP|PAMI"
+    ]
+  },
+  "salida": {
+    "generar_json": true,
+    "generar_markdown": true,
+    "prefijo_analisis": "analisis_",
+    "prefijo_resumen": "resumen_"
+  },
+  "notas": [
+    "Este archivo define los parámetros para el procesamiento de PDFs grandes",
+    "Los valores pueden ser ajustados según las necesidades del proyecto",
+    "El chunk_size determina cuántas páginas se procesan a la vez",
+    "Los patrones de regex pueden ser extendidos para dominios específicos"
+  ]
+}

@@ -1,0 +1,138 @@
+{
+  "resumen": {
+    "archivo": "RESOL-2024-2562-INSSJP-DE#INSSJP.pdf",
+    "total_chunks": 8,
+    "total_paginas": 39
+  },
+  "jerarquia_detectada": {
+    "elementos": [
+      "artículo 1",
+      "artículo 6",
+      "ARTÍCULO 3",
+      "ANEXO III",
+      "ANEXO II",
+      "ARTÍCULO 2",
+      "ANEXO I",
+      "Anexo I",
+      "Anexo III",
+      "ARTÍCULO 1",
+      "Anexo II"
+    ],
+    "count": 11,
+    "ejemplo": [
+      "artículo 1",
+      "artículo 6",
+      "ARTÍCULO 3",
+      "ARTÍCULO 2",
+      "ANEXO I"
+    ]
+  },
+  "terminologia_clave": {
+    "terminos": [
+      [
+        "UNIDADES",
+        8
+      ],
+      [
+        "LOCAL",
+        8
+      ],
+      [
+        "DEPARTAMENTO",
+        7
+      ],
+      [
+        "PRIMARIA",
+        6
+      ],
+      [
+        "RESPONSABILIDAD",
+        6
+      ],
+      [
+        "ACCIONES",
+        5
+      ],
+      [
+        "SECTOR",
+        4
+      ],
+      [
+        "DIVISIÓN",
+        4
+      ],
+      [
+        "APOYO",
+        3
+      ],
+      [
+        "ANEXO",
+        3
+      ],
+      [
+        "SANTA",
+        3
+      ],
+      [
+        "CONTÍNUO",
+        3
+      ],
+      [
+        "GUERRA",
+        3
+      ],
+      [
+        "GESTIÓN",
+        3
+      ],
+      [
+        "GERENCIA",
+        3
+      ],
+      [
+        "SUBGERENCIA",
+        3
+      ],
+      [
+        "COORDINACIÓN",
+        3
+      ],
+      [
+        "ATENCIÓN",
+        2
+      ],
+      [
+        "MEJORA",
+        2
+      ],
+      [
+        "OPERATIVO",
+        2
+      ]
+    ],
+    "count": 51
+  },
+  "relaciones_detectadas": {
+    "verbos": [
+      "ESTABLECE"
+    ],
+    "count": 1
+  },
+  "entidades_detectadas": {
+    "entidades": [
+      [
+        "INSSJP",
+        5
+      ],
+      [
+        "Ley 19.032",
+        1
+      ],
+      [
+        "Pami",
+        1
+      ]
+    ],
+    "count": 3
+  }
+}
