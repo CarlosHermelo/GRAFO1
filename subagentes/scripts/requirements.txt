@@ -17,3 +17,20 @@ tqdm>=4.66.0
 
 # Opcional: Para usar Qdrant como base de datos vectorial
 # qdrant-client>=1.7.0
+
+# Nota: Las dependencias anteriores son suficientes para:
+# - Asistente GraphRAG (graphrag_assistant.py)
+# - Pre-procesamiento de grafo (graph_preprocessing.py)
+#
+# GraphRAG usa:
+# - langchain, langchain-openai, langchain-community (consultas híbridas)
+# - chromadb (búsqueda vectorial)
+# - neo4j (búsqueda en grafo)
+# - openai (LLM para generar respuestas)
+# - tqdm (barras de progreso)
+#
+# IMPORTANTE: Pre-procesamiento de grafo requiere:
+# - Neo4j Graph Data Science (GDS) plugin instalado en Neo4j
+# - NO es una librería de Python, es un plugin de Neo4j
+# - Instalación: Neo4j Desktop → Plugins → Graph Data Science → Install
+# - O ver: https://neo4j.com/docs/graph-data-science/current/installation/
