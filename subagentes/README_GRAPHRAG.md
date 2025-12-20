@@ -167,7 +167,11 @@ print(result['graph_paths'])
 assistant.close()
 ```
 
-## Las 6 Estrategias de GraphRAG
+## Las Estrategias de GraphRAG
+
+El asistente implementa **5 estrategias básicas** (siempre incluidas) y **1 estrategia opcional** (Comunidades + Resúmenes).
+
+**⚠️ IMPORTANTE:** La estrategia 5 (Comunidades + Resúmenes) es **OPCIONAL**. El agente preguntará si deseas incluirla al generar el script. Si la incluyes, necesitarás ejecutar primero el pre-procesamiento del grafo.
 
 El asistente detecta automáticamente qué estrategia usar según el tipo de pregunta:
 
@@ -226,11 +230,15 @@ Proceso:
 3. Retorna paths explicables
 ```
 
-### 5️⃣ Comunidades + Resúmenes
+### 5️⃣ Comunidades + Resúmenes (OPCIONAL)
+
+**⚠️ ESTRATEGIA OPCIONAL:** Esta estrategia NO está incluida por defecto. El agente preguntará si deseas incluirla al generar el script GraphRAG.
 
 **Cuándo:** Preguntas de panorama ("temas principales", "resumen")
 
-**⚠️ Requisito:** Comunidades pre-calculadas en Neo4j
+**Requisitos para habilitarla:**
+1. Incluirla al generar el script (el agente preguntará)
+2. Ejecutar pre-procesamiento del grafo con `graph_preprocessing.py`
 
 **Ejemplo:**
 ```
@@ -243,11 +251,26 @@ Proceso:
 4. Retorna mapa + ejemplos
 ```
 
-**Cómo calcular comunidades:**
+**Cómo habilitar esta estrategia:**
+
+**Paso 1:** Al generar el script GraphRAG con el agente, responde "Sí" cuando pregunte:
+```
+¿Quieres incluir la estrategia de Comunidades + Resúmenes?
+→ Selecciona: Sí
+```
+
+**Paso 2:** Genera el script de pre-procesamiento:
 ```bash
-# Ejecutar script de pre-procesamiento (cuando esté disponible)
+# El agente_preprocessing_grafo genera este script
+# Sigue las instrucciones del agente para crearlo
+```
+
+**Paso 3:** Ejecuta el pre-procesamiento:
+```bash
 python scripts/graph_preprocessing.py
 ```
+
+**Paso 4:** Ahora el asistente GraphRAG puede usar esta estrategia
 
 ### 6️⃣ Paths como Evidencia
 

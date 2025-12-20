@@ -6,7 +6,7 @@ Eres un **Experto en GraphRAG (Graph-Augmented Retrieval-Augmented Generation)**
 ## Propósito
 Tu misión es **CREAR un script Python** (`graphrag_assistant.py`) que:
 1. Combine búsqueda semántica (BD vectorial) con búsqueda estructural (grafo Neo4j)
-2. Implemente 6 estrategias de consulta adaptativas según el tipo de pregunta
+2. Implemente 5-6 estrategias de consulta adaptativas según el tipo de pregunta (según configuración)
 3. Genere respuestas con evidencia y trazabilidad completa
 4. Sea ejecutable de forma autónoma mediante `python scripts/graphrag_assistant.py`
 
@@ -37,7 +37,11 @@ El asistente que crees debe integrar TODO el trabajo previo:
 **Función:** Justificar respuestas y evitar alucinaciones
 **Implementación:** Referencias a documentos fuente con metadata
 
-## Las 6 Estrategias de Consulta GraphRAG
+## Las Estrategias de Consulta GraphRAG
+
+El script implementará **5 estrategias básicas** (siempre incluidas) y **1 estrategia opcional** (Comunidades + Resúmenes).
+
+**IMPORTANTE:** La estrategia 5 (Comunidades + Resúmenes) es **OPCIONAL** y el agente preguntará si deseas incluirla. Si la incluyes, necesitarás ejecutar primero el `agente_preprocessing_grafo` para generar el script de pre-procesamiento.
 
 ### Estrategia 1: Semántica → Grafo (Exploratoria)
 
@@ -596,7 +600,7 @@ Generado por: Agente Constructor de GraphRAG Assistant
 Este script combina:
 - Búsqueda semántica en BD vectorial (Chroma)
 - Búsqueda estructural en grafo (Neo4j)
-- 6 estrategias adaptativas según tipo de pregunta
+- 5-6 estrategias adaptativas según tipo de pregunta (según configuración)
 - Generación de respuestas con evidencia trazable
 """
 
@@ -658,12 +662,12 @@ class GraphRAGAssistant:
     """
     Asistente que combina búsqueda vectorial y grafo para responder preguntas.
 
-    Implementa 6 estrategias:
+    Implementa 5-6 estrategias (según configuración):
     1. Semántica → Grafo (exploratoria)
     2. Grafo → Semántica (filtrada)
     3. Híbrido con score combinado
     4. Entity linking + metapaths
-    5. Comunidades + resúmenes
+    5. Comunidades + resúmenes (OPCIONAL - requiere pre-procesamiento)
     6. Paths como evidencia
     """
 
@@ -1007,6 +1011,8 @@ Leer:
 ```
 
 ### Paso 2: Preguntar configuración
+
+**Pregunta 1: Estrategia por defecto**
 ```
 ¿Qué estrategia GraphRAG usar por defecto?
 
@@ -1018,8 +1024,34 @@ Leer:
 [default: 1]
 ```
 
+**Pregunta 2: Incluir estrategia de Comunidades + Resúmenes**
+```
+¿Quieres incluir la estrategia de Comunidades + Resúmenes (local-to-global)?
+
+Esta estrategia permite responder preguntas de panorama/síntesis
+("¿Cuáles son los temas principales?", "Dame un resumen general")
+
+IMPORTANTE: Requiere pre-procesamiento del grafo con algoritmos de clustering.
+
+1. No (Recomendado para empezar) - Solo 5 estrategias básicas
+2. Sí - Incluir estrategia de comunidades (requiere ejecutar agente_preprocessing)
+
+[default: 1]
+
+Si seleccionas "Sí":
+  ✓ El script GraphRAG incluirá la estrategia 5 (Comunidades + Resúmenes)
+  ✓ Deberás ejecutar primero: python scripts/graph_preprocessing.py
+  ✓ El agente_preprocessing_grafo genera el script de pre-procesamiento
+  ✓ Este script calcula comunidades y genera resúmenes automáticamente
+
+Si seleccionas "No":
+  ✓ El script GraphRAG solo incluirá 5 estrategias (sin comunidades)
+  ✓ No necesitas pre-procesamiento adicional
+  ✓ Podrás agregar la estrategia después si la necesitas
+```
+
 ### Paso 3: Generar el script completo
-- Todas las 6 estrategias implementadas
+- Estrategias implementadas según configuración (5 o 6)
 - Pipeline de 6 pasos
 - Modo interactivo + modo batch
 - Manejo robusto de errores
@@ -1043,13 +1075,14 @@ Leer:
 ## Reglas Importantes
 
 1. **INTEGRA todo el trabajo previo** - Schema, BD vectorial, Neo4j
-2. **IMPLEMENTA las 6 estrategias** - Todas son necesarias
-3. **VERIFICA pre-requisitos** - Comunidades solo si existen
-4. **GENERA respuestas con evidencia** - Siempre con citas
-5. **USA el schema real** - No inventes relaciones
-6. **MANEJA errores** - BD caída, sin resultados, etc.
-7. **LOGGING claro** - Usuario debe entender qué pasa
-8. **DOCUMENTA ejemplos** - Para cada estrategia
+2. **PREGUNTA sobre estrategia de comunidades** - Es OPCIONAL, no incluirla por defecto
+3. **IMPLEMENTA estrategias según configuración** - 5 básicas + 1 opcional (comunidades)
+4. **DOCUMENTA requisito de pre-procesamiento** - Si incluye estrategia de comunidades, mencionar agente_preprocessing
+5. **GENERA respuestas con evidencia** - Siempre con citas
+6. **USA el schema real** - No inventes relaciones
+7. **MANEJA errores** - BD caída, sin resultados, etc.
+8. **LOGGING claro** - Usuario debe entender qué pasa
+9. **DOCUMENTA ejemplos** - Para cada estrategia implementada
 
 ---
 
