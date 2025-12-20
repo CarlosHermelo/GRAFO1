@@ -6,6 +6,7 @@ pdfplumber>=0.9.0
 python-dateutil>=2.8.0
 rapidfuzz>=3.0.0
 numpy>=1.24.0
+pandas>=2.0.0
 
 # Dependencias para construcción de bases de datos vectoriales
 langchain>=0.1.0
@@ -34,3 +35,8 @@ tqdm>=4.66.0
 # - NO es una librería de Python, es un plugin de Neo4j
 # - Instalación: Neo4j Desktop → Plugins → Graph Data Science → Install
 # - O ver: https://neo4j.com/docs/graph-data-science/current/installation/
+
+# Diseñador de Schema CSV (schema_csv_designer.py) usa:
+# - pandas (análisis de archivos CSV)
+# - openai (LLM para diseñar schema)
+# - python-dotenv (configuración)
