@@ -3,7 +3,17 @@
     "allow": [
       "Bash(ls:*)",
       "Bash(cat:*)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(git push)",
+      "Bash(wc:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(dir C:Usersu14527001Downloadsgrafo_protesissubagentes)",
+      "Bash(dir \"C:\\\\Users\\\\u14527001\\\\Downloads\\\\grafo_protesis\\\\subagentes\\\\scripts\")",
+      "Bash(dir:*)",
+      "Bash(findstr:*)",
+      "Bash(python:*)",
+      "Bash(pip install:*)"
     ]
   }
 }

@@ -1,0 +1,113 @@
+# ============================================================
+# .gitignore - Sistema de Grafos de Conocimiento
+# ============================================================
+
+# Archivos de entorno (contienen API keys y credenciales)
+.env
+.env.local
+.env.*.local
+
+# Proyectos (pueden contener datos sensibles)
+proyectos/
+!proyectos/.gitkeep
+
+# Caché y archivos temporales
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.cache/
+*.cache
+
+# Logs
+logs/
+*.log
+*.log.*
+
+# Resultados (pueden ser grandes)
+resultados/
+!resultados/.gitkeep
+
+# Data (documentos y CSVs pueden ser sensibles)
+data/
+!data/.gitkeep
+!data/texto/.gitkeep
+!data/csv/.gitkeep
+
+# Archivos de Neo4j locales
+neo4j/
+*.db
+
+# Embeddings cache (pueden ser grandes)
+embeddings_cache/
+*.pkl
+*.pickle
+
+# Jupyter Notebooks checkpoints
+.ipynb_checkpoints/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+
+# Mac
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# Archivos de respaldo
+*.bak
+*.backup
+*~
+
+# Archivos de distribución
+dist/
+build/
+*.egg-info/
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# Pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# MyPy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Archivos temporales de procesamiento
+temp/
+tmp/
+*.tmp
+
+# Archivos grandes que no deberían estar en git
+*.pdf
+*.csv
+*.xlsx
+*.db
+*.sqlite
+*.sqlite3
+
+# Excepciones: permitir archivos de ejemplo pequeños
+!ejemplos/*.pdf
+!ejemplos/*.csv
+
+# Contexto de dominio generado (pueden ser grandes)
+contexto_dominio/*.json
+!contexto_dominio/README.md
+
+# Archivos de Claude Code
+.claude/
+nul

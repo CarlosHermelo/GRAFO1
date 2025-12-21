@@ -29,7 +29,9 @@ Tu misión es:
 - Relaciones clave sugeridas
 
 ### 2. Archivos de Contexto del Dominio (CRÍTICO)
-**Ubicación:** `contexto_dominio/`
+**Ubicación:** `proyectos/<nombre_proyecto>/contexto_dominio/`
+
+**IMPORTANTE:** La carpeta de contexto está DENTRO del proyecto actual, NO es una carpeta global.
 
 **Tipos de archivos:**
 - **PDFs:** Documentos normativos, papers científicos, manuales técnicos
@@ -49,11 +51,11 @@ Estos archivos te permiten **aprender** la estructura, terminología y patrones 
 **PRIMERO, SIEMPRE ejecuta este comando al inicio:**
 
 ```bash
-python process_all_pdfs.py
+python process_all_pdfs.py proyectos/<nombre_proyecto>/contexto_dominio
 ```
 
 **Este script automáticamente:**
-1. ✅ Detecta TODOS los PDFs en `contexto_dominio/`
+1. ✅ Detecta TODOS los PDFs en `proyectos/<nombre_proyecto>/contexto_dominio/`
 2. ✅ Identifica cuáles son grandes (>100KB) y necesitan procesamiento
 3. ✅ Verifica si ya tienen resumen generado (evita reprocesar)
 4. ✅ Procesa SOLO los PDFs que lo necesitan
@@ -153,7 +155,7 @@ python process_all_pdfs.py ruta/a/otro/directorio
 
 **NOTA:** Si ya ejecutaste la FASE 0 (pre-procesamiento), tendrás archivos `resumen_*.md` listos para usar.
 
-1. **Escanear carpeta** `contexto_dominio/`
+1. **Escanear carpeta** `proyectos/<nombre_proyecto>/contexto_dominio/`
 
 2. **Para cada archivo PDF:**
    - **Si existe `resumen_[nombre].md`:** Lee ese archivo en lugar del PDF original

@@ -600,7 +600,7 @@ NEO4J_USER = os.getenv("NEO4J_USER")
 NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 LLM_MODEL = os.getenv("LLM_MODEL", "gpt-4o-mini")
-PDF_DIR = os.getenv("PDF_DIR", "./contexto_dominio")
+TEXT_DIR = os.getenv("TEXT_DIR", "../data/texto")
 
 # Inicializar clientes
 openai_client = OpenAI(api_key=OPENAI_API_KEY)
@@ -697,20 +697,41 @@ def insert_relationships(session, relationships: List[Dict], cypher_log_file):
 # ============================================================================
 
 def main():
-    print("🚀 Iniciando Pipeline de Ingesta de Grafos de Conocimiento")
-    print(f"\n🎯 OBJETIVO: {OBJETIVO_INFO['objetivo'][:100]}...")
-    print(f"📊 DOMINIO: {OBJETIVO_INFO['dominio']}")
+    print(">>> Iniciando Pipeline de Ingesta de Grafos de Conocimiento")
+    print(f"\n>>> OBJETIVO: {OBJETIVO_INFO['objetivo'][:100]}...")
+    print(f">>> DOMINIO: {OBJETIVO_INFO['dominio']}")
+
+    # IMPORTANTE: Mostrar y listar archivos del directorio TEXT_DIR
+    print(f"\n>>> Directorio de archivos: {TEXT_DIR}")
+    text_dir_path = Path(TEXT_DIR)
+
+    if not text_dir_path.exists():
+        print(f"[ERROR] El directorio {TEXT_DIR} no existe")
+        print(f"Por favor, crea el directorio y coloca los archivos PDF/TXT a procesar")
+        return
+
+    archivos_encontrados = list(text_dir_path.glob("*.pdf")) + list(text_dir_path.glob("*.txt"))
+    print(f">>> Archivos encontrados en {TEXT_DIR}:")
+    if archivos_encontrados:
+        for i, archivo in enumerate(archivos_encontrados, 1):
+            print(f"  {i}. {archivo.name}")
+    else:
+        print(f"  [ADVERTENCIA] No se encontraron archivos PDF o TXT")
+        print(f"  Coloca archivos en: {TEXT_DIR}")
+        return
+
+    print(f"\n>>> Total de archivos a procesar: {len(archivos_encontrados)}\n")
 
     # 1. Preparar Neo4j (constraints + índices)
     with neo4j_driver.session() as session:
         create_constraints_and_indexes(session, SCHEMA_INFO)
 
-    # 2. Escanear archivos en PDF_DIR
-    archivos = [...]  # Listar PDFs/TXTs
+    # 2. Escanear archivos (ya listados arriba)
+    archivos = archivos_encontrados
 
     # 3. Procesar cada archivo
     for archivo in archivos:
-        print(f"\n📄 Procesando: {archivo}")
+        print(f"\n>>> Procesando: {archivo}")
 
         # 3.1. Leer contenido
         content = read_pdf(archivo)
@@ -738,7 +759,7 @@ def main():
             insert_relationships(session, transformed_data["relaciones"], cypher_log)
 
     # 4. Reporte final
-    print("\n✅ Pipeline completado")
+    print("\n[OK] Pipeline completado")
     neo4j_driver.close()
 
 if __name__ == "__main__":
@@ -850,7 +871,7 @@ pip install -r requirements.txt
    - `NEO4J_URI`: URI de tu instancia Neo4j
    - `NEO4J_USER`: Usuario de Neo4j
    - `NEO4J_PASSWORD`: Contraseña de Neo4j
-   - `PDF_DIR`: Directorio con PDFs a procesar
+   - `TEXT_DIR`: Directorio con archivos PDF/TXT a procesar
 
 ## Uso
 ```bash

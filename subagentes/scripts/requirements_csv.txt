@@ -1,0 +1,37 @@
+# ============================================================================
+# Dependencias para el Módulo de Carga CSV a Neo4j
+# ============================================================================
+
+# Neo4j Python Driver
+neo4j>=5.0.0
+
+# Procesamiento de CSV y datos tabulares
+pandas>=2.0.0
+
+# Gestión de variables de entorno
+python-dotenv>=1.0.0
+
+# ============================================================================
+# Dependencias Opcionales
+# ============================================================================
+
+# Para progress bars (opcional, mejora UX)
+# tqdm>=4.65.0
+
+# Para validación avanzada de datos (opcional)
+# pydantic>=2.0.0
+
+# Para logging estructurado (opcional)
+# structlog>=23.0.0
+
+# ============================================================================
+# Instalación
+# ============================================================================
+#
+# Instalación básica:
+#   pip install -r requirements_csv.txt
+#
+# Instalación con opcionales:
+#   pip install -r requirements_csv.txt tqdm pydantic structlog
+#
+# ============================================================================
