@@ -93,13 +93,17 @@ Propiedades:
 - **AGREGAR objetivo en system prompt**
 
 ### 5. Configuración de Entorno
-**Ubicación:** `C:\Users\u14527001\Downloads\grafo_protesis\GRAFO_BD_TEXT_DEEPLEARNING\.env`
+**Ubicación:** `proyectos/<nombre_proyecto>/scripts/.env`
 
 **Variables clave:**
 - `OPENAI_API_KEY`: Clave de OpenAI
 - `NEO4J_URI`, `NEO4J_USER`, `NEO4J_PASSWORD`: Credenciales de Neo4j
 - `LLM_MODEL`: Modelo a usar (ej: "gpt-4o-mini")
-- `PDF_DIR`: Directorio de PDFs a procesar
+- `TXT_DIR`: Directorio de archivos TXT a procesar (ej: "../fuente/txt")
+- `PDF_DIR`: Directorio de archivos PDF a procesar (ej: "../fuente/pdf")
+- `TIPO_TEXTO`: Tipo de archivo a procesar ("PDF" o "TXT")
+- `OUTPUT_DIR`: Directorio para resultados (ej: "../resultados")
+- `LOG_DIR`: Directorio para logs (ej: "../logs")
 
 ## Proceso de Generación del Script
 
@@ -600,11 +604,54 @@ NEO4J_USER = os.getenv("NEO4J_USER")
 NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 LLM_MODEL = os.getenv("LLM_MODEL", "gpt-4o-mini")
-TEXT_DIR = os.getenv("TEXT_DIR", "../data/texto")
+
+# Variables para directorios de archivos
+TXT_DIR = os.getenv("TXT_DIR", "../fuente/txt")
+PDF_DIR = os.getenv("PDF_DIR", "../fuente/pdf")
+TIPO_TEXTO = os.getenv("TIPO_TEXTO", "PDF")  # "PDF" o "TXT"
+
+# Determinar directorio según tipo
+if TIPO_TEXTO.upper() == "TXT":
+    TEXT_DIR = TXT_DIR
+else:
+    TEXT_DIR = PDF_DIR
+
+OUTPUT_DIR = os.getenv("OUTPUT_DIR", "../resultados")
+LOG_DIR = os.getenv("LOG_DIR", "../logs")
 
 # Inicializar clientes
 openai_client = OpenAI(api_key=OPENAI_API_KEY)
-neo4j_driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD))
+
+# Validar conexión a Neo4j ANTES de continuar
+print("\n>>> Validando conexión a Neo4j...")
+try:
+    neo4j_driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD))
+    with neo4j_driver.session() as session:
+        result = session.run("RETURN 1 AS test")
+        result.single()
+    print("[OK] Conexión a Neo4j exitosa")
+except Exception as e:
+    print("\n" + "="*70)
+    print("[ERROR] NO SE PUDO CONECTAR A NEO4J")
+    print("="*70)
+    print(f"\nError: {str(e)}\n")
+    print("Posibles causas:")
+    print("  1. Neo4j no está corriendo")
+    print("     Solución: Inicia Neo4j Desktop o el servicio neo4j")
+    print("")
+    print("  2. URI incorrecta en .env")
+    print(f"     URI actual: {NEO4J_URI}")
+    print("     Verifica que sea correcta (ej: bolt://localhost:7687 o neo4j://localhost:7687)")
+    print("")
+    print("  3. Credenciales incorrectas")
+    print(f"     Usuario actual: {NEO4J_USER}")
+    print("     Verifica NEO4J_PASSWORD en el archivo .env")
+    print("")
+    print("  4. Firewall o red bloqueando la conexión")
+    print("     Verifica que el puerto 7687 esté abierto")
+    print("")
+    print("="*70)
+    sys.exit(1)
 
 # Cargar objetivo y schema
 with open("resultados/objetivo_validado.md", "r", encoding="utf-8") as f:
@@ -700,6 +747,7 @@ def main():
     print(">>> Iniciando Pipeline de Ingesta de Grafos de Conocimiento")
     print(f"\n>>> OBJETIVO: {OBJETIVO_INFO['objetivo'][:100]}...")
     print(f">>> DOMINIO: {OBJETIVO_INFO['dominio']}")
+    print(f">>> TIPO DE ARCHIVO: {TIPO_TEXTO}")
 
     # IMPORTANTE: Mostrar y listar archivos del directorio TEXT_DIR
     print(f"\n>>> Directorio de archivos: {TEXT_DIR}")
@@ -707,17 +755,31 @@ def main():
 
     if not text_dir_path.exists():
         print(f"[ERROR] El directorio {TEXT_DIR} no existe")
-        print(f"Por favor, crea el directorio y coloca los archivos PDF/TXT a procesar")
+        print(f"Por favor, crea el directorio y coloca los archivos a procesar")
+        print(f"\nDirectorios configurados:")
+        print(f"  TXT_DIR: {TXT_DIR}")
+        print(f"  PDF_DIR: {PDF_DIR}")
+        print(f"  TIPO_TEXTO actual: {TIPO_TEXTO}")
         return
 
-    archivos_encontrados = list(text_dir_path.glob("*.pdf")) + list(text_dir_path.glob("*.txt"))
-    print(f">>> Archivos encontrados en {TEXT_DIR}:")
+    # Buscar archivos según el tipo configurado
+    if TIPO_TEXTO.upper() == "TXT":
+        archivos_encontrados = list(text_dir_path.glob("*.txt"))
+        extension = "TXT"
+    else:
+        archivos_encontrados = list(text_dir_path.glob("*.pdf"))
+        extension = "PDF"
+
+    print(f">>> Archivos {extension} encontrados en {TEXT_DIR}:")
     if archivos_encontrados:
         for i, archivo in enumerate(archivos_encontrados, 1):
             print(f"  {i}. {archivo.name}")
     else:
-        print(f"  [ADVERTENCIA] No se encontraron archivos PDF o TXT")
-        print(f"  Coloca archivos en: {TEXT_DIR}")
+        print(f"  [ADVERTENCIA] No se encontraron archivos {extension}")
+        print(f"  Coloca archivos {extension} en: {TEXT_DIR}")
+        print(f"\nPara cambiar el tipo de archivo, modifica TIPO_TEXTO en .env:")
+        print(f"  TIPO_TEXTO=PDF  (para archivos PDF)")
+        print(f"  TIPO_TEXTO=TXT  (para archivos TXT)")
         return
 
     print(f"\n>>> Total de archivos a procesar: {len(archivos_encontrados)}\n")
@@ -821,6 +883,50 @@ def parse_schema(schema_md_content: str) -> Dict:
     return schema_info
 ```
 
+#### IMPORTANTE: Funciones Requeridas en los Parsers
+
+**En `schema_parser.py` DEBEN incluirse estas funciones:**
+
+```python
+def parse_schema(schema_content: str) -> Dict[str, Any]:
+    """Parsea el contenido del schema y extrae nodos, relaciones, reglas"""
+    # Implementación completa...
+
+def format_schema_for_prompt(schema_info: Dict) -> str:
+    """
+    Formatea el schema para incluirlo en prompts del LLM
+    CRÍTICO: Esta función es requerida por graph_ingestion.py
+    """
+    # Genera un string con el schema formateado para el LLM
+    # Incluye nodos, propiedades, relaciones
+
+def get_node_by_label(schema_info: Dict, label: str) -> Dict[str, Any]:
+    """
+    Busca un nodo en el schema por su label
+    CRÍTICO: Esta función es requerida por graph_ingestion.py
+    """
+    for nodo in schema_info.get("nodos", []):
+        if nodo["label"] == label:
+            return nodo
+    return None
+```
+
+**En `objetivo_parser.py` DEBEN incluirse estas funciones:**
+
+```python
+def parse_objetivo(objetivo_content: str) -> Dict[str, Any]:
+    """Parsea el contenido del objetivo y extrae información clave"""
+    # Implementación completa...
+
+def format_objetivo_for_prompt(objetivo_info: Dict) -> str:
+    """
+    Formatea el objetivo para incluirlo en prompts del LLM
+    CRÍTICO: Esta función es requerida por graph_ingestion.py
+    """
+    # Genera un string con el objetivo formateado para el LLM
+    # Incluye objetivo, dominio, entidades clave, consultas esperadas
+```
+
 ### FASE 5: Generación de Documentación del Script
 
 El script debe incluir:
@@ -868,10 +974,14 @@ pip install -r requirements.txt
 1. Copiar `.env.example` a `.env`
 2. Configurar variables:
    - `OPENAI_API_KEY`: Tu API key de OpenAI
-   - `NEO4J_URI`: URI de tu instancia Neo4j
-   - `NEO4J_USER`: Usuario de Neo4j
+   - `NEO4J_URI`: URI de tu instancia Neo4j (ej: bolt://localhost:7687)
+   - `NEO4J_USER`: Usuario de Neo4j (ej: neo4j)
    - `NEO4J_PASSWORD`: Contraseña de Neo4j
-   - `TEXT_DIR`: Directorio con archivos PDF/TXT a procesar
+   - `TXT_DIR`: Directorio con archivos TXT (ej: ../fuente/txt)
+   - `PDF_DIR`: Directorio con archivos PDF (ej: ../fuente/pdf)
+   - `TIPO_TEXTO`: Tipo de archivo a procesar ("PDF" o "TXT")
+   - `OUTPUT_DIR`: Directorio para resultados (ej: ../resultados)
+   - `LOG_DIR`: Directorio para logs (ej: ../logs)
 
 ## Uso
 ```bash
@@ -885,13 +995,168 @@ python graph_ingestion.py
 4. **Reporte de ingesta:** `ingestion_report.txt` - Estadísticas de procesamiento
 ```
 
+## IMPORTANTES MEJORAS AL SCRIPT DE INGESTA
+
+El script generado DEBE incluir las siguientes mejoras críticas:
+
+### 1. Logger Dual (Consola + Archivo)
+Crear una clase `DualLogger` que escriba simultáneamente a:
+- Consola (stdout) - para que el usuario vea el progreso en tiempo real
+- Archivo `status.log` - para tener un registro completo de la ejecución
+
+```python
+class DualLogger:
+    """Logger que escribe tanto a consola como a archivo"""
+    def __init__(self, log_file="status.log"):
+        self.log_file = log_file
+        self.file_handle = open(log_file, 'w', encoding='utf-8')
+
+    def print(self, message=""):
+        """Imprime mensaje en consola y archivo"""
+        print(message)
+        self.file_handle.write(str(message) + "\n")
+        self.file_handle.flush()
+
+    def close(self):
+        """Cierra el archivo de log"""
+        self.file_handle.close()
+```
+
+### 2. Pregunta para Iniciar Neo4j
+Al inicio del script, ANTES de procesar archivos, preguntar al usuario:
+
+```python
+respuesta = input("¿Desea iniciar la base de datos de grafos Neo4j? (s/n): ").strip().lower()
+logger.print(f"¿Desea iniciar la base de datos de grafos Neo4j? (s/n): {respuesta}")
+
+if respuesta == 's':
+    start_neo4j()
+    import time
+    logger.print("   ⏳ Esperando 10 segundos para que Neo4j se inicie...")
+    time.sleep(10)
+```
+
+Implementar función `start_neo4j()`:
+```python
+def start_neo4j():
+    """Intenta iniciar Neo4j si no está corriendo"""
+    logger.print("\n🔧 Intentando iniciar Neo4j...")
+    try:
+        if sys.platform == 'win32':
+            result = subprocess.run(['net', 'start', 'neo4j'],
+                                  capture_output=True, text=True, timeout=30)
+            if result.returncode == 0:
+                logger.print("   ✅ Servicio Neo4j iniciado correctamente")
+            else:
+                logger.print("   ⚠️ No se pudo iniciar automáticamente")
+                logger.print("   💡 Por favor, inicia Neo4j Desktop manualmente")
+        else:
+            # Linux/Mac
+            result = subprocess.run(['sudo', 'systemctl', 'start', 'neo4j'],
+                                  capture_output=True, text=True, timeout=30)
+    except Exception as e:
+        logger.print(f"   ⚠️ Error: {e}")
+        logger.print("   💡 Por favor, inicia Neo4j Desktop manualmente")
+```
+
+### 3. Log de Extracciones del LLM
+Crear archivo `output/extraction_log.txt` con TODO lo que devuelve el LLM:
+
+```python
+# En la función extract_with_llm(), agregar parámetro extraction_log_file
+if extraction_log_file:
+    extraction_log_file.write(f"\n{'='*80}\n")
+    extraction_log_file.write(f"EXTRACCIÓN - Documento: {doc_id}\n")
+    extraction_log_file.write(f"Timestamp: {datetime.now().isoformat()}\n")
+    extraction_log_file.write(f"Tokens: {usage_stats['total_tokens']}\n")
+    extraction_log_file.write(f"{'='*80}\n\n")
+
+    # Log del JSON completo
+    extraction_log_file.write("DATOS EXTRAÍDOS (JSON):\n")
+    extraction_log_file.write(json.dumps(result, indent=2, ensure_ascii=False))
+    extraction_log_file.write("\n\n")
+
+    # Log de registros extraídos
+    extraction_log_file.write("REGISTROS EXTRAÍDOS:\n")
+    extraction_log_file.write(f"- Nodo raíz: {result.get('nodo_raiz', {}).get('label')} "
+                             f"({result.get('nodo_raiz', {}).get('id')})\n")
+    extraction_log_file.write(f"- Entidades: {len(result.get('entidades_extraidas', []))}\n")
+    for i, ent in enumerate(result.get('entidades_extraidas', []), 1):
+        extraction_log_file.write(f"  {i}. {ent.get('label')} ({ent.get('id')})\n")
+    extraction_log_file.write(f"- Relaciones: {len(result.get('relaciones', []))}\n")
+    for i, rel in enumerate(result.get('relaciones', []), 1):
+        extraction_log_file.write(f"  {i}. ({rel.get('source_id')})-"
+                                 f"[{rel.get('type')}]->({rel.get('target_id')})\n")
+
+    # Si hay comandos Cypher en la respuesta, también logearlos
+    extraction_log_file.flush()
+```
+
+### 4. Métricas Detalladas por Chunk
+Por CADA chunk procesado, el script DEBE mostrar:
+
+```python
+chunk_num = i + 1
+chunk_size_chars = len(chunk)
+
+logger.print(f"\n   {'─'*70}")
+logger.print(f"   📦 Chunk {chunk_num}/{len(chunks)}")
+logger.print(f"   📏 Tamaño del chunk: {chunk_size_chars:,} caracteres")
+logger.print(f"   {'─'*70}")
+
+# Después de la extracción
+logger.print(f"   📊 Registros generados en este chunk:")
+logger.print(f"      - Nodos: {chunk_nodes_count}")
+logger.print(f"      - Relaciones: {chunk_rels_count}")
+
+# Después de cargar a Neo4j
+logger.print(f"   💾 Cargando a Neo4j...")
+if chunk_loaded_nodes > 0 or chunk_loaded_rels > 0:
+    logger.print(f"   ✅ Carga exitosa:")
+    logger.print(f"      - Nodos cargados: {chunk_loaded_nodes}/{chunk_nodes_count}")
+    logger.print(f"      - Relaciones cargadas: {chunk_loaded_rels}/{chunk_rels_count}")
+else:
+    logger.print(f"   ⚠️  No se cargaron registros en Neo4j")
+```
+
+### 5. Información Clara de Carga a Neo4j
+Al final de la ejecución, mostrar claramente:
+
+```python
+logger.print(f"\n📊 Estadísticas totales:")
+logger.print(f"   - Total Nodos generados: {total_nodes:,}")
+logger.print(f"   - Total Nodos CARGADOS en Neo4j: {total_nodes_loaded:,}")
+logger.print(f"   - Total Relaciones generadas: {total_rels:,}")
+logger.print(f"   - Total Relaciones CARGADAS en Neo4j: {total_rels_loaded:,}")
+
+if total_nodes_loaded > 0:
+    logger.print(f"\n✅ SE CARGARON {total_nodes_loaded} NODOS Y "
+                f"{total_rels_loaded} RELACIONES EN NEO4J")
+else:
+    logger.print(f"\n⚠️  NO SE CARGARON REGISTROS EN NEO4J")
+```
+
+### 6. Modificar insert_node_with_evidence()
+Esta función debe retornar una tupla `(éxito, mensaje)` para poder informar:
+
+```python
+def insert_node_with_evidence(session, node_data, cypher_log_file) -> Tuple[bool, str]:
+    # ... código de inserción ...
+
+    if success:
+        return True, f"✅ {label} ({node_id})"
+    else:
+        return False, f"❌ Error insertando {node_id}"
+```
+
 ## Salida del Agente
 
 ### Archivos Generados
 
-1. **`graph_ingestion.py`** - Script principal
+1. **`graph_ingestion.py`** - Script principal mejorado
    - Ubicación: `subagentes/scripts/graph_ingestion.py`
-   - Tamaño estimado: ~1000-1200 líneas
+   - Tamaño estimado: ~1200-1400 líneas
+   - **DEBE incluir todas las mejoras listadas arriba**
 
 2. **`requirements.txt`** - Dependencias Python
    - Ubicación: `subagentes/scripts/requirements.txt`
@@ -908,6 +1173,13 @@ python graph_ingestion.py
 6. **`objetivo_parser.py`** - Módulo para parsear objetivo_validado.md
    - Ubicación: `subagentes/scripts/objetivo_parser.py`
 
+### Archivos que Genera el Script Durante Ejecución
+
+1. **`status.log`** - Log completo de la ejecución (NUEVO)
+2. **`output/extraction_log.txt`** - Log de extracciones del LLM (NUEVO)
+3. **`output/cypher_queries_log.cypher`** - Log de queries Cypher
+4. **`output/*_chunk_*.json`** - JSONs intermedios por chunk
+
 ### Notificación al Usuario
 
 Una vez completada la generación:
@@ -916,7 +1188,7 @@ Una vez completada la generación:
 ✅ Script de ingesta generado exitosamente
 
 📁 Archivos creados:
-   - subagentes/scripts/graph_ingestion.py
+   - subagentes/scripts/graph_ingestion.py (MEJORADO)
    - subagentes/scripts/requirements.txt
    - subagentes/scripts/README_SCRIPT_INGESTA.md
    - subagentes/scripts/.env.example
@@ -940,6 +1212,14 @@ Una vez completada la generación:
    ✅ Detección de inconsistencias potenciales
    ✅ Manejo de errores robusto
    ✅ Estadísticas de procesamiento
+
+🆕 NUEVAS MEJORAS:
+   ✅ Pregunta si desea iniciar Neo4j al inicio
+   ✅ Logger dual (consola + archivo status.log)
+   ✅ Log completo de extracciones del LLM (extraction_log.txt)
+   ✅ Métricas detalladas por chunk (número, tamaño, registros)
+   ✅ Información clara de registros cargados vs generados
+   ✅ Confirmación de carga exitosa a Neo4j
 ```
 
 ## Checklist de Validación

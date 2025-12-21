@@ -13,7 +13,9 @@
       "Bash(dir:*)",
       "Bash(findstr:*)",
       "Bash(python:*)",
-      "Bash(pip install:*)"
+      "Bash(pip install:*)",
+      "Bash(test:*)",
+      "Bash(timeout 60 python:*)"
     ]
   }
 }

@@ -13,6 +13,8 @@ import os
 import json
 import sys
 import uuid
+import subprocess
+from pathlib import Path
 from typing import Dict, List, Any, Tuple
 from datetime import datetime
 from dotenv import load_dotenv
@@ -48,6 +50,29 @@ except ImportError:
     print("⚠️ No se encontró python-dateutil para normalización de fechas")
 
 # ============================================================================
+# 0. LOGGER DUAL (CONSOLA + ARCHIVO)
+# ============================================================================
+
+class DualLogger:
+    """Logger que escribe tanto a consola como a archivo"""
+    def __init__(self, log_file="status.log"):
+        self.log_file = log_file
+        self.file_handle = open(log_file, 'w', encoding='utf-8')
+
+    def print(self, message=""):
+        """Imprime mensaje en consola y archivo"""
+        print(message)
+        self.file_handle.write(str(message) + "\n")
+        self.file_handle.flush()
+
+    def close(self):
+        """Cierra el archivo de log"""
+        self.file_handle.close()
+
+# Instanciar logger global
+logger = None
+
+# ============================================================================
 # 1. CONFIGURACIÓN
 # ============================================================================
 
@@ -59,7 +84,20 @@ NEO4J_USER = os.getenv("NEO4J_USER")
 NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 LLM_MODEL = os.getenv("LLM_MODEL", "gpt-4o-mini")
-PDF_DIR = os.getenv("PDF_DIR", "./contexto_dominio")
+
+# Variables para directorios de archivos
+TXT_DIR = os.getenv("TXT_DIR", "../fuente/txt")
+PDF_DIR = os.getenv("PDF_DIR", "../fuente/pdf")
+TIPO_TEXTO = os.getenv("TIPO_TEXTO", "PDF")  # "PDF" o "TXT"
+
+# Determinar directorio según tipo
+if TIPO_TEXTO.upper() == "TXT":
+    TEXT_DIR = TXT_DIR
+else:
+    TEXT_DIR = PDF_DIR
+
+OUTPUT_DIR = os.getenv("OUTPUT_DIR", "../resultados")
+LOG_DIR = os.getenv("LOG_DIR", "../logs")
 
 # Validar configuración
 if not all([NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD, OPENAI_API_KEY]):
@@ -68,19 +106,90 @@ if not all([NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD, OPENAI_API_KEY]):
 
 # Inicializar clientes
 openai_client = OpenAI(api_key=OPENAI_API_KEY)
-neo4j_driver = GraphDatabase.driver(
-    NEO4J_URI,
-    auth=(NEO4J_USER, NEO4J_PASSWORD)
-)
+
+# Validar conexión a Neo4j ANTES de continuar
+print("\n>>> Validando conexión a Neo4j...")
+try:
+    neo4j_driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD))
+    with neo4j_driver.session() as session:
+        result = session.run("RETURN 1 AS test")
+        result.single()
+    print("[OK] Conexión a Neo4j exitosa")
+except Exception as e:
+    print("\n" + "="*70)
+    print("[ERROR] NO SE PUDO CONECTAR A NEO4J")
+    print("="*70)
+    print(f"\nError: {str(e)}\n")
+    print("Posibles causas:")
+    print("  1. Neo4j no está corriendo")
+    print("     Solución: Inicia Neo4j Desktop o el servicio neo4j")
+    print("")
+    print("  2. URI incorrecta en .env")
+    print(f"     URI actual: {NEO4J_URI}")
+    print("     Verifica que sea correcta (ej: bolt://localhost:7687 o neo4j://localhost:7687)")
+    print("")
+    print("  3. Credenciales incorrectas")
+    print(f"     Usuario actual: {NEO4J_USER}")
+    print("     Verifica NEO4J_PASSWORD en el archivo .env")
+    print("")
+    print("  4. Firewall o red bloqueando la conexión")
+    print("     Verifica que el puerto 7687 esté abierto")
+    print("")
+    print("="*70)
+    sys.exit(1)
 
 # Cargar objetivo y schema
 OBJETIVO_INFO = parse_objetivo("../resultados/objetivo_validado.md")
 SCHEMA_INFO = parse_schema("../resultados/schema_diseñado.md")
 
-print(f"✅ Configuración cargada")
-print(f"   Objetivo: {OBJETIVO_INFO['objetivo'][:80]}...")
-print(f"   Dominio: {OBJETIVO_INFO['dominio']}")
-print(f"   Schema: {len(SCHEMA_INFO['nodos'])} nodos, {len(SCHEMA_INFO['relaciones'])} relaciones")
+# Nota: La configuración se imprime en main() usando el logger
+
+# ============================================================================
+# 1.5. FUNCIONES DE INICIALIZACIÓN DE NEO4J
+# ============================================================================
+
+def start_neo4j():
+    """Intenta iniciar Neo4j si no está corriendo"""
+    global logger
+    logger.print("\n🔧 Intentando iniciar Neo4j...")
+
+    try:
+        # Intentar iniciar Neo4j Desktop (si está instalado)
+        # Esto varía según la instalación
+        if sys.platform == 'win32':
+            # En Windows, intentar iniciar el servicio
+            result = subprocess.run(
+                ['net', 'start', 'neo4j'],
+                capture_output=True,
+                text=True,
+                timeout=30
+            )
+            if result.returncode == 0:
+                logger.print("   ✅ Servicio Neo4j iniciado correctamente")
+                return True
+            else:
+                logger.print(f"   ⚠️ No se pudo iniciar automáticamente: {result.stderr}")
+                logger.print("   💡 Por favor, inicia Neo4j Desktop manualmente")
+                return False
+        else:
+            # En Linux/Mac
+            result = subprocess.run(
+                ['sudo', 'systemctl', 'start', 'neo4j'],
+                capture_output=True,
+                text=True,
+                timeout=30
+            )
+            if result.returncode == 0:
+                logger.print("   ✅ Servicio Neo4j iniciado correctamente")
+                return True
+            else:
+                logger.print(f"   ⚠️ No se pudo iniciar automáticamente")
+                logger.print("   💡 Por favor, inicia Neo4j manualmente")
+                return False
+    except Exception as e:
+        logger.print(f"   ⚠️ Error al intentar iniciar Neo4j: {e}")
+        logger.print("   💡 Por favor, inicia Neo4j Desktop manualmente")
+        return False
 
 # ============================================================================
 # 2. UTILIDADES - LECTURA DE ARCHIVOS
@@ -424,7 +533,8 @@ def extract_with_llm(
     text: str,
     schema_info: Dict,
     objetivo_info: Dict,
-    doc_id: str
+    doc_id: str,
+    extraction_log_file=None
 ) -> Tuple[Dict, Dict]:
     """
     Extrae datos usando LLM con objetivo en context
@@ -434,10 +544,12 @@ def extract_with_llm(
         schema_info: Schema parseado
         objetivo_info: Objetivo parseado
         doc_id: ID del documento
+        extraction_log_file: Archivo de log de extracciones
 
     Returns:
         Tupla (datos_extraidos, estadisticas_tokens)
     """
+    global logger
     prompt = create_extraction_prompt(text, schema_info, objetivo_info, doc_id)
 
     try:
@@ -467,10 +579,39 @@ def extract_with_llm(
             "total_tokens": response.usage.total_tokens
         }
 
+        # Log de extracción
+        if extraction_log_file:
+            extraction_log_file.write(f"\n{'='*80}\n")
+            extraction_log_file.write(f"EXTRACCIÓN - Documento: {doc_id}\n")
+            extraction_log_file.write(f"Timestamp: {datetime.now().isoformat()}\n")
+            extraction_log_file.write(f"Tokens: {usage_stats['total_tokens']}\n")
+            extraction_log_file.write(f"{'='*80}\n\n")
+
+            # Log del resultado JSON
+            extraction_log_file.write("DATOS EXTRAÍDOS (JSON):\n")
+            extraction_log_file.write(json.dumps(result, indent=2, ensure_ascii=False))
+            extraction_log_file.write("\n\n")
+
+            # Log de los comandos Cypher si están presentes
+            extraction_log_file.write("REGISTROS EXTRAÍDOS:\n")
+            extraction_log_file.write(f"- Nodo raíz: {result.get('nodo_raiz', {}).get('label', 'N/A')} ({result.get('nodo_raiz', {}).get('id', 'N/A')})\n")
+            extraction_log_file.write(f"- Entidades: {len(result.get('entidades_extraidas', []))}\n")
+            for i, ent in enumerate(result.get('entidades_extraidas', []), 1):
+                extraction_log_file.write(f"  {i}. {ent.get('label', 'N/A')} ({ent.get('id', 'N/A')})\n")
+            extraction_log_file.write(f"- Relaciones: {len(result.get('relaciones', []))}\n")
+            for i, rel in enumerate(result.get('relaciones', []), 1):
+                extraction_log_file.write(f"  {i}. ({rel.get('source_id', 'N/A')})-[{rel.get('type', 'N/A')}]->({rel.get('target_id', 'N/A')})\n")
+            extraction_log_file.write(f"- Inconsistencias potenciales: {len(result.get('inconsistencias_potenciales', []))}\n")
+            extraction_log_file.write("\n")
+            extraction_log_file.flush()
+
         return result, usage_stats
 
     except Exception as e:
-        print(f"   ❌ Error en LLM: {e}")
+        if logger:
+            logger.print(f"   ❌ Error en LLM: {e}")
+        else:
+            print(f"   ❌ Error en LLM: {e}")
         return {
             "nodo_raiz": {},
             "entidades_extraidas": [],
@@ -629,7 +770,7 @@ def create_constraints_and_indexes(session, schema_info: Dict):
         session: Sesión de Neo4j
         schema_info: Schema parseado
     """
-    print("\n📐 Creando constraints e índices...")
+    global logger
 
     for nodo in schema_info["nodos"]:
         label = nodo["label"]
@@ -648,9 +789,11 @@ def create_constraints_and_indexes(session, schema_info: Dict):
 
             try:
                 session.run(cypher)
-                print(f"   ✅ Constraint: {label} ({', '.join(identidad)})")
+                if logger:
+                    logger.print(f"   ✅ Constraint: {label} ({', '.join(identidad)})")
             except Exception as e:
-                print(f"   ⚠️ Constraint {label}: {e}")
+                if logger:
+                    logger.print(f"   ⚠️ Constraint {label}: {e}")
 
         # Crear índices en propiedades indexadas
         for prop in nodo.get("propiedades", []):
@@ -664,16 +807,18 @@ def create_constraints_and_indexes(session, schema_info: Dict):
 
                 try:
                     session.run(index_cypher)
-                    print(f"   ✅ Índice: {label}.{prop['nombre']}")
+                    if logger:
+                        logger.print(f"   ✅ Índice: {label}.{prop['nombre']}")
                 except Exception as e:
-                    print(f"   ⚠️ Índice {label}.{prop['nombre']}: {e}")
+                    if logger:
+                        logger.print(f"   ⚠️ Índice {label}.{prop['nombre']}: {e}")
 
 
 def insert_node_with_evidence(
     session,
     node_data: Dict,
     cypher_log_file
-) -> bool:
+) -> Tuple[bool, str]:
     """
     Inserta un nodo y su evidencia, creando la relación RESPALDA
 
@@ -683,10 +828,12 @@ def insert_node_with_evidence(
         cypher_log_file: Archivo de log de Cypher
 
     Returns:
-        True si se insertó correctamente
+        Tupla (éxito, mensaje)
     """
+    global logger
+
     if not node_data or "validacion" in node_data and not node_data["validacion"]["valido"]:
-        return False
+        return False, "Validación falló"
 
     label = node_data["label"]
     node_id = node_data["id"]
@@ -740,11 +887,15 @@ def insert_node_with_evidence(
                 cypher_log_file.write(f"{cypher_node}\n")
                 cypher_log_file.write(f"{cypher_evidencia}\n")
 
-        return True
+        return True, f"✅ {label} ({node_id})"
 
     except Exception as e:
-        print(f"   ❌ Error insertando nodo {node_id}: {e}")
-        return False
+        error_msg = f"❌ Error insertando nodo {node_id}: {e}"
+        if logger:
+            logger.print(f"   {error_msg}")
+        else:
+            print(f"   {error_msg}")
+        return False, error_msg
 
 
 def insert_relationships(
@@ -807,57 +958,120 @@ def insert_relationships(
 # ============================================================================
 
 def main():
-    print("="*80)
-    print("🚀 PIPELINE DE INGESTA DE GRAFOS DE CONOCIMIENTO")
-    print("="*80)
-    print(f"\n🎯 OBJETIVO: {OBJETIVO_INFO['objetivo'][:100]}...")
-    print(f"📊 DOMINIO: {OBJETIVO_INFO['dominio']}")
-    print(f"📐 SCHEMA: {len(SCHEMA_INFO['nodos'])} nodos, {len(SCHEMA_INFO['relaciones'])} relaciones")
+    global logger
+
+    # Inicializar logger
+    logger = DualLogger("status.log")
+
+    logger.print("="*80)
+    logger.print("🚀 PIPELINE DE INGESTA DE GRAFOS DE CONOCIMIENTO")
+    logger.print("="*80)
+    logger.print(f"\n🎯 OBJETIVO: {OBJETIVO_INFO['objetivo'][:100]}...")
+    logger.print(f"📊 DOMINIO: {OBJETIVO_INFO['dominio']}")
+    logger.print(f"📐 SCHEMA: {len(SCHEMA_INFO['nodos'])} nodos, {len(SCHEMA_INFO['relaciones'])} relaciones")
+    logger.print(f"📄 TIPO DE ARCHIVO: {TIPO_TEXTO}")
+
+    # Preguntar si quiere iniciar Neo4j
+    logger.print("\n" + "="*80)
+    respuesta = input("¿Desea iniciar la base de datos de grafos Neo4j? (s/n): ").strip().lower()
+    logger.print(f"¿Desea iniciar la base de datos de grafos Neo4j? (s/n): {respuesta}")
+    logger.print("="*80)
+
+    if respuesta == 's':
+        start_neo4j()
+        # Esperar un poco para que Neo4j se inicie
+        import time
+        logger.print("   ⏳ Esperando 10 segundos para que Neo4j se inicie...")
+        time.sleep(10)
 
     # Crear directorio de salida
     os.makedirs("output", exist_ok=True)
 
     # 1. Preparar Neo4j (constraints + índices)
-    with neo4j_driver.session() as session:
-        create_constraints_and_indexes(session, SCHEMA_INFO)
-
-    # 2. Escanear archivos en PDF_DIR
-    archivos = []
-    if os.path.exists(PDF_DIR):
-        for filename in os.listdir(PDF_DIR):
-            if filename.lower().endswith(('.pdf', '.txt', '.md')):
-                file_path = os.path.join(PDF_DIR, filename)
-                archivos.append(file_path)
-
-    if not archivos:
-        print(f"\n❌ No se encontraron archivos en {PDF_DIR}")
+    logger.print("\n📐 Preparando Neo4j (constraints e índices)...")
+    try:
+        with neo4j_driver.session() as session:
+            create_constraints_and_indexes(session, SCHEMA_INFO)
+    except Exception as e:
+        logger.print(f"❌ Error al preparar Neo4j: {e}")
+        logger.print("💡 Asegúrate de que Neo4j esté corriendo e intenta de nuevo")
+        logger.close()
         return
 
-    print(f"\n📁 Archivos a procesar: {len(archivos)}")
+    # 2. Escanear archivos en TEXT_DIR
+    logger.print(f"\n>>> Directorio de archivos: {TEXT_DIR}")
+
+    if not os.path.exists(TEXT_DIR):
+        logger.print(f"[ERROR] El directorio {TEXT_DIR} no existe")
+        logger.print(f"Por favor, crea el directorio y coloca los archivos a procesar")
+        logger.print(f"\nDirectorios configurados:")
+        logger.print(f"  TXT_DIR: {TXT_DIR}")
+        logger.print(f"  PDF_DIR: {PDF_DIR}")
+        logger.print(f"  TIPO_TEXTO actual: {TIPO_TEXTO}")
+        logger.close()
+        return
+
+    # Buscar archivos según el tipo configurado
+    archivos = []
+    if TIPO_TEXTO.upper() == "TXT":
+        archivos = list(Path(TEXT_DIR).glob("*.txt"))
+        extension = "TXT"
+    else:
+        archivos = list(Path(TEXT_DIR).glob("*.pdf"))
+        extension = "PDF"
+
+    # Convertir a strings
+    archivos = [str(f) for f in archivos]
+
+    logger.print(f">>> Archivos {extension} encontrados en {TEXT_DIR}:")
+    if archivos:
+        for i, archivo in enumerate(archivos, 1):
+            logger.print(f"  {i}. {os.path.basename(archivo)}")
+    else:
+        logger.print(f"  [ADVERTENCIA] No se encontraron archivos {extension}")
+        logger.print(f"  Coloca archivos {extension} en: {TEXT_DIR}")
+        logger.print(f"\nPara cambiar el tipo de archivo, modifica TIPO_TEXTO en .env:")
+        logger.print(f"  TIPO_TEXTO=PDF  (para archivos PDF)")
+        logger.print(f"  TIPO_TEXTO=TXT  (para archivos TXT)")
+        logger.close()
+        return
+
+    logger.print(f"\n>>> Total de archivos a procesar: {len(archivos)}\n")
 
     # Estadísticas globales
     total_tokens = 0
     total_nodes = 0
     total_rels = 0
+    total_nodes_loaded = 0
+    total_rels_loaded = 0
 
-    # Archivo de log Cypher
+    # Archivos de log
     cypher_log_path = "output/cypher_queries_log.cypher"
+    extraction_log_path = "output/extraction_log.txt"
 
     # 3. Procesar cada archivo
-    with open(cypher_log_path, "w", encoding="utf-8") as cypher_log:
+    with open(cypher_log_path, "w", encoding="utf-8") as cypher_log, \
+         open(extraction_log_path, "w", encoding="utf-8") as extraction_log:
+
         cypher_log.write("// QUERIES CYPHER GENERADAS\n")
         cypher_log.write(f"// Fecha: {datetime.now().isoformat()}\n\n")
 
+        extraction_log.write("LOG DE EXTRACCIONES DEL LLM\n")
+        extraction_log.write(f"Fecha: {datetime.now().isoformat()}\n")
+        extraction_log.write("="*80 + "\n\n")
+
         for archivo in archivos:
             filename = os.path.basename(archivo)
-            print(f"\n📄 Procesando: {filename}")
+            logger.print(f"\n{'='*80}")
+            logger.print(f"📄 Procesando archivo: {filename}")
+            logger.print("="*80)
 
             doc_id = get_document_id(archivo)
 
             # 3.1. Leer contenido
             try:
                 content = read_file_content(archivo)
-                print(f"   📝 Contenido: {len(content)} caracteres")
+                logger.print(f"   📝 Contenido total: {len(content):,} caracteres")
 
                 # Chunking si es muy largo
                 chunk_size = 15000
@@ -865,7 +1079,7 @@ def main():
                     content[i:i+chunk_size]
                     for i in range(0, len(content), chunk_size)
                 ]
-                print(f"   📦 Chunks: {len(chunks)}")
+                logger.print(f"   📦 Total de chunks: {len(chunks)}")
 
                 source_metadata = {
                     "doc_id": doc_id,
@@ -876,16 +1090,25 @@ def main():
                 file_nodes = 0
                 file_rels = 0
                 file_tokens = 0
+                file_nodes_loaded = 0
+                file_rels_loaded = 0
 
                 for i, chunk in enumerate(chunks):
-                    print(f"   🔄 Chunk {i+1}/{len(chunks)}...")
+                    chunk_num = i + 1
+                    chunk_size_chars = len(chunk)
+
+                    logger.print(f"\n   {'─'*70}")
+                    logger.print(f"   📦 Chunk {chunk_num}/{len(chunks)}")
+                    logger.print(f"   📏 Tamaño del chunk: {chunk_size_chars:,} caracteres")
+                    logger.print(f"   {'─'*70}")
 
                     # 3.2. Extraer con LLM (CON OBJETIVO)
                     raw_data, usage_stats = extract_with_llm(
                         chunk,
                         SCHEMA_INFO,
                         OBJETIVO_INFO,
-                        doc_id
+                        doc_id,
+                        extraction_log
                     )
 
                     file_tokens += usage_stats["total_tokens"]
@@ -897,30 +1120,54 @@ def main():
                         source_metadata
                     )
 
+                    # Contar registros generados por este chunk
+                    chunk_nodes_count = 0
+                    chunk_rels_count = len(transformed_data.get("relaciones", []))
+
+                    if i == 0 and transformed_data.get("nodo_raiz"):
+                        chunk_nodes_count += 1
+
+                    chunk_nodes_count += len(transformed_data.get("entidades_extraidas", []))
+
+                    logger.print(f"   📊 Registros generados en este chunk:")
+                    logger.print(f"      - Nodos: {chunk_nodes_count}")
+                    logger.print(f"      - Relaciones: {chunk_rels_count}")
+
                     # 3.4. Guardar JSON intermedio
                     json_output_path = f"output/{doc_id}_chunk_{i}.json"
                     with open(json_output_path, "w", encoding="utf-8") as f:
                         json.dump(transformed_data, f, indent=2, ensure_ascii=False)
 
                     # 3.5. Cargar a Neo4j
+                    chunk_loaded_nodes = 0
+                    chunk_loaded_rels = 0
+
+                    logger.print(f"   💾 Cargando a Neo4j...")
+
                     with neo4j_driver.session() as session:
                         # Insertar nodo raíz (solo en el primer chunk)
                         if i == 0 and transformed_data.get("nodo_raiz"):
-                            if insert_node_with_evidence(
+                            success, msg = insert_node_with_evidence(
                                 session,
                                 transformed_data["nodo_raiz"],
                                 cypher_log
-                            ):
-                                file_nodes += 1
+                            )
+                            if success:
+                                chunk_loaded_nodes += 1
+                                logger.print(f"      {msg}")
 
                         # Insertar entidades
                         for entity in transformed_data["entidades_extraidas"]:
-                            if insert_node_with_evidence(
+                            success, msg = insert_node_with_evidence(
                                 session,
                                 entity,
                                 cypher_log
-                            ):
-                                file_nodes += 1
+                            )
+                            if success:
+                                chunk_loaded_nodes += 1
+                                # Solo imprimir el primer y último para no saturar
+                                if chunk_loaded_nodes == 1 or chunk_loaded_nodes == len(transformed_data["entidades_extraidas"]):
+                                    logger.print(f"      {msg}")
 
                         # Insertar relaciones
                         rels_inserted = insert_relationships(
@@ -928,33 +1175,71 @@ def main():
                             transformed_data["relaciones"],
                             cypher_log
                         )
-                        file_rels += rels_inserted
+                        chunk_loaded_rels = rels_inserted
 
-                print(f"   ✅ Completado - Nodos: {file_nodes}, Relaciones: {file_rels}, Tokens: {file_tokens:,}")
+                    file_nodes += chunk_nodes_count
+                    file_rels += chunk_rels_count
+                    file_nodes_loaded += chunk_loaded_nodes
+                    file_rels_loaded += chunk_loaded_rels
+
+                    # Resumen de carga para este chunk
+                    if chunk_loaded_nodes > 0 or chunk_loaded_rels > 0:
+                        logger.print(f"   ✅ Carga exitosa:")
+                        logger.print(f"      - Nodos cargados: {chunk_loaded_nodes}/{chunk_nodes_count}")
+                        logger.print(f"      - Relaciones cargadas: {chunk_loaded_rels}/{chunk_rels_count}")
+                    else:
+                        logger.print(f"   ⚠️  No se cargaron registros en Neo4j")
+
+                # Resumen del archivo
+                logger.print(f"\n   {'='*70}")
+                logger.print(f"   ✅ Archivo completado: {filename}")
+                logger.print(f"   {'='*70}")
+                logger.print(f"   📊 Estadísticas del archivo:")
+                logger.print(f"      - Total nodos generados: {file_nodes}")
+                logger.print(f"      - Total nodos cargados: {file_nodes_loaded}")
+                logger.print(f"      - Total relaciones generadas: {file_rels}")
+                logger.print(f"      - Total relaciones cargadas: {file_rels_loaded}")
+                logger.print(f"      - Total tokens usados: {file_tokens:,}")
+                logger.print(f"   {'='*70}")
 
                 total_nodes += file_nodes
                 total_rels += file_rels
                 total_tokens += file_tokens
+                total_nodes_loaded += file_nodes_loaded
+                total_rels_loaded += file_rels_loaded
 
             except Exception as e:
-                print(f"   ❌ Error procesando archivo: {e}")
+                logger.print(f"   ❌ Error procesando archivo: {e}")
                 import traceback
-                traceback.print_exc()
+                logger.print(traceback.format_exc())
 
     # 4. Reporte final
-    print("\n" + "="*80)
-    print("✅ PIPELINE COMPLETADO")
-    print("="*80)
-    print(f"📄 Archivos procesados: {len(archivos)}")
-    print(f"📊 Total Nodos creados: {total_nodes:,}")
-    print(f"📊 Total Relaciones creadas: {total_rels:,}")
-    print(f"🔥 Total Tokens: {total_tokens:,}")
-    print(f"\n📁 Salidas generadas:")
-    print(f"   - JSONs intermedios: output/*_chunk_*.json")
-    print(f"   - Log Cypher: {cypher_log_path}")
-    print("="*80)
+    logger.print("\n" + "="*80)
+    logger.print("✅ PIPELINE COMPLETADO")
+    logger.print("="*80)
+    logger.print(f"📄 Archivos procesados: {len(archivos)}")
+    logger.print(f"\n📊 Estadísticas totales:")
+    logger.print(f"   - Total Nodos generados: {total_nodes:,}")
+    logger.print(f"   - Total Nodos CARGADOS en Neo4j: {total_nodes_loaded:,}")
+    logger.print(f"   - Total Relaciones generadas: {total_rels:,}")
+    logger.print(f"   - Total Relaciones CARGADAS en Neo4j: {total_rels_loaded:,}")
+    logger.print(f"   - Total Tokens usados: {total_tokens:,}")
+    logger.print(f"\n📁 Archivos generados:")
+    logger.print(f"   - Log de estado: status.log")
+    logger.print(f"   - Log de extracciones: {extraction_log_path}")
+    logger.print(f"   - Log Cypher: {cypher_log_path}")
+    logger.print(f"   - JSONs intermedios: output/*_chunk_*.json")
+    logger.print("="*80)
+
+    if total_nodes_loaded > 0:
+        logger.print(f"\n✅ SE CARGARON {total_nodes_loaded} NODOS Y {total_rels_loaded} RELACIONES EN NEO4J")
+    else:
+        logger.print(f"\n⚠️  NO SE CARGARON REGISTROS EN NEO4J")
+
+    logger.print("\n🎉 ¡Proceso finalizado!")
 
     neo4j_driver.close()
+    logger.close()
 
 
 if __name__ == "__main__":

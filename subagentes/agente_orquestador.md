@@ -51,14 +51,16 @@ Cuando el usuario quiere iniciar un nuevo proyecto:
    │   └── proyecto.json          # Configuración del proyecto
    ├── resultados/
    │   └── (archivos generados por subagentes)
-   ├── data/
-   │   ├── texto/                 # Para ciclo TEXTO (documentos a ingestar)
-   │   └── csv/                   # Para ciclo CSV (archivos CSV a ingestar)
-   ├── contexto_dominio/          # Archivos de análisis para diseño de schema
-   │   └── (PDFs, TXTs con ejemplos del dominio)
+   ├── contexto_dominio/          # PARA ANALIZAR SCHEMA (copiado de subagentes/contexto_dominio/)
+   │   └── (PDFs o CSVs de ejemplo del dominio)
+   ├── fuente/                    # PARA INGESTA (copiado de subagentes/fuente/)
+   │   ├── txt/                   # Archivos TXT a ingestar
+   │   ├── pdf/                   # Archivos PDF a ingestar
+   │   └── csv/                   # Archivos CSV a ingestar
    ├── logs/
    │   └── historial.json         # Historial de acciones
    └── scripts/
+       ├── .env                   # Copiado de subagentes/.env
        └── (scripts generados)
    ```
 
@@ -67,6 +69,7 @@ Cuando el usuario quiere iniciar un nuevo proyecto:
    {
      "nombre": "nombre_proyecto",
      "tipo": "TEXTO",
+     "tipo_texto": "PDF",
      "fecha_creacion": "2025-12-20T10:00:00",
      "ultima_actualizacion": "2025-12-20T10:00:00",
      "objetivo": "",
@@ -74,6 +77,9 @@ Cuando el usuario quiere iniciar un nuevo proyecto:
      "fases_completadas": []
    }
    ```
+
+   **Nota:** El campo `tipo_texto` solo aplica cuando `tipo` es "TEXTO". Valores posibles: "PDF" o "TXT".
+   Para proyectos CSV, este campo puede omitirse o dejarse vacío.
 
 5. **Crear archivo `logs/historial.json`:**
    ```json
@@ -160,6 +166,50 @@ Estado actual:
 
 ### Opción 1: Crear Nuevo Proyecto
 
+**PASO 1: Verificar Requisitos**
+
+Antes de preguntar nada, verificar:
+
+```bash
+# 1. Verificar .env en subagentes/
+[ -f .env ]
+
+# 2. Verificar contexto_dominio/
+[ -d contexto_dominio ] && [ "$(ls -A contexto_dominio/*.pdf 2>/dev/null)" ]
+
+# 3. Verificar fuente/
+[ -d fuente/txt ] && [ -d fuente/pdf ] && [ -d fuente/csv ]
+```
+
+Si algo falta, mostrar:
+
+```
+════════════════════════════════════════════════════════════════════
+[ERROR] REQUISITOS FALTANTES PARA CREAR PROYECTO
+════════════════════════════════════════════════════════════════════
+
+Para crear un proyecto necesitas:
+
+[X] Archivo .env en: subagentes/.env
+    Solución: Crea el archivo .env con tus credenciales
+
+[ ] Archivos en contexto_dominio/ (para analizar schema)
+    - Para proyecto TEXTO: Coloca archivos PDF de ejemplo
+    - Para proyecto CSV: Coloca archivos *.csv de ejemplo
+    Ubicación: subagentes/contexto_dominio/
+
+[ ] Estructura fuente/ (archivos para ingesta)
+    Ubicación: subagentes/fuente/txt, fuente/pdf, fuente/csv
+    Solución: Crea las carpetas y coloca archivos
+
+Completa los requisitos y vuelve a intentar.
+════════════════════════════════════════════════════════════════════
+```
+
+Si todo está OK, continuar:
+
+**PASO 2: Preguntar Información del Proyecto**
+
 ```
 ════════════════════════════════════════════════════════════════════
 NUEVO PROYECTO
@@ -175,7 +225,17 @@ Tipo de fuente de datos:
 [Espera respuesta]
 ```
 
-**Después de recibir el tipo:**
+**Si eligió TEXTO, preguntar:**
+
+```
+Tipo de archivos a ingestar:
+1. PDF
+2. TXT
+
+[Espera respuesta]
+```
+
+**PASO 3: Validar .env**
 
 1. **Validar configuración del .env**
    - Leer el archivo `.env`
@@ -189,50 +249,76 @@ Tipo de fuente de datos:
 
 3. **Copiar archivos de ejemplo al proyecto**
 
-   **IMPORTANTE: Rutas de origen de archivos**
+   **PASO 3.1: Copiar archivo .env**
 
-   Para proyectos de tipo TEXTO:
+   ```bash
+   # Copiar .env desde subagentes/ al proyecto
+   cp subagentes/.env proyectos/<nombre>/scripts/.env
+   ```
+
+   **PASO 3.2: Copiar archivos de contexto_dominio**
+
+   ```bash
+   # Copiar archivos para análisis de schema
+   cp subagentes/contexto_dominio/* proyectos/<nombre>/contexto_dominio/
+   ```
+
+   **PASO 3.3: Copiar archivos de fuente/ según tipo de proyecto**
+
+   Para proyectos de tipo **TEXTO con tipo_texto="PDF"**:
+   ```bash
+   # Copiar archivos PDF para ingesta
+   cp subagentes/fuente/pdf/*.pdf proyectos/<nombre>/fuente/pdf/
+   ```
+
+   Para proyectos de tipo **TEXTO con tipo_texto="TXT"**:
    ```bash
    # Copiar archivos TXT para ingesta
-   cp import_data/txt/*.txt proyectos/<nombre>/data/texto/
-
-   # Copiar archivos PDF para análisis de schema (contexto_dominio)
-   cp import_data/pdf/*.pdf proyectos/<nombre>/contexto_dominio/
+   cp subagentes/fuente/txt/*.txt proyectos/<nombre>/fuente/txt/
    ```
 
-   Para proyectos de tipo CSV:
+   Para proyectos de tipo **CSV**:
    ```bash
    # Copiar archivos CSV para ingesta
-   cp import_data/csv/*.csv proyectos/<nombre>/data/csv/
+   cp subagentes/fuente/csv/*.csv proyectos/<nombre>/fuente/csv/
    ```
 
-   **Mostrar al usuario:**
+   **PASO 3.4: Mostrar al usuario:**
    ```
    ════════════════════════════════════════════════════════════════════
    ARCHIVOS COPIADOS AL PROYECTO
    ════════════════════════════════════════════════════════════════════
 
-   Archivos para ingesta (data/texto/):
-   • archivo1.txt
-   • archivo2.txt
-   • archivo3.pdf
-   Total: 3 archivos
+   Archivo de configuración:
+   ✓ .env copiado a scripts/.env
 
    Archivos para análisis de schema (contexto_dominio/):
-   • normativa_ejemplo.pdf
-   • documento_referencia.pdf
-   Total: 2 archivos
+   • RESOL-2024-1778-INSSJP-DE#INSSJP.pdf
+   • RESOL-2024-1813-INSSJP-DE#INSSJP.pdf
+   • RESOL-2024-1880-INSSJP-DE#INSSJP.pdf
+   Total: 3 archivos
+
+   Archivos para ingesta (fuente/txt/):
+   • auditoria_calidad_05.txt
+   • calidad_producto_01.txt
+   • ensamblado_instrucciones_03.txt
+   • proveedor_logistica_02.txt
+   • reclamos_clientes_04.txt
+   Total: 5 archivos
 
    ════════════════════════════════════════════════════════════════════
    ```
 
-   Si no hay archivos en el directorio fuente:
+   Si no hay archivos en los directorios fuente:
    ```
-   [ADVERTENCIA] No se encontraron archivos en import_data/txt/
+   [ADVERTENCIA] No se encontraron archivos en subagentes/fuente/txt/
 
    Por favor, coloca tus archivos manualmente en:
-   • Para ingesta: proyectos/<nombre>/data/texto/
+   • Para ingesta: proyectos/<nombre>/fuente/txt/ (o pdf/ o csv/ según tipo)
    • Para análisis de schema: proyectos/<nombre>/contexto_dominio/
+
+   También asegúrate de configurar el archivo:
+   • proyectos/<nombre>/scripts/.env
    ```
 
 4. **Iniciar el ciclo**
