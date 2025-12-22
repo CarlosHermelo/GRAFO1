@@ -1149,6 +1149,456 @@ def insert_node_with_evidence(session, node_data, cypher_log_file) -> Tuple[bool
         return False, f"❌ Error insertando {node_id}"
 ```
 
+## Script Adicional: Información de la BD de Grafos Neo4j
+
+**IMPORTANTE:** Además del script de ingesta, el agente DEBE crear un script adicional llamado `info_grafo_neo4j.py` que muestre información completa sobre la base de datos de grafos Neo4j.
+
+### Funcionalidades del Script `info_grafo_neo4j.py`
+
+El script debe realizar las siguientes acciones en orden:
+
+#### 1. Verificar Estado de Neo4j
+- Intentar conectar a Neo4j usando las credenciales del .env
+- Mostrar si la BD está activa o no
+- Si no está activa, mostrar mensaje de error y terminar
+
+#### 2. Mostrar Nombre de la BD
+- Obtener el nombre de la base de datos activa
+- Mostrar: "Base de datos activa: [nombre]"
+
+#### 3. Mostrar Schema del Grafo Existente
+- Obtener todos los labels de nodos existentes
+- Obtener todos los tipos de relaciones existentes
+- Mostrar la estructura del schema:
+  ```
+  SCHEMA DEL GRAFO:
+  ──────────────────────────────────────────────────────────────
+  NODOS:
+    - Normativa
+    - Prestacion
+    - Articulo
+    ...
+  
+  RELACIONES:
+    - REGULA
+    - CONTIENE
+    ...
+  ```
+
+#### 4. Mostrar Nodos y Relaciones con Vínculos
+- Para cada tipo de nodo, mostrar qué relaciones lo conectan
+- Formato:
+  ```
+  NODOS Y SUS RELACIONES:
+  ──────────────────────────────────────────────────────────────
+  :Normativa
+    → [REGULA] → :Prestacion
+    → [CONTIENE] → :Articulo
+    → [MODIFICA] → :Normativa
+  
+  :Prestacion
+    ← [REGULA] ← :Normativa
+    ...
+  ```
+
+#### 5. Mostrar Cantidad de Registros por Nodo
+- Contar cuántos nodos hay de cada tipo
+- Mostrar totales:
+  ```
+  CANTIDAD DE NODOS POR TIPO:
+  ──────────────────────────────────────────────────────────────
+  :Normativa          : 45 nodos
+  :Prestacion         : 120 nodos
+  :Articulo           : 230 nodos
+  ...
+  ──────────────────────────────────────────────────────────────
+  TOTAL               : 395 nodos
+  ```
+
+#### 6. Mostrar Cantidad de Registros por Relación
+- Contar cuántas relaciones hay de cada tipo
+- Mostrar totales:
+  ```
+  CANTIDAD DE RELACIONES POR TIPO:
+  ──────────────────────────────────────────────────────────────
+  :REGULA             : 85 relaciones
+  :CONTIENE           : 230 relaciones
+  :MODIFICA           : 12 relaciones
+  ...
+  ──────────────────────────────────────────────────────────────
+  TOTAL               : 327 relaciones
+  ```
+
+#### 7. Preguntar si Desea Ver Contenido Completo
+- Preguntar: "¿Desea ver el listado completo de todos los nodos y relaciones? (s/n): "
+- Si responde 's' o 'S':
+  - Mostrar todos los nodos con sus propiedades principales
+  - Mostrar todas las relaciones con sus nodos origen y destino
+  - Formato legible y organizado
+
+### Estructura del Script `info_grafo_neo4j.py`
+
+```python
+"""
+Script de Información de Base de Datos de Grafos Neo4j
+Generado por: Agente de Ingesta de Datos
+Versión: 1.0
+
+Este script muestra información completa sobre la BD de grafos Neo4j:
+- Estado de la conexión
+- Nombre de la BD
+- Schema existente
+- Nodos y relaciones con vínculos
+- Cantidad de registros por tipo
+- Listado completo (opcional)
+"""
+
+import os
+import sys
+from pathlib import Path
+from dotenv import load_dotenv
+from neo4j import GraphDatabase
+
+# Cargar configuración
+script_dir = Path(__file__).parent
+env_path = script_dir / ".env"
+load_dotenv(dotenv_path=env_path)
+
+NEO4J_URI = os.getenv("NEO4J_URI", "bolt://localhost:7687")
+NEO4J_USER = os.getenv("NEO4J_USER", "neo4j")
+NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
+
+def verificar_conexion():
+    """Verifica si Neo4j está activo y retorna driver"""
+    # Implementación...
+
+def obtener_nombre_bd(session):
+    """Obtiene el nombre de la BD activa"""
+    # Implementación...
+
+def obtener_schema(session):
+    """Obtiene todos los labels y tipos de relaciones"""
+    # Implementación...
+
+def mostrar_nodos_y_relaciones(session):
+    """Muestra nodos y relaciones con sus vínculos"""
+    # Implementación...
+
+def contar_nodos_por_tipo(session):
+    """Cuenta nodos por cada label"""
+    # Implementación...
+
+def contar_relaciones_por_tipo(session):
+    """Cuenta relaciones por cada tipo"""
+    # Implementación...
+
+def mostrar_contenido_completo(session):
+    """Muestra todos los nodos y relaciones si el usuario lo solicita"""
+    # Implementación...
+
+def main():
+    """Función principal"""
+    # 1. Verificar conexión
+    # 2. Mostrar nombre BD
+    # 3. Mostrar schema
+    # 4. Mostrar nodos y relaciones con vínculos
+    # 5. Mostrar cantidad de nodos
+    # 6. Mostrar cantidad de relaciones
+    # 7. Preguntar si quiere ver contenido completo
+    # 8. Si 's', mostrar todo
+
+if __name__ == "__main__":
+    main()
+```
+
+## Script Adicional: Información de la BD de Grafos Neo4j
+
+**IMPORTANTE:** Además del script de ingesta, el agente DEBE crear un script adicional llamado `info_grafo_neo4j.py` que muestre información completa sobre la base de datos de grafos Neo4j.
+
+### Funcionalidades del Script `info_grafo_neo4j.py`
+
+El script debe realizar las siguientes acciones en orden:
+
+#### 1. Verificar Estado de Neo4j
+- Intentar conectar a Neo4j usando las credenciales del .env
+- Mostrar si la BD está activa o no
+- Si no está activa, mostrar mensaje de error y terminar
+
+#### 2. Mostrar Nombre de la BD
+- Obtener el nombre de la base de datos activa
+- Mostrar: "Base de datos activa: [nombre]"
+
+#### 3. Mostrar Schema del Grafo Existente
+- Obtener todos los labels de nodos existentes usando `CALL db.labels()`
+- Obtener todos los tipos de relaciones existentes usando `CALL db.relationshipTypes()`
+- Mostrar la estructura del schema de forma organizada
+
+#### 4. Mostrar Nodos y Relaciones con Vínculos
+- Para cada tipo de nodo, mostrar qué relaciones lo conectan (entrantes y salientes)
+- Formato legible mostrando la estructura de conexiones
+
+#### 5. Mostrar Cantidad de Registros por Nodo
+- Contar cuántos nodos hay de cada tipo usando `MATCH (n:Label) RETURN count(n)`
+- Mostrar totales por tipo y total general
+
+#### 6. Mostrar Cantidad de Registros por Relación
+- Contar cuántas relaciones hay de cada tipo usando `MATCH ()-[r:Tipo]->() RETURN count(r)`
+- Mostrar totales por tipo y total general
+
+#### 7. Preguntar si Desea Ver Contenido Completo
+- Preguntar: "¿Desea ver el listado completo de todos los nodos y relaciones? (s/n): "
+- Si responde 's' o 'S':
+  - Mostrar todos los nodos con sus propiedades principales (limitado a propiedades clave)
+  - Mostrar todas las relaciones con sus nodos origen y destino
+  - Formato legible y organizado, paginado si es necesario
+
+### Estructura del Script `info_grafo_neo4j.py`
+
+```python
+"""
+Script de Información de Base de Datos de Grafos Neo4j
+Generado por: Agente de Ingesta de Datos
+Versión: 1.0
+
+Este script muestra información completa sobre la BD de grafos Neo4j:
+- Estado de la conexión
+- Nombre de la BD
+- Schema existente
+- Nodos y relaciones con vínculos
+- Cantidad de registros por tipo
+- Listado completo (opcional)
+"""
+
+import os
+import sys
+from pathlib import Path
+from dotenv import load_dotenv
+from neo4j import GraphDatabase
+
+# Cargar configuración
+script_dir = Path(__file__).parent
+env_path = script_dir / ".env"
+load_dotenv(dotenv_path=env_path)
+
+NEO4J_URI = os.getenv("NEO4J_URI", "bolt://localhost:7687")
+NEO4J_USER = os.getenv("NEO4J_USER", "neo4j")
+NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
+
+def verificar_conexion():
+    """Verifica si Neo4j está activo y retorna driver"""
+    try:
+        driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD))
+        with driver.session() as session:
+            session.run("RETURN 1")
+        return driver
+    except Exception as e:
+        print(f"[ERROR] No se pudo conectar a Neo4j: {e}")
+        return None
+
+def obtener_nombre_bd(session):
+    """Obtiene el nombre de la BD activa"""
+    result = session.run("CALL db.info() YIELD name RETURN name")
+    record = result.single()
+    return record["name"] if record else "Desconocida"
+
+def obtener_schema(session):
+    """Obtiene todos los labels y tipos de relaciones"""
+    # Obtener labels
+    result = session.run("CALL db.labels()")
+    labels = [record["label"] for record in result]
+    
+    # Obtener tipos de relaciones
+    result = session.run("CALL db.relationshipTypes()")
+    rel_types = [record["relationshipType"] for record in result]
+    
+    return labels, rel_types
+
+def mostrar_nodos_y_relaciones(session, labels, rel_types):
+    """Muestra nodos y relaciones con sus vínculos"""
+    # Para cada label, encontrar qué relaciones lo conectan
+    # Implementar lógica para mostrar estructura de conexiones
+
+def contar_nodos_por_tipo(session, labels):
+    """Cuenta nodos por cada label"""
+    counts = {}
+    total = 0
+    for label in labels:
+        result = session.run(f"MATCH (n:`{label}`) RETURN count(n) as count")
+        count = result.single()["count"]
+        counts[label] = count
+        total += count
+    counts["TOTAL"] = total
+    return counts
+
+def contar_relaciones_por_tipo(session, rel_types):
+    """Cuenta relaciones por cada tipo"""
+    counts = {}
+    total = 0
+    for rel_type in rel_types:
+        result = session.run(f"MATCH ()-[r:`{rel_type}`]->() RETURN count(r) as count")
+        count = result.single()["count"]
+        counts[rel_type] = count
+        total += count
+    counts["TOTAL"] = total
+    return counts
+
+def mostrar_contenido_completo(session, labels, rel_types):
+    """Muestra todos los nodos y relaciones si el usuario lo solicita"""
+    # Mostrar todos los nodos con propiedades principales
+    # Mostrar todas las relaciones con nodos origen y destino
+    # Formato legible y organizado
+
+def main():
+    """Función principal"""
+    print("="*70)
+    print("INFORMACIÓN DE BASE DE DATOS DE GRAFOS NEO4J")
+    print("="*70)
+    
+    # 1. Verificar conexión
+    driver = verificar_conexion()
+    if not driver:
+        sys.exit(1)
+    
+    print("\n✅ Conexión a Neo4j exitosa")
+    
+    with driver.session() as session:
+        # 2. Mostrar nombre BD
+        db_name = obtener_nombre_bd(session)
+        print(f"\n📊 Base de datos activa: {db_name}")
+        
+        # 3. Obtener schema
+        labels, rel_types = obtener_schema(session)
+        
+        # 4. Mostrar schema
+        print("\n" + "="*70)
+        print("SCHEMA DEL GRAFO")
+        print("="*70)
+        print("\nNODOS:")
+        for label in labels:
+            print(f"  - :{label}")
+        
+        print("\nRELACIONES:")
+        for rel_type in rel_types:
+            print(f"  - :{rel_type}")
+        
+        # 5. Mostrar nodos y relaciones con vínculos
+        print("\n" + "="*70)
+        print("NODOS Y SUS RELACIONES")
+        print("="*70)
+        mostrar_nodos_y_relaciones(session, labels, rel_types)
+        
+        # 6. Mostrar cantidad de nodos
+        print("\n" + "="*70)
+        print("CANTIDAD DE NODOS POR TIPO")
+        print("="*70)
+        node_counts = contar_nodos_por_tipo(session, labels)
+        for label, count in sorted(node_counts.items()):
+            if label != "TOTAL":
+                print(f"  :{label:<20} : {count:>6} nodos")
+        print("-"*70)
+        print(f"  {'TOTAL':<20} : {node_counts['TOTAL']:>6} nodos")
+        
+        # 7. Mostrar cantidad de relaciones
+        print("\n" + "="*70)
+        print("CANTIDAD DE RELACIONES POR TIPO")
+        print("="*70)
+        rel_counts = contar_relaciones_por_tipo(session, rel_types)
+        for rel_type, count in sorted(rel_counts.items()):
+            if rel_type != "TOTAL":
+                print(f"  :{rel_type:<20} : {count:>6} relaciones")
+        print("-"*70)
+        print(f"  {'TOTAL':<20} : {rel_counts['TOTAL']:>6} relaciones")
+        
+        # 8. Preguntar si quiere ver contenido completo
+        print("\n" + "="*70)
+        respuesta = input("¿Desea ver el listado completo de todos los nodos y relaciones? (s/n): ").strip().lower()
+        
+        if respuesta == 's':
+            print("\n" + "="*70)
+            print("LISTADO COMPLETO DE NODOS Y RELACIONES")
+            print("="*70)
+            mostrar_contenido_completo(session, labels, rel_types)
+    
+    driver.close()
+    print("\n✅ Consulta completada")
+
+if __name__ == "__main__":
+    main()
+```
+
+### Ejemplo de Salida del Script
+
+```
+======================================================================
+INFORMACIÓN DE BASE DE DATOS DE GRAFOS NEO4J
+======================================================================
+
+✅ Conexión a Neo4j exitosa
+
+📊 Base de datos activa: neo4j
+
+======================================================================
+SCHEMA DEL GRAFO
+======================================================================
+
+NODOS:
+  - Normativa
+  - Prestacion
+  - Articulo
+  - Anexo
+  - Organismo
+  - Evidencia
+
+RELACIONES:
+  - REGULA
+  - CONTIENE
+  - MODIFICA
+  - DEROGA
+  - FUNDAMENTA_EN
+
+======================================================================
+NODOS Y SUS RELACIONES
+======================================================================
+
+:Normativa
+  → [REGULA] → :Prestacion
+  → [CONTIENE] → :Articulo
+  → [CONTIENE] → :Anexo
+  → [MODIFICA] → :Normativa
+  → [DEROGA] → :Normativa
+  → [FUNDAMENTA_EN] → :Normativa
+
+:Prestacion
+  ← [REGULA] ← :Normativa
+
+...
+
+======================================================================
+CANTIDAD DE NODOS POR TIPO
+======================================================================
+  :Normativa          :     45 nodos
+  :Prestacion         :    120 nodos
+  :Articulo           :    230 nodos
+  :Anexo              :     15 nodos
+  :Organismo          :      5 nodos
+  :Evidencia          :    415 nodos
+----------------------------------------------------------------------
+  TOTAL               :    830 nodos
+
+======================================================================
+CANTIDAD DE RELACIONES POR TIPO
+======================================================================
+  :REGULA             :     85 relaciones
+  :CONTIENE           :    245 relaciones
+  :MODIFICA           :     12 relaciones
+  :DEROGA             :      3 relaciones
+  :FUNDAMENTA_EN      :     28 relaciones
+----------------------------------------------------------------------
+  TOTAL               :    373 relaciones
+
+¿Desea ver el listado completo de todos los nodos y relaciones? (s/n):
+```
+
 ## Salida del Agente
 
 ### Archivos Generados
@@ -1158,19 +1608,24 @@ def insert_node_with_evidence(session, node_data, cypher_log_file) -> Tuple[bool
    - Tamaño estimado: ~1200-1400 líneas
    - **DEBE incluir todas las mejoras listadas arriba**
 
-2. **`requirements.txt`** - Dependencias Python
+2. **`info_grafo_neo4j.py`** - Script de información de Neo4j (NUEVO)
+   - Ubicación: `subagentes/scripts/info_grafo_neo4j.py`
+   - Muestra información completa de la BD de grafos
+   - **DEBE incluir todas las funcionalidades listadas arriba**
+
+3. **`requirements.txt`** - Dependencias Python
    - Ubicación: `subagentes/scripts/requirements.txt`
 
-3. **`README_SCRIPT_INGESTA.md`** - Documentación
+4. **`README_SCRIPT_INGESTA.md`** - Documentación
    - Ubicación: `subagentes/scripts/README_SCRIPT_INGESTA.md`
 
-4. **`.env.example`** - Plantilla de configuración
+5. **`.env.example`** - Plantilla de configuración
    - Ubicación: `subagentes/scripts/.env.example`
 
-5. **`schema_parser.py`** - Módulo para parsear schema_diseñado.md
+6. **`schema_parser.py`** - Módulo para parsear schema_diseñado.md
    - Ubicación: `subagentes/scripts/schema_parser.py`
 
-6. **`objetivo_parser.py`** - Módulo para parsear objetivo_validado.md
+7. **`objetivo_parser.py`** - Módulo para parsear objetivo_validado.md
    - Ubicación: `subagentes/scripts/objetivo_parser.py`
 
 ### Archivos que Genera el Script Durante Ejecución
@@ -1189,6 +1644,7 @@ Una vez completada la generación:
 
 📁 Archivos creados:
    - subagentes/scripts/graph_ingestion.py (MEJORADO)
+   - subagentes/scripts/info_grafo_neo4j.py (NUEVO - Información de Neo4j)
    - subagentes/scripts/requirements.txt
    - subagentes/scripts/README_SCRIPT_INGESTA.md
    - subagentes/scripts/.env.example
@@ -1196,10 +1652,11 @@ Una vez completada la generación:
    - subagentes/scripts/objetivo_parser.py
 
 📋 Próximos pasos:
-   1. Revisar el script generado
+   1. Revisar los scripts generados
    2. Configurar el archivo .env
    3. Instalar dependencias: pip install -r requirements.txt
-   4. Ejecutar: python graph_ingestion.py
+   4. Ejecutar ingesta: python graph_ingestion.py
+   5. Consultar información de la BD: python info_grafo_neo4j.py
 
 📊 Características del script:
    ✅ Guiado por el objetivo del grafo (en system prompt)
@@ -1220,12 +1677,14 @@ Una vez completada la generación:
    ✅ Métricas detalladas por chunk (número, tamaño, registros)
    ✅ Información clara de registros cargados vs generados
    ✅ Confirmación de carga exitosa a Neo4j
+   ✅ Script adicional info_grafo_neo4j.py para consultar información de la BD
 ```
 
 ## Checklist de Validación
 
-Antes de entregar el script, verificar:
+Antes de entregar los scripts, verificar:
 
+### Script `graph_ingestion.py`:
 - [ ] El script parsea correctamente `objetivo_validado.md`
 - [ ] El script parsea correctamente `schema_diseñado.md`
 - [ ] El objetivo está incluido en el system prompt del LLM
@@ -1245,6 +1704,22 @@ Antes de entregar el script, verificar:
 - [ ] Puede procesar PDFs de cualquier tamaño (chunking)
 - [ ] Es configurable vía .env
 - [ ] Puede detectar inconsistencias potenciales durante la extracción
+
+### Script `info_grafo_neo4j.py`:
+- [ ] Verifica correctamente el estado de conexión a Neo4j
+- [ ] Muestra el nombre de la BD activa
+- [ ] Obtiene y muestra todos los labels de nodos existentes
+- [ ] Obtiene y muestra todos los tipos de relaciones existentes
+- [ ] Muestra la estructura de conexiones entre nodos y relaciones
+- [ ] Cuenta correctamente los nodos por cada tipo
+- [ ] Cuenta correctamente las relaciones por cada tipo
+- [ ] Muestra totales generales de nodos y relaciones
+- [ ] Pregunta al usuario si desea ver contenido completo
+- [ ] Si el usuario responde 's', muestra todos los nodos con propiedades principales
+- [ ] Si el usuario responde 's', muestra todas las relaciones con nodos origen/destino
+- [ ] Maneja errores de conexión gracefully
+- [ ] Formato de salida es legible y organizado
+- [ ] Usa las credenciales del archivo .env correctamente
 
 ## Principios de Calidad
 
